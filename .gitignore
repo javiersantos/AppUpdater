@@ -30,3 +30,9 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+# Directory-based project format
+.idea/
+
+# IntelliJ
+*.iml
