@@ -11,7 +11,7 @@
 
 ## How to include
 Add the repository to your project **build.gradle**:
-```Java
+```Javascript
 repositories {
     maven {
         url "https://jitpack.io"
@@ -20,7 +20,7 @@ repositories {
 ```
 
 And add the library to your module **build.gradle**:
-```Java
+```Javascript
 dependencies {
     compile 'com.github.javiersantos:AppUpdater:1.0'
 }
@@ -28,7 +28,7 @@ dependencies {
 
 ## Usage
 Add **INTERNET** and **ACCESS_NETWORK_STATE** permissions to your app's Manifest:
-```Java
+```xml
 <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 ```
