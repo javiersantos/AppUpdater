@@ -7,7 +7,7 @@
   <a target="_blank" href="http://patreon.com/javiersantos" title="Donate using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" /></a>
 </p>
 
-<p align="center">Android Library that checks for new app updates using Google Play, GitHub and Amazon.</p>
+<p align="center">Android Library that checks for your app updates on Google Play, GitHub or Amazon. This library nofities your apps' updates by showing a Material dialog, Snackbar or notification.</p>
 
 ## How to include
 Add the repository to your project **build.gradle**:
