@@ -1,14 +1,11 @@
 <resources>
-    <string name="app_name">AppUpdater</string>
-
+    <string name="app_name" translatable="false">AppUpdater</string>
     <string name="appupdater_update_available">New update available!</string>
     <string name="appupdater_update_available_description_dialog">Update %1$s is available to download. Downloading the latest update you will get the latest features, improvements and bug fixes of %2$s.</string>
     <string name="appupdater_update_available_description_snackbar">Update %1$s is available!</string>
     <string name="appupdater_update_available_description_notification">Update %1$s of %2$s is available to download</string>
-
-    <string name="appupdater_update_not_available">No update available</string>
+    <string name="appupdater_update_not_available">No updates available</string>
     <string name="appupdater_update_not_available_description">You\'ve the latest version available of %s!</string>
-
     <string name="appupdater_btn_update">Update</string>
     <string name="appupdater_btn_disable">Don\'t show again</string>
     <string name="appupdater_btn_dismiss">Dismiss</string>
