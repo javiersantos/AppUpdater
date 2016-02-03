@@ -4,7 +4,7 @@
     <string name="library_appupdater_author">Javier Santos</string>
     <string name="library_appupdater_authorWebsite">https://github.com/javiersantos</string>
     <string name="library_appupdater_libraryName">AppUpdater</string>
-    <string name="library_appupdater_libraryDescription">AppUpdater is a library that checks for your apps\' updates on Google Play, GitHub and Amazon, showing a Material dialog, Snackbar or notification when a new version is available.</string>
+    <string name="library_appupdater_libraryDescription">AppUpdater is a library that checks for your apps\' updates on Google Play, GitHub, Amazon and F-Droid, showing a Material dialog, Snackbar or notification when a new version is available.</string>
     <string name="library_appupdater_libraryWebsite">https://github.com/javiersantos/AppUpdater</string>
     <string name="library_appupdater_licenseId">apache_2_0</string>
     <string name="library_appupdater_isOpenSource">true</string>

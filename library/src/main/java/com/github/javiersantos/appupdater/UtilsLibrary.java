@@ -86,6 +86,9 @@ class UtilsLibrary {
             case AMAZON:
                 res = Config.AMAZON_URL + getAppPackageName(context);
                 break;
+            case FDROID:
+                res = Config.FDROID_URL + getAppPackageName(context);
+                break;
         }
 
         return res;
@@ -127,6 +130,10 @@ class UtilsLibrary {
                             str.append(line);
                         }
                         break;
+                    case FDROID:
+                        if (line.contains(Config.FDROID_TAG_RELEASE)) {
+                            str.append(line);
+                        }
                 }
             }
 
@@ -160,6 +167,11 @@ class UtilsLibrary {
                 case AMAZON:
                     String[] splitAmazon = source.split(Config.AMAZON_TAG_RELEASE);
                     splitAmazon = splitAmazon[1].split("(<)");
+                    res = splitAmazon[0].trim();
+                    break;
+                case FDROID:
+                    String[] splitFDroid = source.split(Config.FDROID_TAG_RELEASE);
+                    splitAmazon = splitFDroid[1].split("(<)");
                     res = splitAmazon[0].trim();
                     break;
             }
