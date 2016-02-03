@@ -2,7 +2,10 @@
     <string name="app_name">AppUpdater Library (Demo)</string>
 
     <string name="app_description">A library that checks for your apps\' updates on Google Play, GitHub or Amazon.</string>
-    <string name="btn_dialog">Show dialog</string>
-    <string name="btn_snackbar">Show snackbar</string>
-    <string name="btn_notification">Show notification</string>
+    <string name="btn_dialog_update">Show dialog (update)</string>
+    <string name="btn_snackbar_update">Show snackbar (update)</string>
+    <string name="btn_notification_update">Show notification (update)</string>
+    <string name="btn_dialog_no_update">Show dialog (no update)</string>
+    <string name="btn_snackbar_no_update">Show snackbar (no update)</string>
+    <string name="btn_notification_no_update">Show notification (no update)</string>
 </resources>

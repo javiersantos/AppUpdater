@@ -31,9 +31,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        CardView dialog = (CardView) findViewById(R.id.dialog);
-        CardView snackbar = (CardView) findViewById(R.id.snackbar);
-        CardView notification = (CardView) findViewById(R.id.notification);
+        CardView dialogUpdate = (CardView) findViewById(R.id.dialog_update);
+        CardView snackbarUpdate = (CardView) findViewById(R.id.snackbar_update);
+        CardView notificationUpdate = (CardView) findViewById(R.id.notification_update);
+
+        CardView dialogNoUpdate = (CardView) findViewById(R.id.dialog_no_update);
+        CardView snackbarNoUpdate = (CardView) findViewById(R.id.snackbar_no_update);
+        CardView notificationNoUpdate = (CardView) findViewById(R.id.notification_no_update);
 
         fab.setImageDrawable(new IconicsDrawable(this).icon(MaterialDesignIconic.Icon.gmi_github).color(Color.WHITE).sizeDp(24));
         fab.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +47,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dialog.setOnClickListener(new View.OnClickListener() {
+        dialogUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppUpdater appUpdater = new AppUpdater(context);
+                // appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
+                // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
+                appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
+                appUpdater.setDisplay(Display.DIALOG);
+                appUpdater.showAppUpdated(true);
+                appUpdater.init();
+            }
+        });
+
+        snackbarUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppUpdater appUpdater = new AppUpdater(context);
+                // appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
+                // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
+                appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
+                appUpdater.setDisplay(Display.SNACKBAR);
+                appUpdater.showAppUpdated(true);
+                appUpdater.init();
+            }
+        });
+
+        notificationUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppUpdater appUpdater = new AppUpdater(context);
+                // appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
+                // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
+                appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
+                appUpdater.setDisplay(Display.NOTIFICATION);
+                appUpdater.showAppUpdated(true);
+                appUpdater.init();
+            }
+        });
+
+        dialogNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppUpdater appUpdater = new AppUpdater(context);
@@ -57,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        snackbar.setOnClickListener(new View.OnClickListener() {
+        snackbarNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppUpdater appUpdater = new AppUpdater(context);
@@ -71,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        notification.setOnClickListener(new View.OnClickListener() {
+        notificationNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppUpdater appUpdater = new AppUpdater(context);
