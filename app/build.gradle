@@ -33,5 +33,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.mikepenz:iconics-core:2.5.5@aar'
     compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.1@aar'
+    compile('com.mikepenz:aboutlibraries:5.5.0@aar') { transitive = true }
     compile project(':library')
 }
