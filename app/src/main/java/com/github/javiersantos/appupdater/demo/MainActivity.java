@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 AppUpdater appUpdater = new AppUpdater(context);
                 // appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
                 // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                // appUpdater.setUpdateFrom(UpdateFrom.FDROID);
                 appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
                 appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
                 appUpdater.setDisplay(Display.DIALOG);
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 AppUpdater appUpdater = new AppUpdater(context);
                 // appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
                 // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                // appUpdater.setUpdateFrom(UpdateFrom.FDROID);
                 appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
                 appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
                 appUpdater.setDisplay(Display.SNACKBAR);
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 AppUpdater appUpdater = new AppUpdater(context);
                 // appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
                 // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                // appUpdater.setUpdateFrom(UpdateFrom.FDROID);
                 appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
                 appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
                 appUpdater.setDisplay(Display.NOTIFICATION);
@@ -97,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 AppUpdater appUpdater = new AppUpdater(context);
                 appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
                 // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                // appUpdater.setUpdateFrom(UpdateFrom.FDROID);
                 // appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
                 // appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
                 appUpdater.setDisplay(Display.DIALOG);
@@ -111,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 AppUpdater appUpdater = new AppUpdater(context);
                 appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
                 // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                // appUpdater.setUpdateFrom(UpdateFrom.FDROID);
                 // appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
                 // appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
                 appUpdater.setDisplay(Display.SNACKBAR);
@@ -125,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 AppUpdater appUpdater = new AppUpdater(context);
                 appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
                 // appUpdater.setUpdateFrom(UpdateFrom.AMAZON);
+                // appUpdater.setUpdateFrom(UpdateFrom.FDROID);
                 // appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
                 // appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
                 appUpdater.setDisplay(Display.NOTIFICATION);
