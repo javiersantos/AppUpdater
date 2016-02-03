@@ -171,8 +171,8 @@ class UtilsLibrary {
                     break;
                 case FDROID:
                     String[] splitFDroid = source.split(Config.FDROID_TAG_RELEASE);
-                    splitAmazon = splitFDroid[1].split("(<)");
-                    res = splitAmazon[0].trim();
+                    splitFDroid = splitFDroid[1].split("(<)");
+                    res = splitFDroid[0].trim();
                     break;
             }
         }
