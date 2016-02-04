@@ -14,18 +14,13 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Version;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 class UtilsLibrary {
 
@@ -95,60 +90,60 @@ class UtilsLibrary {
     }
 
     static String getLatestAppVersion(Context context, UpdateFrom updateFrom, GitHub gitHub) {
-        Boolean notAvailable = false;
+        Boolean isAvailable = false;
         String res = "0.0.0.0";
         String source = "";
 
         try {
-            HttpParams params = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(params, 4000);
-            HttpConnectionParams.setSoTimeout(params, 5000);
+            URL url = new URL(getUpdateURL(context, updateFrom, gitHub));
 
-            HttpClient client = new DefaultHttpClient(params);
-            HttpGet request = new HttpGet(getUpdateURL(context, updateFrom, gitHub));
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
 
-            HttpResponse response = client.execute(request);
-
-            InputStream in = response.getEntity().getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             StringBuilder str = new StringBuilder();
+
             String line;
             while((line = reader.readLine()) != null) {
                 switch (updateFrom) {
                     default:
                         if (line.contains(Config.PLAY_STORE_TAG_RELEASE)) {
                             str.append(line);
+                            isAvailable = true;
                         }
                         break;
                     case GITHUB:
                         if (line.contains(Config.GITHUB_TAG_RELEASE)) {
                             str.append(line);
+                            isAvailable = true;
                         }
                         break;
                     case AMAZON:
                         if (line.contains(Config.AMAZON_TAG_RELEASE)) {
                             str.append(line);
+                            isAvailable = true;
                         }
                         break;
                     case FDROID:
                         if (line.contains(Config.FDROID_TAG_RELEASE)) {
                             str.append(line);
+                            isAvailable = true;
                         }
                 }
             }
 
             if (str.length() == 0) {
-                notAvailable = true;
                 Log.e("AppUpdater", "Cannot retrieve latest version. Is it configured properly?");
             }
 
-            in.close();
+            inputStream.close();
             source = str.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (FileNotFoundException e) {
+            Log.e("AppUpdater", "App wasn't found in the provided source. Is it published?");
+        } catch (IOException ignore) {}
 
-        if (!notAvailable) {
+        if (isAvailable) {
             switch (updateFrom) {
                 default:
                     String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_RELEASE);
