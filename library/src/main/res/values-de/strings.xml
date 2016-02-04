@@ -1,0 +1,11 @@
+<resources>
+    <string name="appupdater_update_available">Neues Update verfügbar!</string>
+    <string name="appupdater_update_available_description_dialog">Update %1$s steht zum Download bereit. Durch das Downloaden der neuesten Version erhältst du neue Features, Verbesserungen und Fehlerbehebungen von %2$s.</string>
+    <string name="appupdater_update_available_description_snackbar">Update %1$s ist verfügbar!</string>
+    <string name="appupdater_update_available_description_notification">Update %1$s von %2$s steht zum Download bereit</string>
+    <string name="appupdater_update_not_available">Keine Updates verfügbar</string>
+    <string name="appupdater_update_not_available_description">Du hast die neueste Version von %s!</string>
+    <string name="appupdater_btn_update">Aktualisieren</string>
+    <string name="appupdater_btn_disable">Nicht mehr anzeigen</string>
+    <string name="appupdater_btn_dismiss">Abbrechen</string>
+</resources>
