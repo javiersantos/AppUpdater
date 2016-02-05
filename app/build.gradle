@@ -8,7 +8,7 @@ android {
         applicationId "com.github.javiersantos.appupdater.demo"
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 2
+        versionCode 3
         versionName "1.0"
     }
     buildTypes {
