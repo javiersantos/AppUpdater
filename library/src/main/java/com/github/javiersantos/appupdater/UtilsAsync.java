@@ -59,8 +59,7 @@ class UtilsAsync {
 
             if (UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), version)) {
                 Integer successfulChecks = libraryPreferences.getSuccessfulChecks();
-                libraryPreferences.setSuccessfulChecks(successfulChecks++);
-                if (UtilsLibrary.isAbleToShow(context, showEvery)) {
+                if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                     switch (display) {
                         case DIALOG:
                             UtilsDisplay.showUpdateAvailableDialog(context, context.getResources().getString(R.string.appupdater_update_available), String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog), version, UtilsLibrary.getAppName(context)), updateFrom, gitHub);
@@ -73,6 +72,7 @@ class UtilsAsync {
                             break;
                     }
                 }
+                libraryPreferences.setSuccessfulChecks(successfulChecks + 1);
             } else if (showAppUpdated) {
                 switch (display) {
                     case DIALOG:

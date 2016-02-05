@@ -204,9 +204,8 @@ class UtilsLibrary {
         }
     }
 
-    static Boolean isAbleToShow(Context context, Integer showEvery) {
-        LibraryPreferences libraryPreferences = new LibraryPreferences(context);
-        return libraryPreferences.getSuccessfulChecks() % showEvery == 0;
+    static Boolean isAbleToShow(Integer successfulChecks, Integer showEvery) {
+        return successfulChecks % showEvery == 0;
     }
 
     static Boolean isNetworkAvailable(Context context) {
