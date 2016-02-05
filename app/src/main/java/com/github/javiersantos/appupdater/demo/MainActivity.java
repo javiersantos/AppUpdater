@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         .setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
-                        .init();
+                        .start();
             }
         });
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         .setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setDisplay(Display.SNACKBAR)
                         .showAppUpdated(true)
-                        .init();
+                        .start();
             }
         });
 
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         .setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setDisplay(Display.NOTIFICATION)
                         .showAppUpdated(true)
-                        .init();
+                        .start();
             }
         });
 
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
-                        .init();
+                        .start();
             }
         });
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.SNACKBAR)
                         .showAppUpdated(true)
-                        .init();
+                        .start();
             }
         });
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.NOTIFICATION)
                         .showAppUpdated(true)
-                        .init();
+                        .start();
             }
         });
     }

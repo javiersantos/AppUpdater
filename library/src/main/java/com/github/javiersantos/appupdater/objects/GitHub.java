@@ -1,34 +1,38 @@
 package com.github.javiersantos.appupdater.objects;
 
+import android.util.Log;
+
 public class GitHub {
-    private String githubUser;
-    private String githubRepo;
+    private String gitHubUser;
+    private String gitHubRepo;
 
-    public GitHub(String githubUser, String githubRepo) {
-        checkGithub(githubUser, githubRepo);
-        this.githubUser = githubUser;
-        this.githubRepo = githubRepo;
+    public GitHub(String gitHubUser, String gitHubRepo) {
+        this.gitHubUser = gitHubUser;
+        this.gitHubRepo = gitHubRepo;
     }
 
-    public String getGithubUser() {
-        return githubUser;
+    public String getGitHubUser() {
+        return gitHubUser;
     }
 
-    public void setGithubUser(String user) {
-        this.githubUser = user;
+    public void setGitHubUser(String user) {
+        this.gitHubUser = user;
     }
 
-    public String getGithubRepo() {
-        return githubRepo;
+    public String getGitHubRepo() {
+        return gitHubRepo;
     }
 
-    public void setGithubRepo(String repo) {
-        this.githubRepo = repo;
+    public void setGitHubRepo(String repo) {
+        this.gitHubRepo = repo;
     }
 
-    private void checkGithub(String user, String repo) {
-        if (user.length() == 0 || repo.length() == 0) {
-            throw new IllegalArgumentException("GitHub user or repo is empty");
+    public static Boolean isGitHubValid(GitHub gitHub) {
+        if (gitHub == null || gitHub.getGitHubUser().length() == 0 || gitHub.getGitHubRepo().length() == 0) {
+            Log.e("AppUpdater", "GitHub user or repo is empty!!");
+            return false;
+        } else {
+            return true;
         }
     }
 

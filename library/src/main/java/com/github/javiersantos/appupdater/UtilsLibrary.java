@@ -76,7 +76,7 @@ class UtilsLibrary {
                 res = Config.PLAY_STORE_URL + getAppPackageName(context);
                 break;
             case GITHUB:
-                res = Config.GITHUB_URL + gitHub.getGithubUser() + "/" + gitHub.getGithubRepo() + "/releases";
+                res = Config.GITHUB_URL + gitHub.getGitHubUser() + "/" + gitHub.getGitHubRepo() + "/releases";
                 break;
             case AMAZON:
                 res = Config.AMAZON_URL + getAppPackageName(context);

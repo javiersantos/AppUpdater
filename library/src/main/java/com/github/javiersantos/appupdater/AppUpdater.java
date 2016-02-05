@@ -62,7 +62,7 @@ public class AppUpdater {
     }
 
     /**
-     * Set the user and repo where the releases are uploaded. You must upload your updates as a release in order to work properly taggin them as vX.X.X or X.X.X.
+     * Set the user and repo where the releases are uploaded. You must upload your updates as a release in order to work properly tagging them as vX.X.X or X.X.X.
      *
      * @param user GitHub user
      * @param repo GitHub repository
@@ -99,9 +99,21 @@ public class AppUpdater {
      * Execute AppUpdater in background.
      *
      * @return this
+     * @deprecated use {@link #start()} instead
      */
     public AppUpdater init() {
-        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, showEvery, showAppUpdated, updateFrom, display, duration, gitHub);
+        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, showEvery, showAppUpdated, updateFrom, display, duration, gitHub, null);
+        latestAppVersion.execute();
+        return this;
+    }
+
+    /**
+     * Execute AppUpdater in background.
+     *
+     * @return this
+     */
+    public AppUpdater start() {
+        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, showEvery, showAppUpdated, updateFrom, display, duration, gitHub, null);
         latestAppVersion.execute();
         return this;
     }
