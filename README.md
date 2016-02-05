@@ -29,7 +29,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Javascript
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:1.0.3'
+    compile 'com.github.javiersantos:AppUpdater:1.1'
 }
 ```
 
@@ -43,7 +43,7 @@ Add **INTERNET** and **ACCESS_NETWORK_STATE** permissions to your app's Manifest
 ### Activity
 ```Java
 AppUpdater appUpdater = new AppUpdater(this);
-appUpdater.init();
+appUpdater.start();
 ```
 
 ## Customization
@@ -83,6 +83,18 @@ Use the builder and add following:
 // (Optional) Show dialog, snackbar or notification although there aren't updates. 
 // Default: false
 .showAppUpdated(true)
+```
+
+## Other features
+### Retrieve latest update and compare with the installed one (asynchronous)
+```Java
+AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
+    .withListener(new AppUpdaterUtils.AppUpdaterListener() {
+        @Override
+        public void onSuccess(String latestVersion, Boolean isUpdateAvailable) {
+            Log.d("AppUpdater", latestVersion + ", " + Boolean.toString(isUpdateAvailable));
+        });
+appUpdaterUtils.start();
 ```
 
 ![ML Manager](https://raw.githubusercontent.com/javiersantos/AppUpdater/master/Screenshots/banner.png)
