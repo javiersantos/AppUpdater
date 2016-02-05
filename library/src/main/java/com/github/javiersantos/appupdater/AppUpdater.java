@@ -21,7 +21,7 @@ public class AppUpdater {
         this.display = Display.DIALOG;
         this.updateFrom = UpdateFrom.GOOGLE_PLAY;
         this.duration = Duration.NORMAL;
-        this.showEvery = 5;
+        this.showEvery = 1;
         this.showAppUpdated = false;
     }
 
@@ -66,7 +66,7 @@ public class AppUpdater {
     }
 
     /**
-     * Set the times the app ascertains that a new update is available and display a dialog, Snackbar or notification. It makes the updates less invasive. Default: 5.
+     * Set the times the app ascertains that a new update is available and display a dialog, Snackbar or notification. It makes the updates less invasive. Default: 1.
      *
      * @param times every X times
      */
@@ -77,7 +77,7 @@ public class AppUpdater {
     /**
      * Set if the dialog, Snackbar or notification is displayed although there aren't updates. Default: false.
      *
-     * @param res
+     * @param res true to show, false otherwise
      */
     public void showAppUpdated(Boolean res) {
         this.showAppUpdated = res;
