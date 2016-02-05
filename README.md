@@ -86,7 +86,7 @@ Use the builder and add following:
 ```
 
 ## Other features
-### Retrieve latest update and compare with the installed one (asynchronous)
+### Get the latest update and compare with the installed one (asynchronous)
 ```Java
 AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
     .withListener(new AppUpdaterUtils.AppUpdaterListener() {
