@@ -57,7 +57,7 @@ public class AppUpdaterUtils {
      * @return this
      * @see com.github.javiersantos.appupdater.AppUpdaterUtils.AppUpdaterListener
      */
-    public AppUpdaterUtils getLatestUpdate(AppUpdaterListener appUpdaterListener) {
+    public AppUpdaterUtils withListener(AppUpdaterListener appUpdaterListener) {
         this.appUpdaterListener = appUpdaterListener;
         return this;
     }
