@@ -52,69 +52,69 @@ public class MainActivity extends AppCompatActivity {
         dialogUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdater appUpdater = new AppUpdater(context);
-                appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
-                appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
-                appUpdater.setDisplay(Display.DIALOG);
-                appUpdater.showAppUpdated(true);
-                appUpdater.init();
+                new AppUpdater(context)
+                        .setUpdateFrom(UpdateFrom.GITHUB)
+                        .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setDisplay(Display.DIALOG)
+                        .showAppUpdated(true)
+                        .init();
             }
         });
 
         snackbarUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdater appUpdater = new AppUpdater(context);
-                appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
-                appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
-                appUpdater.setDisplay(Display.SNACKBAR);
-                appUpdater.showAppUpdated(true);
-                appUpdater.init();
+                new AppUpdater(context)
+                        .setUpdateFrom(UpdateFrom.GITHUB)
+                        .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setDisplay(Display.SNACKBAR)
+                        .showAppUpdated(true)
+                        .init();
             }
         });
 
         notificationUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdater appUpdater = new AppUpdater(context);
-                appUpdater.setUpdateFrom(UpdateFrom.GITHUB);
-                appUpdater.setGitHubUserAndRepo("javiersantos", "AppUpdater");
-                appUpdater.setDisplay(Display.NOTIFICATION);
-                appUpdater.showAppUpdated(true);
-                appUpdater.init();
+                new AppUpdater(context)
+                        .setUpdateFrom(UpdateFrom.GITHUB)
+                        .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setDisplay(Display.NOTIFICATION)
+                        .showAppUpdated(true)
+                        .init();
             }
         });
 
         dialogNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdater appUpdater = new AppUpdater(context);
-                appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
-                appUpdater.setDisplay(Display.DIALOG);
-                appUpdater.showAppUpdated(true);
-                appUpdater.init();
+                new AppUpdater(context)
+                        .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+                        .setDisplay(Display.DIALOG)
+                        .showAppUpdated(true)
+                        .init();
             }
         });
 
         snackbarNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdater appUpdater = new AppUpdater(context);
-                appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
-                appUpdater.setDisplay(Display.SNACKBAR);
-                appUpdater.showAppUpdated(true);
-                appUpdater.init();
+                new AppUpdater(context)
+                        .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+                        .setDisplay(Display.SNACKBAR)
+                        .showAppUpdated(true)
+                        .init();
             }
         });
 
         notificationNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppUpdater appUpdater = new AppUpdater(context);
-                appUpdater.setUpdateFrom(UpdateFrom.GOOGLE_PLAY);
-                appUpdater.setDisplay(Display.NOTIFICATION);
-                appUpdater.showAppUpdated(true);
-                appUpdater.init();
+                new AppUpdater(context)
+                        .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+                        .setDisplay(Display.NOTIFICATION)
+                        .showAppUpdated(true)
+                        .init();
             }
         });
     }
