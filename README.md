@@ -29,7 +29,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Javascript
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:1.0.2'
+    compile 'com.github.javiersantos:AppUpdater:1.0.3'
 }
 ```
 
@@ -76,8 +76,8 @@ Use the builder and add following:
 ```
 ```Java
 // (Optional) Updates will be displayed only every X times the app ascertains that a new update is available. 
-// Default: 5
-.showEvery(10)
+// Default: 1 (Always)
+.showEvery(5)
 ```
 ```Java
 // (Optional) Show dialog, snackbar or notification although there aren't updates. 
