@@ -46,6 +46,12 @@ AppUpdater appUpdater = new AppUpdater(this);
 appUpdater.start();
 ```
 
+### Fragment
+```Java
+AppUpdater appUpdater = new AppUpdater(getActivity());
+appUpdater.start();
+```
+
 ## Customization
 
 Use the builder and add following:
