@@ -95,6 +95,10 @@ Use the builder and add following:
 ### Get the latest update and compare with the installed one (asynchronous)
 ```Java
 AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
+    //.setUpdateFrom(UpdateFrom.AMAZON)
+    //.setUpdateFrom(UpdateFrom.FDROID)
+    //.setUpdateFrom(UpdateFrom.GITHUB)
+    //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
     .withListener(new AppUpdaterUtils.AppUpdaterListener() {
         @Override
         public void onSuccess(String latestVersion, Boolean isUpdateAvailable) {
