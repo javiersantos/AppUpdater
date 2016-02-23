@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">AppUpdater</string>
     <string name="appupdater_update_available">New update available!</string>
     <string name="appupdater_update_available_description_dialog">Update %1$s is available to download. Downloading the latest update you will get the latest features, improvements and bug fixes of %2$s.</string>
     <string name="appupdater_update_available_description_snackbar">Update %1$s is available!</string>

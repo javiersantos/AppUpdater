@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">AppUpdater</string>
     <string name="appupdater_update_available">Nouvelle mise à jour disponible!</string>
     <string name="appupdater_update_available_description_dialog">La mise à jour  %1$s est disponible. En téléchargeant la cette version de l\'application, vous aurez accès aux dernières fonctionnalités et amélioration de %2$s.</string>
     <string name="appupdater_update_available_description_snackbar">Mise à jour %1$s disponible!</string>
