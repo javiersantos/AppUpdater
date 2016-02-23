@@ -29,7 +29,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Javascript
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:1.1'
+    compile 'com.github.javiersantos:AppUpdater:1.2'
 }
 ```
 
@@ -62,12 +62,14 @@ Use the builder and add following:
 .setDisplay(Display.SNACKBAR)
 .setDisplay(Display.NOTIFICATION)
 ```
+
 ```Java
 // (Optional) Provide a duration for the Snackbars. 
 // Default: Duration.NORMAL
 .setDuration(Duration.NORMAL)
 .setDuration(Duration.INDEFINITE)
 ```
+
 ```Java
 // (Optional) Provide a source for the updates. 
 // Default: UpdateFrom.GOOGLE_PLAY
@@ -76,19 +78,32 @@ Use the builder and add following:
 .setUpdateFrom(UpdateFrom.AMAZON)
 .setUpdateFrom(UpdateFrom.FDROID)
 ```
+
 ```Java
 // (Required for GITHUB, optional otherwise) Provide the GitHub user and repo where releases are available.
 .setGitHubUserAndRepo("javiersantos", "AppUpdater")
 ```
+
 ```Java
 // (Optional) Updates will be displayed only every X times the app ascertains that a new update is available. 
 // Default: 1 (Always)
 .showEvery(5)
 ```
+
 ```Java
 // (Optional) Show dialog, snackbar or notification although there aren't updates. 
 // Default: false
 .showAppUpdated(true)
+```
+
+```Java
+// Customize the dialog title, description and buttons
+.setDialogTitleWhenUpdateAvailable("Update available")
+.setDialogDescriptionWhenUpdateAvailable("Check out the latest version available of my app!")
+.setDialogButtonUpdate("Update now?")
+.setDialogButtonDoNotShowAgain("Huh, not interested")
+.setDialogTitleWhenUpdateNotAvailable("Update not available")
+.setDialogDescriptionWhenUpdateNotAvailable("No update available. Check for updates again later!")
 ```
 
 ## Other features

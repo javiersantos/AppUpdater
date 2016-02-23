@@ -64,13 +64,16 @@ public class AppUpdaterUtils {
 
     /**
      * Execute AppUpdaterUtils in background.
-     *
-     * @return this
      */
-    public AppUpdaterUtils start() {
-        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, null, null, updateFrom, null, null, gitHub, appUpdaterListener);
+    public void start() {
+        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, true, updateFrom, gitHub, new AppUpdater.LibraryListener() {
+            @Override
+            public void onSuccess(String version) {
+                appUpdaterListener.onSuccess(version, UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), version));
+            }
+        });
+
         latestAppVersion.execute();
-        return this;
     }
 
 }

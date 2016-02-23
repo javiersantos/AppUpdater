@@ -18,15 +18,15 @@ import com.github.javiersantos.appupdater.objects.GitHub;
 
 class UtilsDisplay {
 
-    static void showUpdateAvailableDialog(final Context context, String title, String content, final UpdateFrom updateFrom, final GitHub gitHub) {
+    static void showUpdateAvailableDialog(final Context context, String title, String content, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final GitHub gitHub) {
         final LibraryPreferences libraryPreferences = new LibraryPreferences(context);
 
         MaterialDialog materialDialog = new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
-                .positiveText(context.getResources().getString(R.string.appupdater_btn_update))
+                .positiveText(btnPositive)
                 .negativeText(context.getResources().getString(android.R.string.cancel))
-                .neutralText(context.getResources().getString(R.string.appupdater_btn_disable))
+                .neutralText(btnNeutral)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog dialog, DialogAction which) {
