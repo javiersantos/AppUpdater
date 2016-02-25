@@ -198,7 +198,7 @@ public class AppUpdater {
                                 UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, version), btnUpdate, btnDisable, updateFrom, gitHub);
                                 break;
                             case SNACKBAR:
-                                UtilsDisplay.showUpdateAvailableSnackbar(context, String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), UtilsLibrary.getAppInstalledVersion(context)), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, gitHub);
+                                UtilsDisplay.showUpdateAvailableSnackbar(context, String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), version), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, gitHub);
                                 break;
                             case NOTIFICATION:
                                 UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), String.format(context.getResources().getString(R.string.appupdater_update_available_description_notification), version, UtilsLibrary.getAppName(context)), updateFrom, gitHub);
