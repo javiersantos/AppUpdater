@@ -2,7 +2,9 @@ package com.github.javiersantos.appupdater;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.Duration;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -220,6 +222,13 @@ public class AppUpdater {
                     }
                 }
             }
+
+            @Override
+            public void onFailed(AppUpdaterError error) {
+                if (error == AppUpdaterError.UPDATE_VARIES_BY_DEVICE) {
+                    Log.e("AppUpdater", "UpdateFrom.GOOGLE_PLAY isn't valid: update varies by device.");
+                }
+            }
         });
 
         latestAppVersion.execute();
@@ -227,6 +236,7 @@ public class AppUpdater {
 
     interface LibraryListener {
         void onSuccess(String version);
+        void onFailed(AppUpdaterError error);
     }
 
     private String getDescriptionUpdate(Context context, String version) {

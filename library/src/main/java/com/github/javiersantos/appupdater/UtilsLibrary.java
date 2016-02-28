@@ -56,6 +56,10 @@ class UtilsLibrary {
         return res;
     }
 
+    static Boolean isStringAVersion(String version) {
+        return version.matches(".*\\d+.*");
+    }
+
     static Boolean getDurationEnumToBoolean(Duration duration) {
         Boolean res = false;
 

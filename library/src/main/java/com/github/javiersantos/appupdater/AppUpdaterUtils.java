@@ -2,6 +2,7 @@ package com.github.javiersantos.appupdater;
 
 import android.content.Context;
 
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
 
@@ -14,11 +15,13 @@ public class AppUpdaterUtils {
     public interface AppUpdaterListener {
         /**
          * onSuccess method called after it is successful
+         * onFailed method called if it can't retrieve the latest version
          *
          * @param latestVersion available in the provided source
          * @param isUpdateAvailable compare installed version with the latest one
          */
         void onSuccess(String latestVersion, Boolean isUpdateAvailable);
+        void onFailed(AppUpdaterError error);
     }
 
     public AppUpdaterUtils(Context context) {
@@ -70,6 +73,11 @@ public class AppUpdaterUtils {
             @Override
             public void onSuccess(String version) {
                 appUpdaterListener.onSuccess(version, UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), version));
+            }
+
+            @Override
+            public void onFailed(AppUpdaterError error) {
+                appUpdaterListener.onFailed(error);
             }
         });
 

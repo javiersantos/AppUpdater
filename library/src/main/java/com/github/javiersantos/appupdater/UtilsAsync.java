@@ -3,6 +3,7 @@ package com.github.javiersantos.appupdater;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
 
@@ -47,7 +48,11 @@ class UtilsAsync {
         @Override
         protected void onPostExecute(String version) {
             super.onPostExecute(version);
-            listener.onSuccess(version);
+            if (UtilsLibrary.isStringAVersion(version)) {
+                listener.onSuccess(version);
+            } else {
+                listener.onFailed(AppUpdaterError.UPDATE_VARIES_BY_DEVICE);
+            }
         }
     }
 
