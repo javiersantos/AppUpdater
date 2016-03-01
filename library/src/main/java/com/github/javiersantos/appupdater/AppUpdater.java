@@ -21,6 +21,7 @@ public class AppUpdater {
     private Boolean showAppUpdated;
     private String titleUpdate, descriptionUpdate, btnUpdate, btnDisable; // Update available
     private String titleNoUpdate, descriptionNoUpdate; // Update not available
+    private int iconResId;
 
     public AppUpdater(Context context) {
         this.context  = context;
@@ -203,7 +204,7 @@ public class AppUpdater {
                                 UtilsDisplay.showUpdateAvailableSnackbar(context, String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), version), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, gitHub);
                                 break;
                             case NOTIFICATION:
-                                UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), String.format(context.getResources().getString(R.string.appupdater_update_available_description_notification), version, UtilsLibrary.getAppName(context)), updateFrom, gitHub);
+                                UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), String.format(context.getResources().getString(R.string.appupdater_update_available_description_notification), version, UtilsLibrary.getAppName(context)), updateFrom, gitHub, iconResId);
                                 break;
                         }
                     }
@@ -217,7 +218,7 @@ public class AppUpdater {
                             UtilsDisplay.showUpdateNotAvailableSnackbar(context, context.getResources().getString(R.string.appupdater_update_not_available_description), UtilsLibrary.getDurationEnumToBoolean(duration));
                             break;
                         case NOTIFICATION:
-                            UtilsDisplay.showUpdateNotAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_not_available), String.format(context.getResources().getString(R.string.appupdater_update_not_available_description), UtilsLibrary.getAppName(context)));
+                            UtilsDisplay.showUpdateNotAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_not_available), String.format(context.getResources().getString(R.string.appupdater_update_not_available_description), UtilsLibrary.getAppName(context)), iconResId);
                             break;
                     }
                 }
@@ -232,6 +233,17 @@ public class AppUpdater {
         });
 
         latestAppVersion.execute();
+    }
+
+    /**
+     * Sets the resource identifier for the small notification icon
+     *
+     * @param iconResId The id of the drawable item
+     * @return
+     */
+    public AppUpdater setIconResId(int iconResId) {
+        this.iconResId = iconResId;
+        return this;
     }
 
     interface LibraryListener {
