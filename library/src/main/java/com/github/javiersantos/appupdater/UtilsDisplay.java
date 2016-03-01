@@ -51,6 +51,7 @@ class UtilsDisplay {
         Activity activity = (Activity) context;
         int snackbarTime;
 
+
         if (indefinite) {
             snackbarTime = Snackbar.LENGTH_INDEFINITE;
         } else {
