@@ -228,10 +228,10 @@ public class AppUpdater {
                             UtilsDisplay.showUpdateNotAvailableDialog(context, titleNoUpdate, getDescriptionNoUpdate(context));
                             break;
                         case SNACKBAR:
-                            UtilsDisplay.showUpdateNotAvailableSnackbar(context, context.getResources().getString(R.string.appupdater_update_not_available_description), UtilsLibrary.getDurationEnumToBoolean(duration));
+                            UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
                             break;
                         case NOTIFICATION:
-                            UtilsDisplay.showUpdateNotAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_not_available), String.format(context.getResources().getString(R.string.appupdater_update_not_available_description), UtilsLibrary.getAppName(context)), iconResId);
+                            UtilsDisplay.showUpdateNotAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_not_available), getDescriptionNoUpdate(context), iconResId);
                             break;
                     }
                 }
