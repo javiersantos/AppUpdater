@@ -211,13 +211,13 @@ public class AppUpdater {
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                         switch (display) {
                             case DIALOG:
-                                UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, version,Display.DIALOG), btnUpdate, btnDisable, updateFrom, gitHub);
+                                UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, version, Display.DIALOG), btnUpdate, btnDisable, updateFrom, gitHub);
                                 break;
                             case SNACKBAR:
-                                UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context,version,Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, gitHub);
+                                UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, version, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, gitHub);
                                 break;
                             case NOTIFICATION:
-                                UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), getDescriptionUpdate(context,version,Display.NOTIFICATION), updateFrom, gitHub, iconResId);
+                                UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), getDescriptionUpdate(context, version, Display.NOTIFICATION), updateFrom, gitHub, iconResId);
                                 break;
                         }
                     }
@@ -256,16 +256,16 @@ public class AppUpdater {
 
     private String getDescriptionUpdate(Context context, String version, Display display) {
         if (descriptionUpdate == null) {
-           switch (display){
+            switch (display) {
                 case DIALOG:
                     return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog), version, UtilsLibrary.getAppName(context));
                 break;
-               case SNACKBAR:
-                   return String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), version);
-               break;
-               case NOTIFICATION:
-                   return String.format(context.getResources().getString(R.string.appupdater_update_available_description_notification), version, UtilsLibrary.getAppName(context));
-               break;
+                case SNACKBAR:
+                    return String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), version);
+                break;
+                case NOTIFICATION:
+                    return String.format(context.getResources().getString(R.string.appupdater_update_available_description_notification), version, UtilsLibrary.getAppName(context));
+                break;
             }
         } else {
             return descriptionUpdate;
