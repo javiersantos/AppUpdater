@@ -97,13 +97,18 @@ Use the builder and add following:
 ```
 
 ```Java
-// Customize the dialog title, description and buttons
+// (Optional) Customize the dialog title, description and buttons
 .setDialogTitleWhenUpdateAvailable("Update available")
 .setDialogDescriptionWhenUpdateAvailable("Check out the latest version available of my app!")
 .setDialogButtonUpdate("Update now?")
 .setDialogButtonDoNotShowAgain("Huh, not interested")
 .setDialogTitleWhenUpdateNotAvailable("Update not available")
 .setDialogDescriptionWhenUpdateNotAvailable("No update available. Check for updates again later!")
+```
+
+```Java
+// (Optional) Set a resource identifier for the small notification icon 
+.setIcon(R.drawable.ic_update)
 ```
 
 ## Other features
