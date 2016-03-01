@@ -20,8 +20,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.5@aar') { transitive = true }
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') { transitive = true }
 }
