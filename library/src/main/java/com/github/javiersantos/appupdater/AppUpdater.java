@@ -1,6 +1,7 @@
 package com.github.javiersantos.appupdater;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -31,6 +32,7 @@ public class AppUpdater {
         this.duration = Duration.NORMAL;
         this.showEvery = 1;
         this.showAppUpdated = false;
+        this.iconResId = R.drawable.ic_stat_name;
 
         // Dialog
         this.titleUpdate = context.getResources().getString(R.string.appupdater_update_available);
@@ -176,6 +178,17 @@ public class AppUpdater {
     }
 
     /**
+     * Sets the resource identifier for the small notification icon
+     *
+     * @param iconRes The id of the drawable item
+     * @return this
+     */
+    public AppUpdater setIcon(@DrawableRes int iconRes) {
+        this.iconResId = iconRes;
+        return this;
+    }
+
+    /**
      * Execute AppUpdater in background.
      *
      * @return this
@@ -233,17 +246,6 @@ public class AppUpdater {
         });
 
         latestAppVersion.execute();
-    }
-
-    /**
-     * Sets the resource identifier for the small notification icon
-     *
-     * @param iconResId The id of the drawable item
-     * @return
-     */
-    public AppUpdater setIconResId(int iconResId) {
-        this.iconResId = iconResId;
-        return this;
     }
 
     interface LibraryListener {
