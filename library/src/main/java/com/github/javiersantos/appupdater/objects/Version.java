@@ -1,5 +1,6 @@
 package com.github.javiersantos.appupdater.objects;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 public class Version implements Comparable<Version> {
@@ -19,7 +20,7 @@ public class Version implements Comparable<Version> {
     }
 
     @Override
-    public int compareTo(Version that) {
+    public int compareTo(@NonNull Version that) {
         if (that == null)
             return 1;
         String[] thisParts = this.get().split("\\.");
