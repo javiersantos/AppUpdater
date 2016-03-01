@@ -3,7 +3,6 @@ package com.github.javiersantos.appupdater.objects;
 import android.util.Log;
 
 public class Version implements Comparable<Version> {
-    private String TAG = "AppUpdater";
     private String version;
 
     public final String get() {
@@ -11,6 +10,7 @@ public class Version implements Comparable<Version> {
     }
 
     public Version(String version) {
+        final String TAG = "AppUpdater";
         if (version == null)
             Log.e(TAG, "Version can not be null");
         else if (!version.matches("[0-9]+(\\.[0-9]+)*"))
