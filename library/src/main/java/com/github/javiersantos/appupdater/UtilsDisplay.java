@@ -49,15 +49,13 @@ class UtilsDisplay {
 
     static void showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final GitHub gitHub) {
         Activity activity = (Activity) context;
-        int snackbarTime;
-
+        int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
         /*if (indefinite) {
             snackbarTime = Snackbar.LENGTH_INDEFINITE;
         } else {
             snackbarTime = Snackbar.LENGTH_LONG;
         }*/
-        snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
         Snackbar snackbar = Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime);
         snackbar.setAction(context.getResources().getString(R.string.appupdater_btn_update), new View.OnClickListener() {
@@ -70,14 +68,14 @@ class UtilsDisplay {
 
     static void showUpdateNotAvailableSnackbar(final Context context, String content, Boolean indefinite) {
         Activity activity = (Activity) context;
-        int snackbarTime;
+        int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
         /*if (indefinite) {
             snackbarTime = Snackbar.LENGTH_INDEFINITE;
         } else {
             snackbarTime = Snackbar.LENGTH_LONG;
         }*/
-        snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
+
 
         Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime).show();
     }
