@@ -25,7 +25,7 @@ public class AppUpdater {
     private int iconResId;
 
     public AppUpdater(Context context) {
-        this.context  = context;
+        this.context = context;
         this.libraryPreferences = new LibraryPreferences(context);
         this.display = Display.DIALOG;
         this.updateFrom = UpdateFrom.GOOGLE_PLAY;
@@ -250,6 +250,7 @@ public class AppUpdater {
 
     interface LibraryListener {
         void onSuccess(String version);
+
         void onFailed(AppUpdaterError error);
     }
 
