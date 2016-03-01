@@ -81,7 +81,7 @@ class UtilsDisplay {
         Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime).show();
     }
 
-    static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, GitHub gitHub) {
+    static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, GitHub gitHub, int smallIconResourceId) {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, context.getPackageManager().getLaunchIntentForPackage(UtilsLibrary.getAppPackageName(context)), PendingIntent.FLAG_CANCEL_CURRENT);
         PendingIntent pendingIntentUpdate = PendingIntent.getActivity(context, 0, UtilsLibrary.intentToUpdate(context, updateFrom, gitHub), PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Style style = new NotificationCompat.BigTextStyle().bigText(content);
@@ -91,6 +91,7 @@ class UtilsDisplay {
                 .setContentTitle(title)
                 .setContentText(content)
                 .setStyle(style)
+                .setSmallIcon(smallIconResourceId)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(true)
@@ -105,7 +106,7 @@ class UtilsDisplay {
         notificationManager.notify(0, builder.build());
     }
 
-    static void showUpdateNotAvailableNotification(Context context, String title, String content) {
+    static void showUpdateNotAvailableNotification(Context context, String title, String content, int smallIconResourceId) {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, context.getPackageManager().getLaunchIntentForPackage(UtilsLibrary.getAppPackageName(context)), PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Style style = new NotificationCompat.BigTextStyle().bigText(content);
 
@@ -114,6 +115,7 @@ class UtilsDisplay {
                 .setContentTitle(title)
                 .setContentText(content)
                 .setStyle(style)
+                .setSmallIcon(smallIconResourceId)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setOnlyAlertOnce(true)
                 .setAutoCancel(true);
