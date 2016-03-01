@@ -13,7 +13,7 @@ public class Version implements Comparable<Version> {
     public Version(String version) {
         if(version == null)
             Log.e(TAG, "Version can not be null");
-        if(!version.matches("[0-9]+(\\.[0-9]+)*"))
+        else if(!version.matches("[0-9]+(\\.[0-9]+)*"))
             Log.e(TAG, "Invalid version format");
         this.version = version;
     }
@@ -38,13 +38,11 @@ public class Version implements Comparable<Version> {
     }
 
     @Override public boolean equals(Object that) {
-        if(this == that)
+        if (this == that)
             return true;
-        if(that == null)
+        if (that == null)
             return false;
-        if(this.getClass() != that.getClass())
-            return false;
-        return this.compareTo((Version) that) == 0;
+        return this.getClass() == that.getClass() && this.compareTo((Version) that) == 0;
     }
 
 }
