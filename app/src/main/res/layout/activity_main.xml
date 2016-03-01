@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.github.javiersantos.demo.MainActivity"
+    tools:context="com.github.javiersantos.appupdater.demo.MainActivity"
     tools:ignore="PrivateResource">
 
     <android.support.design.widget.AppBarLayout
