@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="define_appupdater"></string>
+    <string name="define_appupdater"/>
     <string name="library_appupdater_author" translatable="false">Javier Santos</string>
     <string name="library_appupdater_authorWebsite" translatable="false">https://github.com/javiersantos</string>
     <string name="library_appupdater_libraryName" translatable="false">AppUpdater</string>
