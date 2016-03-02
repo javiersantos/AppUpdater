@@ -259,17 +259,17 @@ public class AppUpdater {
             switch (display) {
                 case DIALOG:
                     return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog), version, UtilsLibrary.getAppName(context));
-                break;
+
                 case SNACKBAR:
                     return String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), version);
-                break;
+
                 case NOTIFICATION:
                     return String.format(context.getResources().getString(R.string.appupdater_update_available_description_notification), version, UtilsLibrary.getAppName(context));
-                break;
+
             }
-        } else {
-            return descriptionUpdate;
         }
+        return descriptionUpdate;
+
     }
 
     private String getDescriptionNoUpdate(Context context) {
