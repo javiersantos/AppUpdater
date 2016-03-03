@@ -49,13 +49,13 @@ class UtilsDisplay {
 
     static void showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final GitHub gitHub) {
         Activity activity = (Activity) context;
-        int snackbarTime;
+        int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
-        if (indefinite) {
+        /*if (indefinite) {
             snackbarTime = Snackbar.LENGTH_INDEFINITE;
         } else {
             snackbarTime = Snackbar.LENGTH_LONG;
-        }
+        }*/
 
         Snackbar snackbar = Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime);
         snackbar.setAction(context.getResources().getString(R.string.appupdater_btn_update), new View.OnClickListener() {
@@ -68,13 +68,14 @@ class UtilsDisplay {
 
     static void showUpdateNotAvailableSnackbar(final Context context, String content, Boolean indefinite) {
         Activity activity = (Activity) context;
-        int snackbarTime;
+        int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
-        if (indefinite) {
+        /*if (indefinite) {
             snackbarTime = Snackbar.LENGTH_INDEFINITE;
         } else {
             snackbarTime = Snackbar.LENGTH_LONG;
-        }
+        }*/
+
 
         Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime).show();
     }
@@ -82,13 +83,12 @@ class UtilsDisplay {
     static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, GitHub gitHub, int smallIconResourceId) {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, context.getPackageManager().getLaunchIntentForPackage(UtilsLibrary.getAppPackageName(context)), PendingIntent.FLAG_CANCEL_CURRENT);
         PendingIntent pendingIntentUpdate = PendingIntent.getActivity(context, 0, UtilsLibrary.intentToUpdate(context, updateFrom, gitHub), PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.Style style = new NotificationCompat.BigTextStyle().bigText(content);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentIntent(contentIntent)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setStyle(style)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
                 .setSmallIcon(smallIconResourceId)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setOnlyAlertOnce(true)
@@ -101,13 +101,12 @@ class UtilsDisplay {
 
     static void showUpdateNotAvailableNotification(Context context, String title, String content, int smallIconResourceId) {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, context.getPackageManager().getLaunchIntentForPackage(UtilsLibrary.getAppPackageName(context)), PendingIntent.FLAG_CANCEL_CURRENT);
-        NotificationCompat.Style style = new NotificationCompat.BigTextStyle().bigText(content);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentIntent(contentIntent)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setStyle(style)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
                 .setSmallIcon(smallIconResourceId)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setOnlyAlertOnce(true)

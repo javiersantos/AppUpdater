@@ -31,13 +31,18 @@ class UtilsAsync {
             super.onPreExecute();
 
             if (UtilsLibrary.isNetworkAvailable(context)) {
-                if (!fromUtils && !libraryPreferences.getAppUpdaterShow()) { cancel(true); }
-                else {
+                if (!fromUtils && !libraryPreferences.getAppUpdaterShow()) {
+                    cancel(true);
+                } else {
                     if (updateFrom == UpdateFrom.GITHUB) {
-                        if (!GitHub.isGitHubValid(gitHub)) { cancel(true); }
+                        if (!GitHub.isGitHubValid(gitHub)) {
+                            cancel(true);
+                        }
                     }
                 }
-            } else { cancel(true); }
+            } else {
+                cancel(true);
+            }
         }
 
         @Override

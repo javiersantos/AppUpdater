@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">AppUpdater Library (Demo)</string>
     <string name="action_about">About</string>
-
     <string name="app_description">A library that checks for your apps\' updates on Google Play, GitHub, Amazon or F-Droid.</string>
     <string name="app_icon"><a href="https://plus.google.com/+AdrienZier">Sample icon designed by Adrien Zier.</a></string>
     <string name="btn_dialog_update">Show dialog (update)</string>

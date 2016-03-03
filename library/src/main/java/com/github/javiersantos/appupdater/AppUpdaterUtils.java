@@ -17,10 +17,11 @@ public class AppUpdaterUtils {
          * onSuccess method called after it is successful
          * onFailed method called if it can't retrieve the latest version
          *
-         * @param latestVersion available in the provided source
+         * @param latestVersion     available in the provided source
          * @param isUpdateAvailable compare installed version with the latest one
          */
         void onSuccess(String latestVersion, Boolean isUpdateAvailable);
+
         void onFailed(AppUpdaterError error);
     }
 

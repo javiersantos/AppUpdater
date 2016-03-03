@@ -14,7 +14,7 @@ public class AboutActivity extends LibsActivity {
                 .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
                 .withActivityTitle(getResources().getString(R.string.action_about))
                 .withAboutIconShown(true)
-                .withAboutDescription(getResources().getString(R.string.app_description) + "\n\n" + getResources().getString(R.string.app_icon))
+                .withAboutDescription(String.format("%s\n\n%s",getResources().getString(R.string.app_description),getResources().getString(R.string.app_icon)))
                 .withAboutVersionShown(true)
                 .withAboutAppName(getResources().getString(R.string.app_name))
                 .withAutoDetect(true)

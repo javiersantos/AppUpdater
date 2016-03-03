@@ -109,7 +109,7 @@ class UtilsLibrary {
             StringBuilder str = new StringBuilder();
 
             String line;
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 switch (updateFrom) {
                     default:
                         if (line.contains(Config.PLAY_STORE_TAG_RELEASE)) {
@@ -145,7 +145,8 @@ class UtilsLibrary {
             source = str.toString();
         } catch (FileNotFoundException e) {
             Log.e("AppUpdater", "App wasn't found in the provided source. Is it published?");
-        } catch (IOException ignore) {}
+        } catch (IOException ignore) {
+        }
 
         if (isAvailable) {
             switch (updateFrom) {
