@@ -33,7 +33,7 @@ class RssHandler extends DefaultHandler {
         if (this.update != null) {
             if (localName.equals("latestVersion")) {
                 update.setLatestVersion(builder.toString().trim());
-            } else if (localName.equals("apk")) {
+            } else if (localName.equals("url")) {
                 try {
                     update.setUrlToDownload(new URL(builder.toString().trim()));
                 } catch (MalformedURLException e) {
