@@ -29,7 +29,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Javascript
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:1.2.2'
+    compile 'com.github.javiersantos:AppUpdater:2.0'
 }
 ```
 
@@ -52,7 +52,7 @@ AppUpdater appUpdater = new AppUpdater(getActivity());
 appUpdater.start();
 ```
 
-## Customization
+## Customization ([Wiki](https://github.com/javiersantos/AppUpdater/wiki))
 
 Use the builder and add following:
 ```Java
@@ -71,17 +71,26 @@ Use the builder and add following:
 ```
 
 ```Java
-// (Optional) Provide a source for the updates. 
+// (Optional) Provide a source for the updates.
+// Check out the wiki for more documentation: https://github.com/javiersantos/AppUpdater/wiki
 // Default: UpdateFrom.GOOGLE_PLAY
 .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
 .setUpdateFrom(UpdateFrom.GITHUB)
 .setUpdateFrom(UpdateFrom.AMAZON)
 .setUpdateFrom(UpdateFrom.FDROID)
+.setUpdateFrom(UpdateFrom.XML)
 ```
 
 ```Java
 // (Required for GITHUB, optional otherwise) Provide the GitHub user and repo where releases are available.
+// Check out the wiki for more documentation: https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.GITHUB
 .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+```
+
+```Java
+// (Required for XML, optional otherwise) Set the URL to the XML file with the latest version info.
+// Check out the wiki for more documentation: https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML
+.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
 ```
 
 ```Java
@@ -116,13 +125,18 @@ Use the builder and add following:
 ```Java
 AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
     //.setUpdateFrom(UpdateFrom.AMAZON)
-    //.setUpdateFrom(UpdateFrom.FDROID)
     //.setUpdateFrom(UpdateFrom.GITHUB)
     //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
-    .withListener(new AppUpdaterUtils.AppUpdaterListener() {
+    //...
+    .withListener(new AppUpdaterUtils.UpdateListener() {
         @Override
-        public void onSuccess(String latestVersion, Boolean isUpdateAvailable) {
-            Log.d("AppUpdater", latestVersion + ", " + Boolean.toString(isUpdateAvailable));
+        public void onSuccess(Update update, Boolean isUpdateAvailable) {
+            Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
+        }
+        
+        @Override
+        public void onFailed(AppUpdaterError error) {
+            Log.d("AppUpdater", "Something went wrong");
         });
 appUpdaterUtils.start();
 ```
