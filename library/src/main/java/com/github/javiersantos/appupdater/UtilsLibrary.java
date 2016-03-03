@@ -12,6 +12,7 @@ import android.util.Log;
 import com.github.javiersantos.appupdater.enums.Duration;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
+import com.github.javiersantos.appupdater.objects.Update;
 import com.github.javiersantos.appupdater.objects.Version;
 
 import java.io.BufferedReader;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 class UtilsLibrary {
@@ -72,7 +74,7 @@ class UtilsLibrary {
         return res;
     }
 
-    static String getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         String res;
 
         switch (updateFrom) {
@@ -90,16 +92,21 @@ class UtilsLibrary {
                 break;
         }
 
-        return res;
+        try {
+            return new URL(res);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
-    static String getLatestAppVersion(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    static Update getLatestAppVersionHttp(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         Boolean isAvailable = false;
-        String res = "0.0.0.0";
+        String version = "0.0.0.0";
         String source = "";
 
         try {
-            URL url = new URL(getUpdateURL(context, updateFrom, gitHub));
+            URL url = getUpdateURL(context, updateFrom, gitHub);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -153,55 +160,58 @@ class UtilsLibrary {
                 default:
                     String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_RELEASE);
                     splitPlayStore = splitPlayStore[1].split("(<)");
-                    res = splitPlayStore[0].trim();
+                    version = splitPlayStore[0].trim();
                     break;
                 case GITHUB:
                     String[] splitGitHub = source.split(Config.GITHUB_TAG_RELEASE);
                     splitGitHub = splitGitHub[1].split("(\")");
-                    res = splitGitHub[0].trim();
-                    if (res.contains("v")) { // Some repo uses vX.X.X
-                        splitGitHub = res.split("(v)");
-                        res = splitGitHub[1].trim();
+                    version = splitGitHub[0].trim();
+                    if (version.contains("v")) { // Some repo uses vX.X.X
+                        splitGitHub = version.split("(v)");
+                        version = splitGitHub[1].trim();
                     }
                     break;
                 case AMAZON:
                     String[] splitAmazon = source.split(Config.AMAZON_TAG_RELEASE);
                     splitAmazon = splitAmazon[1].split("(<)");
-                    res = splitAmazon[0].trim();
+                    version = splitAmazon[0].trim();
                     break;
                 case FDROID:
                     String[] splitFDroid = source.split(Config.FDROID_TAG_RELEASE);
                     splitFDroid = splitFDroid[1].split("(<)");
-                    res = splitFDroid[0].trim();
+                    version = splitFDroid[0].trim();
                     break;
             }
         }
 
-        return res;
+        return new Update(version, getUpdateURL(context, updateFrom, gitHub));
     }
 
-    static Intent intentToUpdate(Context context, UpdateFrom updateFrom, GitHub gitHub) {
-        String updateURL = getUpdateURL(context, updateFrom, gitHub);
+    static Update getLatestAppVersionXml(String urlXml) {
+        RssParser parser = new RssParser(urlXml);
+        return parser.parse();
+    }
+
+    static Intent intentToUpdate(Context context, UpdateFrom updateFrom, URL url) {
         Intent intent;
 
         if (updateFrom.equals(UpdateFrom.GOOGLE_PLAY)) {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getAppPackageName(context)));
         } else {
-            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateURL));
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()));
         }
 
         return intent;
     }
 
-    static void goToUpdate(Context context, UpdateFrom updateFrom, GitHub gitHub) {
-        Intent intent = intentToUpdate(context, updateFrom, gitHub);
-        String updateURL = getUpdateURL(context, updateFrom, gitHub);
+    static void goToUpdate(Context context, UpdateFrom updateFrom, URL url) {
+        Intent intent = intentToUpdate(context, updateFrom, url);
 
         if (updateFrom.equals(UpdateFrom.GOOGLE_PLAY)) {
             try {
                 context.startActivity(intent);
             } catch (ActivityNotFoundException e) {
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateURL));
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url.toString()));
                 context.startActivity(intent);
             }
         } else {

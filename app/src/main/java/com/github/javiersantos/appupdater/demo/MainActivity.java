@@ -53,8 +53,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
-                        .setUpdateFrom(UpdateFrom.GITHUB)
-                        .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        //.setUpdateFrom(UpdateFrom.GITHUB)
+                        //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setUpdateFrom(UpdateFrom.XML)
+                        .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
                         .start();
@@ -65,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
-                        .setUpdateFrom(UpdateFrom.GITHUB)
-                        .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        //.setUpdateFrom(UpdateFrom.GITHUB)
+                        //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setUpdateFrom(UpdateFrom.XML)
+                        .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
                         .setDisplay(Display.SNACKBAR)
                         .showAppUpdated(true)
                         .start();
@@ -77,8 +81,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
-                        .setUpdateFrom(UpdateFrom.GITHUB)
-                        .setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        //.setUpdateFrom(UpdateFrom.GITHUB)
+                        //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setUpdateFrom(UpdateFrom.XML)
+                        .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
                         .setDisplay(Display.NOTIFICATION)
                         .showAppUpdated(true)
                         .start();

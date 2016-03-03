@@ -10,6 +10,7 @@ import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.Duration;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
+import com.github.javiersantos.appupdater.objects.Update;
 
 public class AppUpdater {
     private Context context;
@@ -18,6 +19,7 @@ public class AppUpdater {
     private UpdateFrom updateFrom;
     private Duration duration;
     private GitHub gitHub;
+    private String xmlUrl;
     private Integer showEvery;
     private Boolean showAppUpdated;
     private String titleUpdate, descriptionUpdate, btnUpdate, btnDisable; // Update available
@@ -59,6 +61,7 @@ public class AppUpdater {
      * @param updateFrom source where the latest update is uploaded. If GITHUB is selected, .setGitHubAndRepo method is required.
      * @return this
      * @see com.github.javiersantos.appupdater.enums.UpdateFrom
+     * @see <a href="https://github.com/javiersantos/AppUpdater/wiki">Additional documentation</a>
      */
     public AppUpdater setUpdateFrom(UpdateFrom updateFrom) {
         this.updateFrom = updateFrom;
@@ -86,6 +89,17 @@ public class AppUpdater {
      */
     public AppUpdater setGitHubUserAndRepo(@NonNull String user, @NonNull String repo) {
         this.gitHub = new GitHub(user, repo);
+        return this;
+    }
+
+    /**
+     * Set the url to the xml file with the latest version info.
+     *
+     * @param xmlUrl file
+     * @return this
+     */
+    public AppUpdater setUpdateXML(@NonNull String xmlUrl) {
+        this.xmlUrl = xmlUrl;
         return this;
     }
 
@@ -203,21 +217,21 @@ public class AppUpdater {
      * Execute AppUpdater in background.
      */
     public void start() {
-        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, new LibraryListener() {
+        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, xmlUrl, new LibraryListener() {
             @Override
-            public void onSuccess(String version) {
-                if (UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), version)) {
+            public void onSuccess(Update update) {
+                if (UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion())) {
                     Integer successfulChecks = libraryPreferences.getSuccessfulChecks();
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                         switch (display) {
                             case DIALOG:
-                                UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, version, Display.DIALOG), btnUpdate, btnDisable, updateFrom, gitHub);
+                                UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update.getLatestVersion(), Display.DIALOG), btnUpdate, btnDisable, updateFrom, update.getUrlToDownload());
                                 break;
                             case SNACKBAR:
-                                UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, version, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, gitHub);
+                                UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, update.getLatestVersion(), Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, update.getUrlToDownload());
                                 break;
                             case NOTIFICATION:
-                                UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), getDescriptionUpdate(context, version, Display.NOTIFICATION), updateFrom, gitHub, iconResId);
+                                UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), getDescriptionUpdate(context, update.getLatestVersion(), Display.NOTIFICATION), updateFrom, update.getUrlToDownload(), iconResId);
                                 break;
                         }
                     }
@@ -249,7 +263,7 @@ public class AppUpdater {
     }
 
     interface LibraryListener {
-        void onSuccess(String version);
+        void onSuccess(Update update);
 
         void onFailed(AppUpdaterError error);
     }

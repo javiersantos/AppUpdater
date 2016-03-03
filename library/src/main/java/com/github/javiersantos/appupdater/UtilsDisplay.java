@@ -12,14 +12,15 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
-import com.github.javiersantos.appupdater.objects.GitHub;
+
+import java.net.URL;
 
 class UtilsDisplay {
 
-    static void showUpdateAvailableDialog(final Context context, String title, String content, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final GitHub gitHub) {
+    static void showUpdateAvailableDialog(final Context context, String title, String content, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
         final LibraryPreferences libraryPreferences = new LibraryPreferences(context);
 
-        MaterialDialog materialDialog = new MaterialDialog.Builder(context)
+        new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
                 .positiveText(btnPositive)
@@ -28,7 +29,7 @@ class UtilsDisplay {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog dialog, DialogAction which) {
-                        UtilsLibrary.goToUpdate(context, updateFrom, gitHub);
+                        UtilsLibrary.goToUpdate(context, updateFrom, apk);
                     }
                 })
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
@@ -40,14 +41,14 @@ class UtilsDisplay {
     }
 
     static void showUpdateNotAvailableDialog(final Context context, String title, String content) {
-        MaterialDialog materialDialog = new MaterialDialog.Builder(context)
+        new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
                 .positiveText(context.getResources().getString(android.R.string.ok))
                 .show();
     }
 
-    static void showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final GitHub gitHub) {
+    static void showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
         Activity activity = (Activity) context;
         int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
@@ -61,7 +62,7 @@ class UtilsDisplay {
         snackbar.setAction(context.getResources().getString(R.string.appupdater_btn_update), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UtilsLibrary.goToUpdate(context, updateFrom, gitHub);
+                UtilsLibrary.goToUpdate(context, updateFrom, apk);
             }
         }).show();
     }
@@ -80,9 +81,9 @@ class UtilsDisplay {
         Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime).show();
     }
 
-    static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, GitHub gitHub, int smallIconResourceId) {
+    static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, URL apk, int smallIconResourceId) {
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, context.getPackageManager().getLaunchIntentForPackage(UtilsLibrary.getAppPackageName(context)), PendingIntent.FLAG_CANCEL_CURRENT);
-        PendingIntent pendingIntentUpdate = PendingIntent.getActivity(context, 0, UtilsLibrary.intentToUpdate(context, updateFrom, gitHub), PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntentUpdate = PendingIntent.getActivity(context, 0, UtilsLibrary.intentToUpdate(context, updateFrom, apk), PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentIntent(contentIntent)

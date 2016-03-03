@@ -6,24 +6,27 @@ import android.os.AsyncTask;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
+import com.github.javiersantos.appupdater.objects.Update;
 
 class UtilsAsync {
 
-    static class LatestAppVersion extends AsyncTask<Void, Void, String> {
+    static class LatestAppVersion extends AsyncTask<Void, Void, Update> {
         private Context context;
         private LibraryPreferences libraryPreferences;
         private Boolean fromUtils;
         private UpdateFrom updateFrom;
         private GitHub gitHub;
+        private String xmlUrl;
         private AppUpdater.LibraryListener listener;
 
-        public LatestAppVersion(Context context, Boolean fromUtils, UpdateFrom updateFrom, GitHub gitHub, AppUpdater.LibraryListener libraryListener) {
+        public LatestAppVersion(Context context, Boolean fromUtils, UpdateFrom updateFrom, GitHub gitHub, String xmlUrl, AppUpdater.LibraryListener listener) {
             this.context = context;
             this.libraryPreferences = new LibraryPreferences(context);
             this.fromUtils = fromUtils;
             this.updateFrom = updateFrom;
             this.gitHub = gitHub;
-            this.listener = libraryListener;
+            this.xmlUrl = xmlUrl;
+            this.listener = listener;
         }
 
         @Override
@@ -46,15 +49,19 @@ class UtilsAsync {
         }
 
         @Override
-        protected String doInBackground(Void... voids) {
-            return UtilsLibrary.getLatestAppVersion(context, updateFrom, gitHub);
+        protected Update doInBackground(Void... voids) {
+            if (updateFrom == UpdateFrom.XML) {
+                return UtilsLibrary.getLatestAppVersionXml(xmlUrl);
+            } else {
+                return UtilsLibrary.getLatestAppVersionHttp(context, updateFrom, gitHub);
+            }
         }
 
         @Override
-        protected void onPostExecute(String version) {
-            super.onPostExecute(version);
-            if (UtilsLibrary.isStringAVersion(version)) {
-                listener.onSuccess(version);
+        protected void onPostExecute(Update update) {
+            super.onPostExecute(update);
+            if (UtilsLibrary.isStringAVersion(update.getLatestVersion())) {
+                listener.onSuccess(update);
             } else {
                 listener.onFailed(AppUpdaterError.UPDATE_VARIES_BY_DEVICE);
             }
