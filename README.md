@@ -9,7 +9,7 @@
   <a target="_blank" href="http://patreon.com/javiersantos" title="Donate using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" /></a>
 </p>
 
-<p align="center">Android Library that checks for updates on Google Play, GitHub, Amazon or F-Droid. This library notifies your apps' updates by showing a Material dialog, Snackbar or notification.</p>
+<p align="center">Android Library that checks for updates on Google Play, GitHub, Amazon, F-Droid or your own server. This library notifies your apps' updates by showing a Material dialog, Snackbar or notification. Check out the <a href="https://github.com/javiersantos/AppUpdater/wiki">wiki</a>.</p>
 
 ## Sample Project
 You can download the latest sample APK from Google Play:
@@ -52,7 +52,7 @@ AppUpdater appUpdater = new AppUpdater(getActivity());
 appUpdater.start();
 ```
 
-## Customization ([Wiki](https://github.com/javiersantos/AppUpdater/wiki))
+## Customizations ([Wiki](https://github.com/javiersantos/AppUpdater/wiki))
 
 Use the builder and add following:
 ```Java
