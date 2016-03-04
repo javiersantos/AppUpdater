@@ -58,7 +58,7 @@ class UtilsDisplay {
             snackbarTime = Snackbar.LENGTH_LONG;
         }*/
 
-        Snackbar snackbar = Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime);
+        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), content, snackbarTime);
         snackbar.setAction(context.getResources().getString(R.string.appupdater_btn_update), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,7 +78,7 @@ class UtilsDisplay {
         }*/
 
 
-        Snackbar.make(activity.getWindow().getDecorView().getRootView(), content, snackbarTime).show();
+        Snackbar.make(activity.findViewById(android.R.id.content), content, snackbarTime).show();
     }
 
     static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, URL apk, int smallIconResourceId) {
