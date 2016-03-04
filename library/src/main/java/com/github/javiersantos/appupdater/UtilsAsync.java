@@ -41,7 +41,7 @@ class UtilsAsync {
                         listener.onFailed(AppUpdaterError.GITHUB_USER_REPO_INVALID);
                         cancel(true);
                     } else if (updateFrom == UpdateFrom.XML && (xmlUrl == null || !UtilsLibrary.isStringAnUrl(xmlUrl))) {
-                        listener.onFailed(AppUpdaterError.XML_URL_INVALID);
+                        listener.onFailed(AppUpdaterError.XML_URL_MALFORMED);
                         cancel(true);
                     }
                 }

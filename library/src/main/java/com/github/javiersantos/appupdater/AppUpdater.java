@@ -257,7 +257,7 @@ public class AppUpdater {
                     Log.e("AppUpdater", "UpdateFrom.GOOGLE_PLAY isn't valid: update varies by device.");
                 } else if (error == AppUpdaterError.GITHUB_USER_REPO_INVALID) {
                     throw new IllegalArgumentException("GitHub user or repo is empty!");
-                } else if (error == AppUpdaterError.XML_URL_INVALID) {
+                } else if (error == AppUpdaterError.XML_URL_MALFORMED) {
                     throw new IllegalArgumentException("XML file is not valid!");
                 }
             }
