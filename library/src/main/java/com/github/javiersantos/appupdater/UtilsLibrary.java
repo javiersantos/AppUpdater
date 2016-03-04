@@ -62,6 +62,16 @@ class UtilsLibrary {
         return version.matches(".*\\d+.*");
     }
 
+    static Boolean isStringAnUrl(String s) {
+        Boolean res = false;
+        try {
+            new URL(s);
+            res = true;
+        } catch (MalformedURLException ignored) {}
+
+        return res;
+    }
+
     static Boolean getDurationEnumToBoolean(Duration duration) {
         Boolean res = false;
 
@@ -152,8 +162,7 @@ class UtilsLibrary {
             source = str.toString();
         } catch (FileNotFoundException e) {
             Log.e("AppUpdater", "App wasn't found in the provided source. Is it published?");
-        } catch (IOException ignore) {
-        }
+        } catch (IOException ignore) {}
 
         if (isAvailable) {
             switch (updateFrom) {

@@ -37,13 +37,16 @@ class UtilsAsync {
                 if (!fromUtils && !libraryPreferences.getAppUpdaterShow()) {
                     cancel(true);
                 } else {
-                    if (updateFrom == UpdateFrom.GITHUB) {
-                        if (!GitHub.isGitHubValid(gitHub)) {
-                            cancel(true);
-                        }
+                    if (updateFrom == UpdateFrom.GITHUB && !GitHub.isGitHubValid(gitHub)) {
+                        listener.onFailed(AppUpdaterError.GITHUB_USER_REPO_INVALID);
+                        cancel(true);
+                    } else if (updateFrom == UpdateFrom.XML && (xmlUrl == null || !UtilsLibrary.isStringAnUrl(xmlUrl))) {
+                        listener.onFailed(AppUpdaterError.XML_URL_INVALID);
+                        cancel(true);
                     }
                 }
             } else {
+                listener.onFailed(AppUpdaterError.NETWORK_NOT_AVAILABLE);
                 cancel(true);
             }
         }

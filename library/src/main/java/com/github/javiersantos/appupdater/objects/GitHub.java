@@ -1,7 +1,5 @@
 package com.github.javiersantos.appupdater.objects;
 
-import android.util.Log;
-
 public class GitHub {
     private String gitHubUser;
     private String gitHubRepo;
@@ -29,7 +27,6 @@ public class GitHub {
 
     public static Boolean isGitHubValid(GitHub gitHub) {
         if (gitHub == null || gitHub.getGitHubUser().length() == 0 || gitHub.getGitHubRepo().length() == 0) {
-            Log.e("AppUpdater", "GitHub user or repo is empty!!");
             return false;
         } else {
             return true;
