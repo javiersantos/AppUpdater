@@ -24,7 +24,7 @@ class UtilsDisplay {
                 .title(title)
                 .content(content)
                 .positiveText(btnPositive)
-                .negativeText(context.getResources().getString(android.R.string.cancel))
+                .negativeText(context.getResources().getString(R.string.cancel))
                 .neutralText(btnNeutral)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -44,7 +44,7 @@ class UtilsDisplay {
         new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
-                .positiveText(context.getResources().getString(android.R.string.ok))
+                .positiveText(context.getResources().getString(R.string.ok))
                 .show();
     }
 

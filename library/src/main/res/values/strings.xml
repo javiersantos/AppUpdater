@@ -8,4 +8,6 @@
     <string name="appupdater_btn_update">Update</string>
     <string name="appupdater_btn_disable">Don\'t show again</string>
     <string name="appupdater_btn_dismiss">Dismiss</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
 </resources>
