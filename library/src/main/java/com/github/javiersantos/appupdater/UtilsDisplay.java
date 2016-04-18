@@ -17,14 +17,14 @@ import java.net.URL;
 
 class UtilsDisplay {
 
-    static void showUpdateAvailableDialog(final Context context, String title, String content, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
+    static void showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
         final LibraryPreferences libraryPreferences = new LibraryPreferences(context);
 
         new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
                 .positiveText(btnPositive)
-                .negativeText(context.getResources().getString(android.R.string.cancel))
+                .negativeText(btnNegative)
                 .neutralText(btnNeutral)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override

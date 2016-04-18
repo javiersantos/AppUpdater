@@ -193,7 +193,7 @@ class UtilsLibrary {
             }
         }
 
-        return new Update(version, getUpdateURL(context, updateFrom, gitHub));
+        return new Update(version, null, getUpdateURL(context, updateFrom, gitHub));
     }
 
     static Update getLatestAppVersionXml(String urlXml) {
