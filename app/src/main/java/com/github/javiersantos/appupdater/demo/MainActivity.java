@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        CardView dialogUpdateChangelog = (CardView) findViewById(R.id.dialog_update_changelog);
         CardView dialogUpdate = (CardView) findViewById(R.id.dialog_update);
         CardView snackbarUpdate = (CardView) findViewById(R.id.snackbar_update);
         CardView notificationUpdate = (CardView) findViewById(R.id.notification_update);
@@ -46,6 +47,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/javiersantos/AppUpdater")));
+            }
+        });
+
+        dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AppUpdater(context)
+                        //.setUpdateFrom(UpdateFrom.GITHUB)
+                        //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setUpdateFrom(UpdateFrom.XML)
+                        .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")
+                        .setDisplay(Display.DIALOG)
+                        .showAppUpdated(true)
+                        .start();
             }
         });
 
