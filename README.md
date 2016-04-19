@@ -90,7 +90,7 @@ Use the builder and add following:
 ```Java
 // (Required for XML, optional otherwise) Set the URL to the XML file with the latest version info.
 // Check out the wiki for more documentation: https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML
-.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
+.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")
 ```
 
 ```Java
