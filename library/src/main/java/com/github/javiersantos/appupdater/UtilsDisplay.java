@@ -17,10 +17,10 @@ import java.net.URL;
 
 class UtilsDisplay {
 
-    static void showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
+    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
         final LibraryPreferences libraryPreferences = new LibraryPreferences(context);
 
-        new AlertDialog.Builder(context)
+        return new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
                 .setPositiveButton(btnPositive, new DialogInterface.OnClickListener() {
@@ -38,21 +38,21 @@ class UtilsDisplay {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         libraryPreferences.setAppUpdaterShow(false);
                     }
-                }).show();
+                }).create();
     }
 
-    static void showUpdateNotAvailableDialog(final Context context, String title, String content) {
-        new AlertDialog.Builder(context)
+    static AlertDialog showUpdateNotAvailableDialog(final Context context, String title, String content) {
+        return new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
                 .setPositiveButton(context.getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {}
                 })
-                .show();
+                .create();
     }
 
-    static void showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
+    static Snackbar showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
         Activity activity = (Activity) context;
         int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
@@ -68,10 +68,11 @@ class UtilsDisplay {
             public void onClick(View view) {
                 UtilsLibrary.goToUpdate(context, updateFrom, apk);
             }
-        }).show();
+        });
+        return snackbar;
     }
 
-    static void showUpdateNotAvailableSnackbar(final Context context, String content, Boolean indefinite) {
+    static Snackbar showUpdateNotAvailableSnackbar(final Context context, String content, Boolean indefinite) {
         Activity activity = (Activity) context;
         int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
@@ -82,7 +83,7 @@ class UtilsDisplay {
         }*/
 
 
-        Snackbar.make(activity.findViewById(android.R.id.content), content, snackbarTime).show();
+        return Snackbar.make(activity.findViewById(android.R.id.content), content, snackbarTime);
     }
 
     static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, URL apk, int smallIconResourceId) {

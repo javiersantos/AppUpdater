@@ -1,9 +1,12 @@
 package com.github.javiersantos.appupdater;
 
+import android.app.Notification;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -28,6 +31,9 @@ public class AppUpdater {
     private String titleNoUpdate, descriptionNoUpdate; // Update not available
     private int iconResId;
     private UtilsAsync.LatestAppVersion latestAppVersion;
+
+    private AlertDialog alertDialog;
+    private Snackbar snackbar;
 
     public AppUpdater(Context context) {
         this.context = context;
@@ -273,10 +279,12 @@ public class AppUpdater {
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                         switch (display) {
                             case DIALOG:
-                                UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateFrom, update.getUrlToDownload());
+                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateFrom, update.getUrlToDownload());
+                                alertDialog.show();
                                 break;
                             case SNACKBAR:
-                                UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, update, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, update.getUrlToDownload());
+                                snackbar = UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, update, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, update.getUrlToDownload());
+                                snackbar.show();
                                 break;
                             case NOTIFICATION:
                                 UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), getDescriptionUpdate(context, update, Display.NOTIFICATION), updateFrom, update.getUrlToDownload(), iconResId);
@@ -287,10 +295,12 @@ public class AppUpdater {
                 } else if (showAppUpdated) {
                     switch (display) {
                         case DIALOG:
-                            UtilsDisplay.showUpdateNotAvailableDialog(context, titleNoUpdate, getDescriptionNoUpdate(context));
+                            alertDialog = UtilsDisplay.showUpdateNotAvailableDialog(context, titleNoUpdate, getDescriptionNoUpdate(context));
+                            alertDialog.show();
                             break;
                         case SNACKBAR:
                             UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
+                            snackbar.show();
                             break;
                         case NOTIFICATION:
                             UtilsDisplay.showUpdateNotAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_not_available), getDescriptionNoUpdate(context), iconResId);
@@ -320,6 +330,18 @@ public class AppUpdater {
     public void stop() {
         if (latestAppVersion != null && !latestAppVersion.isCancelled()) {
             latestAppVersion.cancel(true);
+        }
+    }
+
+    /**
+     * Dismisses the alert dialog or the snackbar.
+     */
+    public void dismiss() {
+        if (alertDialog != null && alertDialog.isShowing()) {
+            alertDialog.dismiss();
+        }
+        if (snackbar != null && snackbar.isShown()) {
+            snackbar.dismiss();
         }
     }
 
