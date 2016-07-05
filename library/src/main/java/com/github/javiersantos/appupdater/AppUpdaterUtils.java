@@ -15,6 +15,7 @@ public class AppUpdaterUtils {
     private UpdateFrom updateFrom;
     private GitHub gitHub;
     private String xmlUrl;
+    private UtilsAsync.LatestAppVersion latestAppVersion;
 
     public interface UpdateListener {
         /**
@@ -114,7 +115,7 @@ public class AppUpdaterUtils {
      * Execute AppUpdaterUtils in background.
      */
     public void start() {
-        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, true, updateFrom, gitHub, xmlUrl, new AppUpdater.LibraryListener() {
+        latestAppVersion = new UtilsAsync.LatestAppVersion(context, true, updateFrom, gitHub, xmlUrl, new AppUpdater.LibraryListener() {
             @Override
             public void onSuccess(Update update) {
                 if (updateListener != null) {
@@ -141,4 +142,12 @@ public class AppUpdaterUtils {
         latestAppVersion.execute();
     }
 
+    /**
+     * Stops the execution of AppUpdater.
+     */
+    public void stop() {
+        if (latestAppVersion != null && !latestAppVersion.isCancelled()) {
+            latestAppVersion.cancel(true);
+        }
+    }
 }

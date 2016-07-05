@@ -27,6 +27,7 @@ public class AppUpdater {
     private String titleUpdate, descriptionUpdate, btnDismiss, btnUpdate, btnDisable; // Update available
     private String titleNoUpdate, descriptionNoUpdate; // Update not available
     private int iconResId;
+    private UtilsAsync.LatestAppVersion latestAppVersion;
 
     public AppUpdater(Context context) {
         this.context = context;
@@ -264,7 +265,7 @@ public class AppUpdater {
      * Execute AppUpdater in background.
      */
     public void start() {
-        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, xmlUrl, new LibraryListener() {
+        latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, xmlUrl, new LibraryListener() {
             @Override
             public void onSuccess(Update update) {
                 if (UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion())) {
@@ -311,6 +312,15 @@ public class AppUpdater {
         });
 
         latestAppVersion.execute();
+    }
+
+    /**
+     * Stops the execution of AppUpdater.
+     */
+    public void stop() {
+        if (latestAppVersion != null && !latestAppVersion.isCancelled()) {
+            latestAppVersion.cancel(true);
+        }
     }
 
     interface LibraryListener {
