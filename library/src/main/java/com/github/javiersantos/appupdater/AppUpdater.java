@@ -147,6 +147,17 @@ public class AppUpdater {
     }
 
     /**
+     * Set a custom title for the dialog when an update is available.
+     *
+     * @param textResource resource from the strings xml file for the dialog
+     * @return this
+     */
+    public AppUpdater setDialogTitleWhenUpdateAvailable(@StringRes int textResource) {
+        this.titleUpdate = context.getString(textResource);
+        return this;
+    }
+
+    /**
      * Set a custom description for the dialog when an update is available.
      *
      * @param description for the dialog
@@ -154,6 +165,17 @@ public class AppUpdater {
      */
     public AppUpdater setDialogDescriptionWhenUpdateAvailable(@NonNull String description) {
         this.descriptionUpdate = description;
+        return this;
+    }
+
+    /**
+     * Set a custom description for the dialog when an update is available.
+     *
+     * @param textResource resource from the strings xml file for the dialog
+     * @return this
+     */
+    public AppUpdater setDialogDescriptionWhenUpdateAvailable(@StringRes int textResource) {
+        this.descriptionUpdate = context.getString(textResource);
         return this;
     }
 
@@ -169,6 +191,17 @@ public class AppUpdater {
     }
 
     /**
+     * Set a custom title for the dialog when no update is available.
+     *
+     * @param textResource resource from the strings xml file for the dialog
+     * @return this
+     */
+    public AppUpdater setDialogTitleWhenUpdateNotAvailable(@StringRes int textResource) {
+        this.titleNoUpdate = context.getString(textResource);
+        return this;
+    }
+
+    /**
      * Set a custom description for the dialog when no update is available.
      *
      * @param description for the dialog
@@ -180,6 +213,17 @@ public class AppUpdater {
     }
 
     /**
+     * Set a custom description for the dialog when no update is available.
+     *
+     * @param textResource resource from the strings xml file for the dialog
+     * @return this
+     */
+    public AppUpdater setDialogDescriptionWhenUpdateNotAvailable(@StringRes int textResource) {
+        this.descriptionNoUpdate = context.getString(textResource);
+        return this;
+    }
+
+    /**
      * Set a custom "Update" button text when a new update is available.
      *
      * @param text for the update button
@@ -187,28 +231,6 @@ public class AppUpdater {
      */
     public AppUpdater setDialogButtonUpdate(@NonNull String text) {
         this.btnUpdate = text;
-        return this;
-    }
-
-    /**
-     * Set a custom "Dismiss" button text when a new update is available.
-     *
-     * @param text for the dismiss button
-     * @return this
-     */
-    public AppUpdater setDialogButtonDismiss(@NonNull String text) {
-        this.btnDismiss = text;
-        return this;
-    }
-
-    /**
-     * Set a custom "Don't show again" button text when a new update is available.
-     *
-     * @param text for the disable button
-     * @return this
-     */
-    public AppUpdater setDialogButtonDoNotShowAgain(@NonNull String text) {
-        this.btnDisable = text;
         return this;
     }
 
@@ -226,11 +248,33 @@ public class AppUpdater {
     /**
      * Set a custom "Dismiss" button text when a new update is available.
      *
+     * @param text for the dismiss button
+     * @return this
+     */
+    public AppUpdater setDialogButtonDismiss(@NonNull String text) {
+        this.btnDismiss = text;
+        return this;
+    }
+
+    /**
+     * Set a custom "Dismiss" button text when a new update is available.
+     *
      * @param textResource resource from the strings xml file for the dismiss button
      * @return this
      */
     public AppUpdater setDialogButtonDismiss(@StringRes int textResource) {
         this.btnDismiss = context.getString(textResource);
+        return this;
+    }
+
+    /**
+     * Set a custom "Don't show again" button text when a new update is available.
+     *
+     * @param text for the disable button
+     * @return this
+     */
+    public AppUpdater setDialogButtonDoNotShowAgain(@NonNull String text) {
+        this.btnDisable = text;
         return this;
     }
 
