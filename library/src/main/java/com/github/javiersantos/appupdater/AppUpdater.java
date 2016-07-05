@@ -3,6 +3,7 @@ package com.github.javiersantos.appupdater;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -183,6 +184,17 @@ public class AppUpdater {
     }
 
     /**
+     * Set a custom "Dismiss" button text when a new update is available.
+     *
+     * @param text for the dismiss button
+     * @return this
+     */
+    public AppUpdater setDialogButtonDismiss(@NonNull String text) {
+        this.btnDismiss = text;
+        return this;
+    }
+
+    /**
      * Set a custom "Don't show again" button text when a new update is available.
      *
      * @param text for the disable button
@@ -190,6 +202,39 @@ public class AppUpdater {
      */
     public AppUpdater setDialogButtonDoNotShowAgain(@NonNull String text) {
         this.btnDisable = text;
+        return this;
+    }
+
+    /**
+     * Set a custom "Update" button text when a new update is available.
+     *
+     * @param textResource resource from the strings xml file for the update button
+     * @return this
+     */
+    public AppUpdater setDialogButtonUpdate(@StringRes int textResource) {
+        this.btnUpdate = context.getString(textResource);
+        return this;
+    }
+
+    /**
+     * Set a custom "Dismiss" button text when a new update is available.
+     *
+     * @param textResource resource from the strings xml file for the dismiss button
+     * @return this
+     */
+    public AppUpdater setDialogButtonDismiss(@StringRes int textResource) {
+        this.btnDismiss = context.getString(textResource);
+        return this;
+    }
+
+    /**
+     * Set a custom "Don't show again" button text when a new update is available.
+     *
+     * @param textResource resource from the strings xml file for the disable button
+     * @return this
+     */
+    public AppUpdater setDialogButtonDoNotShowAgain(@StringRes int textResource) {
+        this.btnDisable = context.getString(textResource);
         return this;
     }
 
