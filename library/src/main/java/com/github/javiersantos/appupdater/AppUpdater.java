@@ -220,7 +220,7 @@ public class AppUpdater implements IAppUpdater {
                             alertDialog.show();
                             break;
                         case SNACKBAR:
-                            UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
+                            snackbar = UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
                             snackbar.show();
                             break;
                         case NOTIFICATION:
