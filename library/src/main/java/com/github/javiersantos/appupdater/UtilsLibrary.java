@@ -18,11 +18,14 @@ import com.github.javiersantos.appupdater.objects.Version;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 class UtilsLibrary {
 
@@ -114,15 +117,17 @@ class UtilsLibrary {
         Boolean isAvailable = false;
         String version = "0.0.0.0";
         String source = "";
+        OkHttpClient client = new OkHttpClient();
+        URL url = getUpdateURL(context, updateFrom, gitHub);
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        ResponseBody body = null;
 
         try {
-            URL url = getUpdateURL(context, updateFrom, gitHub);
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-
-            InputStream inputStream = connection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            Response response = client.newCall(request).execute();
+            body = response.body();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(body.byteStream(), "UTF-8"));
             StringBuilder str = new StringBuilder();
 
             String line;
@@ -158,11 +163,17 @@ class UtilsLibrary {
                 Log.e("AppUpdater", "Cannot retrieve latest version. Is it configured properly?");
             }
 
-            inputStream.close();
+            response.body().close();
             source = str.toString();
         } catch (FileNotFoundException e) {
             Log.e("AppUpdater", "App wasn't found in the provided source. Is it published?");
-        } catch (IOException ignore) {}
+        } catch (IOException ignore) {
+
+        } finally {
+            if (body != null) {
+                body.close();
+            }
+        }
 
         if (isAvailable) {
             switch (updateFrom) {
