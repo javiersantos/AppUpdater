@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.github.javiersantos.appupdater.demo"
         minSdkVersion 11
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 3
         versionName "1.0"
     }
