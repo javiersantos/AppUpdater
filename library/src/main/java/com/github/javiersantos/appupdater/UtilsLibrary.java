@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 
 class UtilsLibrary {
 
@@ -89,7 +90,7 @@ class UtilsLibrary {
 
         switch (updateFrom) {
             default:
-                res = Config.PLAY_STORE_URL + getAppPackageName(context);
+                res = String.format(Config.PLAY_STORE_URL, getAppPackageName(context), Locale.getDefault().getLanguage());
                 break;
             case GITHUB:
                 res = Config.GITHUB_URL + gitHub.getGitHubUser() + "/" + gitHub.getGitHubRepo() + "/releases";
