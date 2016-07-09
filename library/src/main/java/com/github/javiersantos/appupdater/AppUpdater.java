@@ -1,6 +1,5 @@
 package com.github.javiersantos.appupdater;
 
-import android.app.Notification;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -17,7 +16,7 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
 
-public class AppUpdater {
+public class AppUpdater implements IAppUpdater {
     private Context context;
     private LibraryPreferences libraryPreferences;
     private Display display;
@@ -53,223 +52,145 @@ public class AppUpdater {
         this.btnDisable = context.getResources().getString(R.string.appupdater_btn_disable);
     }
 
-    /**
-     * Set the type of message used to notify the user when a new update has been found. Default: DIALOG.
-     *
-     * @param display how the update will be shown
-     * @return this
-     * @see com.github.javiersantos.appupdater.enums.Display
-     */
+    @Override
     public AppUpdater setDisplay(Display display) {
         this.display = display;
         return this;
     }
 
-    /**
-     * Set the source where the latest update can be found. Default: GOOGLE_PLAY.
-     *
-     * @param updateFrom source where the latest update is uploaded. If GITHUB is selected, .setGitHubAndRepo method is required.
-     * @return this
-     * @see com.github.javiersantos.appupdater.enums.UpdateFrom
-     * @see <a href="https://github.com/javiersantos/AppUpdater/wiki">Additional documentation</a>
-     */
+    @Override
     public AppUpdater setUpdateFrom(UpdateFrom updateFrom) {
         this.updateFrom = updateFrom;
         return this;
     }
 
-    /**
-     * Set the duration of the Snackbar Default: NORMAL.
-     *
-     * @param duration duration of the Snackbar
-     * @return this
-     * @see com.github.javiersantos.appupdater.enums.Duration
-     */
+    @Override
     public AppUpdater setDuration(Duration duration) {
         this.duration = duration;
         return this;
     }
 
-    /**
-     * Set the user and repo where the releases are uploaded. You must upload your updates as a release in order to work properly tagging them as vX.X.X or X.X.X.
-     *
-     * @param user GitHub user
-     * @param repo GitHub repository
-     * @return this
-     */
+    @Override
     public AppUpdater setGitHubUserAndRepo(@NonNull String user, @NonNull String repo) {
         this.gitHub = new GitHub(user, repo);
         return this;
     }
 
-    /**
-     * Set the url to the xml file with the latest version info.
-     *
-     * @param xmlUrl file
-     * @return this
-     */
+    @Override
     public AppUpdater setUpdateXML(@NonNull String xmlUrl) {
         this.xmlUrl = xmlUrl;
         return this;
     }
 
-    /**
-     * Set the times the app ascertains that a new update is available and display a dialog, Snackbar or notification. It makes the updates less invasive. Default: 1.
-     *
-     * @param times every X times
-     * @return this
-     */
+    @Override
     public AppUpdater showEvery(Integer times) {
         this.showEvery = times;
         return this;
     }
 
-    /**
-     * Set if the dialog, Snackbar or notification is displayed although there aren't updates. Default: false.
-     *
-     * @param res true to show, false otherwise
-     * @return this
-     */
+    @Override
     public AppUpdater showAppUpdated(Boolean res) {
         this.showAppUpdated = res;
         return this;
     }
 
-    /**
-     * Set a custom title for the dialog when an update is available.
-     *
-     * @param title for the dialog
-     * @return this
-     */
+    @Override
     public AppUpdater setDialogTitleWhenUpdateAvailable(@NonNull String title) {
         this.titleUpdate = title;
         return this;
     }
 
-    /**
-     * Set a custom description for the dialog when an update is available.
-     *
-     * @param description for the dialog
-     * @return this
-     */
+    @Override
+    public AppUpdater setDialogTitleWhenUpdateAvailable(@StringRes int textResource) {
+        this.titleUpdate = context.getString(textResource);
+        return this;
+    }
+
+    @Override
     public AppUpdater setDialogDescriptionWhenUpdateAvailable(@NonNull String description) {
         this.descriptionUpdate = description;
         return this;
     }
 
-    /**
-     * Set a custom title for the dialog when no update is available.
-     *
-     * @param title for the dialog
-     * @return this
-     */
+    @Override
+    public AppUpdater setDialogDescriptionWhenUpdateAvailable(@StringRes int textResource) {
+        this.descriptionUpdate = context.getString(textResource);
+        return this;
+    }
+
+    @Override
     public AppUpdater setDialogTitleWhenUpdateNotAvailable(@NonNull String title) {
         this.titleNoUpdate = title;
         return this;
     }
 
-    /**
-     * Set a custom description for the dialog when no update is available.
-     *
-     * @param description for the dialog
-     * @return this
-     */
+    @Override
+    public AppUpdater setDialogTitleWhenUpdateNotAvailable(@StringRes int textResource) {
+        this.titleNoUpdate = context.getString(textResource);
+        return this;
+    }
+
+    @Override
     public AppUpdater setDialogDescriptionWhenUpdateNotAvailable(@NonNull String description) {
         this.descriptionNoUpdate = description;
         return this;
     }
 
-    /**
-     * Set a custom "Update" button text when a new update is available.
-     *
-     * @param text for the update button
-     * @return this
-     */
+    @Override
+    public AppUpdater setDialogDescriptionWhenUpdateNotAvailable(@StringRes int textResource) {
+        this.descriptionNoUpdate = context.getString(textResource);
+        return this;
+    }
+
+    @Override
     public AppUpdater setDialogButtonUpdate(@NonNull String text) {
         this.btnUpdate = text;
         return this;
     }
 
-    /**
-     * Set a custom "Dismiss" button text when a new update is available.
-     *
-     * @param text for the dismiss button
-     * @return this
-     */
-    public AppUpdater setDialogButtonDismiss(@NonNull String text) {
-        this.btnDismiss = text;
-        return this;
-    }
-
-    /**
-     * Set a custom "Don't show again" button text when a new update is available.
-     *
-     * @param text for the disable button
-     * @return this
-     */
-    public AppUpdater setDialogButtonDoNotShowAgain(@NonNull String text) {
-        this.btnDisable = text;
-        return this;
-    }
-
-    /**
-     * Set a custom "Update" button text when a new update is available.
-     *
-     * @param textResource resource from the strings xml file for the update button
-     * @return this
-     */
+    @Override
     public AppUpdater setDialogButtonUpdate(@StringRes int textResource) {
         this.btnUpdate = context.getString(textResource);
         return this;
     }
 
-    /**
-     * Set a custom "Dismiss" button text when a new update is available.
-     *
-     * @param textResource resource from the strings xml file for the dismiss button
-     * @return this
-     */
+    @Override
+    public AppUpdater setDialogButtonDismiss(@NonNull String text) {
+        this.btnDismiss = text;
+        return this;
+    }
+
+    @Override
     public AppUpdater setDialogButtonDismiss(@StringRes int textResource) {
         this.btnDismiss = context.getString(textResource);
         return this;
     }
 
-    /**
-     * Set a custom "Don't show again" button text when a new update is available.
-     *
-     * @param textResource resource from the strings xml file for the disable button
-     * @return this
-     */
+    @Override
+    public AppUpdater setDialogButtonDoNotShowAgain(@NonNull String text) {
+        this.btnDisable = text;
+        return this;
+    }
+
+    @Override
     public AppUpdater setDialogButtonDoNotShowAgain(@StringRes int textResource) {
         this.btnDisable = context.getString(textResource);
         return this;
     }
 
-    /**
-     * Sets the resource identifier for the small notification icon
-     *
-     * @param iconRes The id of the drawable item
-     * @return this
-     */
+    @Override
     public AppUpdater setIcon(@DrawableRes int iconRes) {
         this.iconResId = iconRes;
         return this;
     }
 
-    /**
-     * Execute AppUpdater in background.
-     *
-     * @return this
-     * @deprecated use {@link #start()} instead
-     */
+    @Override
     public AppUpdater init() {
         start();
         return this;
     }
 
-    /**
-     * Execute AppUpdater in background.
-     */
+    @Override
     public void start() {
         latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, xmlUrl, new LibraryListener() {
             @Override
@@ -299,7 +220,7 @@ public class AppUpdater {
                             alertDialog.show();
                             break;
                         case SNACKBAR:
-                            UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
+                            snackbar = UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
                             snackbar.show();
                             break;
                         case NOTIFICATION:
@@ -324,18 +245,14 @@ public class AppUpdater {
         latestAppVersion.execute();
     }
 
-    /**
-     * Stops the execution of AppUpdater.
-     */
+    @Override
     public void stop() {
         if (latestAppVersion != null && !latestAppVersion.isCancelled()) {
             latestAppVersion.cancel(true);
         }
     }
 
-    /**
-     * Dismisses the alert dialog or the snackbar.
-     */
+    @Override
     public void dismiss() {
         if (alertDialog != null && alertDialog.isShowing()) {
             alertDialog.dismiss();
@@ -343,12 +260,6 @@ public class AppUpdater {
         if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
         }
-    }
-
-    interface LibraryListener {
-        void onSuccess(Update update);
-
-        void onFailed(AppUpdaterError error);
     }
 
     private String getDescriptionUpdate(Context context, Update update, Display display) {
