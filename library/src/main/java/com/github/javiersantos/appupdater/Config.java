@@ -11,4 +11,6 @@ class Config {
     static final String AMAZON_TAG_RELEASE = "<strong>Version:</strong>";
     static final String FDROID_TAG_RELEASE = "<b>Version";
 
+    static final String PLAY_STORE_TAG_CHANGES = "recent-change\">";
+
 }
