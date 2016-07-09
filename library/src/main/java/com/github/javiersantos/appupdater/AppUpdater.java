@@ -355,10 +355,11 @@ public class AppUpdater {
         if (descriptionUpdate == null) {
             switch (display) {
                 case DIALOG:
-                    if (!TextUtils.isEmpty(update.getReleaseNotes()))
+                    if (!TextUtils.isEmpty(update.getReleaseNotes())) {
                         return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog_before_release_notes), update.getLatestVersion(), update.getReleaseNotes());
-                    else
+                    } else {
                         return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog), update.getLatestVersion(), UtilsLibrary.getAppName(context));
+                    }
 
                 case SNACKBAR:
                     return String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), update.getLatestVersion());
