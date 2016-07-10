@@ -8,4 +8,5 @@
     <string name="appupdater_btn_update">Aktualisieren</string>
     <string name="appupdater_btn_disable">Nicht mehr anzeigen</string>
     <string name="appupdater_btn_dismiss">Abbrechen</string>
+    <string name="appupdater_update_available_description_dialog_before_release_notes">Update %1$s steht zum Download bereit.\n\nDurch das Downloaden der neuesten Version erhältst du diese neue Features:\n%2$s</string>
 </resources>

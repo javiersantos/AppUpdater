@@ -2,19 +2,18 @@ package com.github.javiersantos.appupdater.demo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.demo.databinding.ActivityMainBinding;
 import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -26,31 +25,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         this.context = this;
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(binding.toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        CardView dialogUpdateChangelog = (CardView) findViewById(R.id.dialog_update_changelog);
-        CardView dialogUpdate = (CardView) findViewById(R.id.dialog_update);
-        CardView snackbarUpdate = (CardView) findViewById(R.id.snackbar_update);
-        CardView notificationUpdate = (CardView) findViewById(R.id.notification_update);
-
-        CardView dialogNoUpdate = (CardView) findViewById(R.id.dialog_no_update);
-        CardView snackbarNoUpdate = (CardView) findViewById(R.id.snackbar_no_update);
-        CardView notificationNoUpdate = (CardView) findViewById(R.id.notification_no_update);
-
-        fab.setImageDrawable(new IconicsDrawable(this).icon(MaterialDesignIconic.Icon.gmi_github).color(Color.WHITE).sizeDp(24));
-        fab.setOnClickListener(new View.OnClickListener() {
+        binding.fab.setImageDrawable(new IconicsDrawable(this).icon(MaterialDesignIconic.Icon.gmi_github).color(Color.WHITE).sizeDp(24));
+        binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/javiersantos/AppUpdater")));
             }
         });
 
-        dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
+
+
+        binding.included.dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
@@ -64,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dialogUpdate.setOnClickListener(new View.OnClickListener() {
+        binding.included.dialogUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
@@ -78,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        snackbarUpdate.setOnClickListener(new View.OnClickListener() {
+        binding.included.snackbarUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
@@ -92,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        notificationUpdate.setOnClickListener(new View.OnClickListener() {
+        binding.included.notificationUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
@@ -106,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        dialogNoUpdate.setOnClickListener(new View.OnClickListener() {
+        binding.included.dialogNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
@@ -117,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        snackbarNoUpdate.setOnClickListener(new View.OnClickListener() {
+        binding.included.snackbarNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)
@@ -128,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        notificationNoUpdate.setOnClickListener(new View.OnClickListener() {
+        binding.included.notificationNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AppUpdater(context)

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -92,7 +93,7 @@ class UtilsLibrary {
 
         switch (updateFrom) {
             default:
-                res = Config.PLAY_STORE_URL + getAppPackageName(context);
+                res = String.format(Config.PLAY_STORE_URL, getAppPackageName(context), Locale.getDefault().getLanguage());
                 break;
             case GITHUB:
                 res = Config.GITHUB_URL + gitHub.getGitHubUser() + "/" + gitHub.getGitHubRepo() + "/releases";
@@ -115,7 +116,6 @@ class UtilsLibrary {
 
     static Update getLatestAppVersionHttp(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         Boolean isAvailable = false;
-        String version = "0.0.0.0";
         String source = "";
         OkHttpClient client = new OkHttpClient();
         URL url = getUpdateURL(context, updateFrom, gitHub);
@@ -175,6 +175,15 @@ class UtilsLibrary {
             }
         }
 
+        final String version = getVersion(updateFrom, isAvailable, source);
+        final String recentChanges = getRecentChanges(updateFrom, isAvailable, source);
+        final URL updateUrl = getUpdateURL(context, updateFrom, gitHub);
+
+        return new Update(version, recentChanges, updateUrl);
+    }
+
+    private static String getVersion(UpdateFrom updateFrom, Boolean isAvailable, String source) {
+        String version = "0.0.0.0";
         if (isAvailable) {
             switch (updateFrom) {
                 default:
@@ -203,8 +212,27 @@ class UtilsLibrary {
                     break;
             }
         }
+        return version;
+    }
 
-        return new Update(version, null, getUpdateURL(context, updateFrom, gitHub));
+    private static String getRecentChanges(UpdateFrom updateFrom, Boolean isAvailable, String source) {
+        String recentChanges = null;
+        if (isAvailable) {
+            switch (updateFrom) {
+                default:
+                    String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_CHANGES);
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 1; i < splitPlayStore.length; i++) {
+                        sb.append(splitPlayStore[i].split("(<)")[0]).append("\n");
+                    }
+                    recentChanges = sb.toString();
+                    break;
+                case GITHUB:
+                case AMAZON:
+                case FDROID:
+            }
+        }
+        return recentChanges;
     }
 
     static Update getLatestAppVersionXml(String urlXml) {
