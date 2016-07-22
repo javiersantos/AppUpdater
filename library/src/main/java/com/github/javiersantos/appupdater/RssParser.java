@@ -35,7 +35,7 @@ class RssParser {
             try {
                 SAXParser parser = factory.newSAXParser();
                 RssHandler handler = new RssHandler();
-                parser.parse(getInputStream(), handler);
+                parser.parse(inputStream, handler);
                 return handler.getUpdate();
             } catch (ParserConfigurationException | SAXException e) {
                 Log.e("AppUpdater", "The XML updater file is mal-formatted. AppUpdate can't check for updates.");
