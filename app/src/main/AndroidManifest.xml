@@ -21,7 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/action_about"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/action_settings"/>
     </application>
 
 </manifest>

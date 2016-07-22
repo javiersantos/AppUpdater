@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+
+    <PreferenceCategory
+        android:title="@string/settings_check_for_updates">
+        <Preference
+            android:key="prefCheckForUpdates"
+            android:title="@string/settings_check_for_updates"
+            android:summary="@string/settings_check_for_updates_summary" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
