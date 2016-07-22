@@ -19,5 +19,10 @@ public enum AppUpdaterError {
     /**
      * URL for the XML file is not valid
      */
-    XML_URL_MALFORMED
+    XML_URL_MALFORMED,
+
+    /**
+     * XML file is invalid or is down
+     */
+    XML_ERROR
 }
