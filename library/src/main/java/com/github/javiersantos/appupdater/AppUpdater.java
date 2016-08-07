@@ -266,7 +266,7 @@ public class AppUpdater implements IAppUpdater {
         if (descriptionUpdate == null) {
             switch (display) {
                 case DIALOG:
-                    if (!TextUtils.isEmpty(update.getReleaseNotes())) {
+                    if (update.getReleaseNotes() != null && !TextUtils.isEmpty(update.getReleaseNotes())) {
                         return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog_before_release_notes), update.getLatestVersion(), update.getReleaseNotes());
                     } else {
                         return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog), update.getLatestVersion(), UtilsLibrary.getAppName(context));

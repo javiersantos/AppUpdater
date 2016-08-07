@@ -216,7 +216,7 @@ class UtilsLibrary {
     }
 
     private static String getRecentChanges(UpdateFrom updateFrom, Boolean isAvailable, String source) {
-        String recentChanges = null;
+        String recentChanges = "";
         if (isAvailable) {
             switch (updateFrom) {
                 default:
@@ -228,8 +228,11 @@ class UtilsLibrary {
                     recentChanges = sb.toString();
                     break;
                 case GITHUB:
+                    break;
                 case AMAZON:
+                    break;
                 case FDROID:
+                    break;
             }
         }
         return recentChanges;
