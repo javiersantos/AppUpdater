@@ -94,8 +94,22 @@ public class AppUpdater implements IAppUpdater {
         return this;
     }
 
+    /*
+     */
     @Override
     public AppUpdater setDialogTitleWhenUpdateAvailable(@NonNull String title) {
+        this.titleUpdate = title;
+        return this;
+    }
+
+    @Override
+    public AppUpdater setDialogTitleWhenUpdateAvailable(@StringRes int textResource) {
+        this.titleUpdate = context.getString(textResource);
+        return this;
+    }
+
+    @Override
+    public AppUpdater setTitleOnUpdateAvailable(@NonNull String title) {
         this.titleUpdate = title;
         return this;
     }

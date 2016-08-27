@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
                         .setDisplay(Display.SNACKBAR)
                         .showAppUpdated(true)
+                        .setDialogDescriptionWhenUpdateAvailable("aosdfihsoadf")
                         .start();
             }
         });
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         .setUpdateFrom(UpdateFrom.XML)
                         .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
                         .setDisplay(Display.NOTIFICATION)
+                        .setDialogDescriptionWhenUpdateAvailable("aosdfihsoadf")
                         .showAppUpdated(true)
                         .start();
             }
