@@ -104,13 +104,13 @@ You can also show the dialog, Snackbar or notification although there aren't upd
 
 ```Java
 new AppUpdater(this)
-	.setDialogTitleWhenUpdateAvailable("Update available")
-	.setDialogDescriptionWhenUpdateAvailable("Check out the latest version available of my app!")
-	.setDialogButtonUpdate("Update now?")
-	.setDialogButtonDismiss("Maybe later")
-	.setDialogButtonDoNotShowAgain("Huh, not interested")
-	.setDialogTitleWhenUpdateNotAvailable("Update not available")
-	.setDialogDescriptionWhenUpdateNotAvailable("No update available. Check for updates again later!")
+	.setTitleOnUpdateAvailable("Update available")
+	.setContentOnUpdateAvailable("Check out the latest version available of my app!")
+	.setTitleOnUpdateNotAvailable("Update not available")
+	.setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
+	.setButtonUpdate("Update now?")
+	.setButtonDismiss("Maybe later")
+	.setButtonDoNotShowAgain("Huh, not interested")
 	.setIcon(R.drawable.ic_update) // Notification icon 
 	...
 ```
