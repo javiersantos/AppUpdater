@@ -188,16 +188,20 @@ class UtilsLibrary {
             switch (updateFrom) {
                 default:
                     String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_RELEASE);
-                    splitPlayStore = splitPlayStore[1].split("(<)");
-                    version = splitPlayStore[0].trim();
+                    if (splitPlayStore.length > 1) {
+                        splitPlayStore = splitPlayStore[1].split("(<)");
+                        version = splitPlayStore[0].trim();
+                    }
                     break;
                 case GITHUB:
                     String[] splitGitHub = source.split(Config.GITHUB_TAG_RELEASE);
-                    splitGitHub = splitGitHub[1].split("(\")");
-                    version = splitGitHub[0].trim();
-                    if (version.contains("v")) { // Some repo uses vX.X.X
-                        splitGitHub = version.split("(v)");
-                        version = splitGitHub[1].trim();
+                    if (splitGitHub.length > 1) {
+                        splitGitHub = splitGitHub[1].split("(\")");
+                        version = splitGitHub[0].trim();
+                        if (version.contains("v")) { // Some repo uses vX.X.X
+                            splitGitHub = version.split("(v)");
+                            version = splitGitHub[1].trim();
+                        }
                     }
                     break;
                 case AMAZON:
