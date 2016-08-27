@@ -9,8 +9,11 @@ import org.xml.sax.SAXException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -50,8 +53,10 @@ class RssParser {
 
     private InputStream getInputStream() {
         try {
-            return rssUrl.openConnection().getInputStream();
-        } catch (FileNotFoundException e) {
+            URLConnection connection = rssUrl.openConnection();
+            if (connection == null) return null;
+            return connection.getInputStream();
+        } catch (FileNotFoundException | UnknownHostException | ConnectException e) {
             Log.e("AppUpdater", "The XML updater file is invalid or is down. AppUpdate can't check for updates.");
             return null;
         } catch (IOException e) {
