@@ -306,7 +306,7 @@ public class AppUpdater implements IAppUpdater {
                                 snackbar.show();
                                 break;
                             case NOTIFICATION:
-                                UtilsDisplay.showUpdateAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_available), getDescriptionUpdate(context, update, Display.NOTIFICATION), updateFrom, update.getUrlToDownload(), iconResId);
+                                UtilsDisplay.showUpdateAvailableNotification(context, titleUpdate, getDescriptionUpdate(context, update, Display.NOTIFICATION), updateFrom, update.getUrlToDownload(), iconResId);
                                 break;
                         }
                     }
@@ -322,7 +322,7 @@ public class AppUpdater implements IAppUpdater {
                             snackbar.show();
                             break;
                         case NOTIFICATION:
-                            UtilsDisplay.showUpdateNotAvailableNotification(context, context.getResources().getString(R.string.appupdater_update_not_available), getDescriptionNoUpdate(context), iconResId);
+                            UtilsDisplay.showUpdateNotAvailableNotification(context, titleNoUpdate, getDescriptionNoUpdate(context), iconResId);
                             break;
                     }
                 }
