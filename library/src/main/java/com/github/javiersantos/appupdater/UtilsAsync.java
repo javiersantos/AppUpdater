@@ -16,16 +16,16 @@ class UtilsAsync {
         private Boolean fromUtils;
         private UpdateFrom updateFrom;
         private GitHub gitHub;
-        private String xmlUrl;
+        private String xmlOrJsonUrl;
         private AppUpdater.LibraryListener listener;
 
-        public LatestAppVersion(Context context, Boolean fromUtils, UpdateFrom updateFrom, GitHub gitHub, String xmlUrl, AppUpdater.LibraryListener listener) {
+        public LatestAppVersion(Context context, Boolean fromUtils, UpdateFrom updateFrom, GitHub gitHub, String xmlOrJsonUrl, AppUpdater.LibraryListener listener) {
             this.context = context;
             this.libraryPreferences = new LibraryPreferences(context);
             this.fromUtils = fromUtils;
             this.updateFrom = updateFrom;
             this.gitHub = gitHub;
-            this.xmlUrl = xmlUrl;
+            this.xmlOrJsonUrl = xmlOrJsonUrl;
             this.listener = listener;
         }
 
@@ -40,8 +40,13 @@ class UtilsAsync {
                     if (updateFrom == UpdateFrom.GITHUB && !GitHub.isGitHubValid(gitHub)) {
                         listener.onFailed(AppUpdaterError.GITHUB_USER_REPO_INVALID);
                         cancel(true);
-                    } else if (updateFrom == UpdateFrom.XML && (xmlUrl == null || !UtilsLibrary.isStringAnUrl(xmlUrl))) {
+                    } else if (updateFrom == UpdateFrom.XML && (xmlOrJsonUrl == null || !UtilsLibrary.isStringAnUrl(xmlOrJsonUrl))) {
                         listener.onFailed(AppUpdaterError.XML_URL_MALFORMED);
+
+                        cancel(true);
+                    } else if (updateFrom == UpdateFrom.JSON && (xmlOrJsonUrl == null || !UtilsLibrary.isStringAnUrl(xmlOrJsonUrl))) {
+                        listener.onFailed(AppUpdaterError.JSON_URL_MALFORMED);
+
                         cancel(true);
                     }
                 }
@@ -53,12 +58,15 @@ class UtilsAsync {
 
         @Override
         protected Update doInBackground(Void... voids) {
-            if (updateFrom == UpdateFrom.XML) {
-                Update update = UtilsLibrary.getLatestAppVersionXml(xmlUrl);
-                if (update != null) {
+            if (updateFrom == UpdateFrom.XML || updateFrom == UpdateFrom.JSON) {
+                Update update = UtilsLibrary.getLatestAppVersion(updateFrom, xmlOrJsonUrl);
+                    if (update != null) {
                     return update;
                 } else {
-                    listener.onFailed(AppUpdaterError.XML_ERROR);
+                    AppUpdaterError error = updateFrom == UpdateFrom.XML ? AppUpdaterError.XML_ERROR
+                            : AppUpdaterError.JSON_ERROR;
+
+                    listener.onFailed(error);
                     cancel(true);
                     return null;
                 }
