@@ -1,0 +1,12 @@
+<resources>
+    <string name="appupdater_update_available">Aktualizace je k dispozici!</string>
+    <string name="appupdater_update_available_description_dialog">Aktualizace aplikace %2$s je dostupná ke stažení. Stažením verze %1$s získáte nejnovější funkce, vylepšení a opravy chyb.</string>
+    <string name="appupdater_update_available_description_dialog_before_release_notes">Nová verze %1$s je k dispozici ke stažení.\n\nJejím stažením získáte tyto nové funkce:\n%2$s</string>
+    <string name="appupdater_update_available_description_snackbar">Aktualizace %1$s je k dispozici!</string>
+    <string name="appupdater_update_available_description_notification">%2$s je k dispozici v nové verzi %1$s.</string>
+    <string name="appupdater_update_not_available">Žádná aktualizace není dostupná</string>
+    <string name="appupdater_update_not_available_description">Máte nejnovější dostupnou verzi aplikace %s.</string>
+    <string name="appupdater_btn_update">Aktualizovat</string>
+    <string name="appupdater_btn_disable">Už se neptat</string>
+    <string name="appupdater_btn_dismiss">Zrušit</string>
+</resources>
