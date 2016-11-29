@@ -1,5 +1,6 @@
 package com.github.javiersantos.appupdater;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.github.javiersantos.appupdater.objects.Update;
@@ -30,38 +31,40 @@ class RssParser {
         }
     }
 
+    @Nullable
     public Update parse() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        InputStream inputStream = this.getInputStream();
 
-        if (inputStream != null) {
-            try {
-                SAXParser parser = factory.newSAXParser();
-                RssHandler handler = new RssHandler();
-                parser.parse(inputStream, handler);
-                return handler.getUpdate();
-            } catch (ParserConfigurationException | SAXException e) {
-                Log.e("AppUpdater", "The XML updater file is mal-formatted. AppUpdate can't check for updates.");
-                return null;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            return null;
-        }
-    }
+        InputStream inputStream = null;
 
-    private InputStream getInputStream() {
         try {
             URLConnection connection = rssUrl.openConnection();
-            if (connection == null) return null;
-            return connection.getInputStream();
+            inputStream = connection.getInputStream();
+            SAXParser parser = factory.newSAXParser();
+            RssHandler handler = new RssHandler();
+            parser.parse(inputStream, handler);
+            return handler.getUpdate();
+        } catch (ParserConfigurationException | SAXException e) {
+            Log.e("AppUpdater", "The XML updater file is mal-formatted. AppUpdate can't check for updates.", e);
+            return null;
         } catch (FileNotFoundException | UnknownHostException | ConnectException e) {
             Log.e("AppUpdater", "The XML updater file is invalid or is down. AppUpdate can't check for updates.");
             return null;
         } catch (IOException e) {
+            Log.e("AppUpdater", "I/O error. AppUpdate can't check for updates.", e);
+            return null;
+        } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    Log.e("AppUpdater", "Error closing input stream", e);
+                }
+            }
         }
+
     }
 
 }
