@@ -2,7 +2,7 @@
 <h4 align="center">Android Library</h4>
 
 <p align="center">
-  <a target="_blank" href="https://android-arsenal.com/api?level=8"><img src="https://img.shields.io/badge/API-8%2B-orange.svg"></a>
+  <a target="_blank" href="https://android-arsenal.com/api?level=8"><img src="https://img.shields.io/badge/API-9%2B-orange.svg"></a>
   <a target="_blank" href="https://travis-ci.org/javiersantos/AppUpdater"><img src="https://travis-ci.org/javiersantos/AppUpdater.svg?branch=master"></a>
   <a target="_blank" href="http://android-arsenal.com/details/1/3094"><img src="https://img.shields.io/badge/Android%20Arsenal-AppUpdater-blue.svg"></a>
   <a target="_blank" href="https://www.paypal.me/javiersantos" title="Donate using PayPal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" /></a>
@@ -28,7 +28,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Javascript
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:2.4'
+    compile 'com.github.javiersantos:AppUpdater:2.5'
 }
 ```
 
@@ -86,9 +86,9 @@ new AppUpdater(this)
 
 When using GitHub you must provide the repo where the library will check for updates: `.setGitHubUserAndRepo("javiersantos", "AppUpdater")`. Check out the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.GITHUB) for more details.
 
-When using the XML source you must upload a XML file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML) and add the URL as shown in this example: `.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")`.
+When using the XML source you must upload a .xml file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML) and add the URL as shown in this example: `.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")`.
 
-When using the JSON source you must upload a JSON file somewhere on the Internet following the structure as shown in the example [file](https://raw.githubusercontent.com/kgritesh/AppUpdater/feature-json-updater/app/update-changelog.json) and add the URL as shown in this example: `.setUpdateJSON("https://raw.githubusercontent.com/kgritesh/AppUpdater/feature-json-updater/app/update-changelog.json")`.
+When using the XML source you must upload a .json file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON) and add the URL as shown in this example: `.setUpdateJSON("https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON")`.
 
 A detailed description with examples is available at: https://github.com/javiersantos/AppUpdater/wiki
 
