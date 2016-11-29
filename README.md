@@ -88,7 +88,7 @@ When using GitHub you must provide the repo where the library will check for upd
 
 When using the XML source you must upload a .xml file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML) and add the URL as shown in this example: `.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")`.
 
-When using the XML source you must upload a .json file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON) and add the URL as shown in this example: `.setUpdateJSON("https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON")`.
+When using the JSON source you must upload a .json file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON) and add the URL as shown in this example: `.setUpdateJSON("https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON")`.
 
 A detailed description with examples is available at: https://github.com/javiersantos/AppUpdater/wiki
 
