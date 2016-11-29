@@ -31,9 +31,9 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:cardview-v7:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.mikepenz:iconics-core:2.7.2@aar'
     compile 'com.mikepenz:material-design-iconic-typeface:2.2.0.2@aar'
     compile('com.mikepenz:aboutlibraries:5.7.1@aar') { transitive = true }

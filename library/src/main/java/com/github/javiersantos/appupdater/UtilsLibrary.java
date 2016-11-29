@@ -242,10 +242,15 @@ class UtilsLibrary {
         return recentChanges;
     }
 
-    static Update getLatestAppVersionXml(String urlXml) {
-        RssParser parser = new RssParser(urlXml);
-        return parser.parse();
+    static Update getLatestAppVersion(UpdateFrom updateFrom, String url) {
+        if (updateFrom == UpdateFrom.XML){
+            RssParser parser = new RssParser(url);
+            return parser.parse();
+        } else {
+            return new JSONParser(url).parse();
+        }
     }
+
 
     static Intent intentToUpdate(Context context, UpdateFrom updateFrom, URL url) {
         Intent intent;

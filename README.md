@@ -80,12 +80,15 @@ new AppUpdater(this)
 	.setUpdateFrom(UpdateFrom.AMAZON)
 	.setUpdateFrom(UpdateFrom.FDROID)
 	.setUpdateFrom(UpdateFrom.XML)
+	.setUpdateFrom(UpdateFrom.JSON)
 	...
 ```
 
 When using GitHub you must provide the repo where the library will check for updates: `.setGitHubUserAndRepo("javiersantos", "AppUpdater")`. Check out the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.GITHUB) for more details.
 
 When using the XML source you must upload a XML file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML) and add the URL as shown in this example: `.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")`.
+
+When using the JSON source you must upload a JSON file somewhere on the Internet following the structure as shown in the example [file](https://raw.githubusercontent.com/kgritesh/AppUpdater/feature-json-updater/app/update-changelog.json) and add the URL as shown in this example: `.setUpdateJSON("https://raw.githubusercontent.com/kgritesh/AppUpdater/feature-json-updater/app/update-changelog.json")`.
 
 A detailed description with examples is available at: https://github.com/javiersantos/AppUpdater/wiki
 

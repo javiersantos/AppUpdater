@@ -57,6 +57,15 @@ public interface IAppUpdater {
     AppUpdater setUpdateXML(@NonNull String xmlUrl);
 
     /**
+     * Set the url to the json file with the latest version info.
+     *
+     * @param jsonUrl file
+     * @return this
+     */
+
+    AppUpdater setUpdateJSON(@NonNull String jsonUrl);
+
+    /**
      * Set the times the app ascertains that a new update is available and display a dialog, Snackbar or notification. It makes the updates less invasive. Default: 1.
      *
      * @param times every X times

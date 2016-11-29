@@ -23,7 +23,7 @@ public class AppUpdater implements IAppUpdater {
     private UpdateFrom updateFrom;
     private Duration duration;
     private GitHub gitHub;
-    private String xmlUrl;
+    private String xmlOrJsonUrl;
     private Integer showEvery;
     private Boolean showAppUpdated;
     private String titleUpdate, descriptionUpdate, btnDismiss, btnUpdate, btnDisable; // Update available
@@ -78,9 +78,16 @@ public class AppUpdater implements IAppUpdater {
 
     @Override
     public AppUpdater setUpdateXML(@NonNull String xmlUrl) {
-        this.xmlUrl = xmlUrl;
+        this.xmlOrJsonUrl = xmlUrl;
         return this;
     }
+
+    @Override
+    public AppUpdater setUpdateJSON(@NonNull String jsonUrl) {
+        this.xmlOrJsonUrl = jsonUrl;
+        return this;
+    }
+
 
     @Override
     public AppUpdater showEvery(Integer times) {
@@ -290,7 +297,7 @@ public class AppUpdater implements IAppUpdater {
 
     @Override
     public void start() {
-        latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, xmlUrl, new LibraryListener() {
+        latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, xmlOrJsonUrl, new LibraryListener() {
             @Override
             public void onSuccess(Update update) {
                 if (UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion())) {
@@ -336,6 +343,8 @@ public class AppUpdater implements IAppUpdater {
                     throw new IllegalArgumentException("GitHub user or repo is empty!");
                 } else if (error == AppUpdaterError.XML_URL_MALFORMED) {
                     throw new IllegalArgumentException("XML file is not valid!");
+                } else if (error == AppUpdaterError.JSON_URL_MALFORMED) {
+                    throw new IllegalArgumentException("JSON file is not valid!");
                 }
             }
         });
