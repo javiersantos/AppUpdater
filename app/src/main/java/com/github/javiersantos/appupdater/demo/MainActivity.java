@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.JSON)
-                        .setUpdateJSON("https://raw.githubusercontent.com/kgritesh/AppUpdater/feature-json-updater/app/update-changelog.json")
+                        .setUpdateJSON("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.json")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
                         .start();
