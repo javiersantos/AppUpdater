@@ -1,0 +1,12 @@
+<resources>
+    <string name="appupdater_update_available">Доступна новая версия!</string>
+    <string name="appupdater_update_available_description_dialog">Версия %1$s доступна для обновления. В новой версии приложения %2$s добавлен новый функционал и исправлены ошибок.</string>
+    <string name="appupdater_update_available_description_dialog_before_release_notes">Версия %1$s доступна для обновления.\n\nЧто нового:\n%2$s</string>
+    <string name="appupdater_update_available_description_snackbar">Доступна версия %1$s!</string>
+    <string name="appupdater_update_available_description_notification">Версия %1$s приложение %2$s доступна для обновления</string>
+    <string name="appupdater_update_not_available">Обновлений нет</string>
+    <string name="appupdater_update_not_available_description">У вас самая последняя версия приложения %s!</string>
+    <string name="appupdater_btn_update">Обновить</string>
+    <string name="appupdater_btn_disable">Больше не показывать</string>
+    <string name="appupdater_btn_dismiss">Напомнить позже</string>
+</resources>
