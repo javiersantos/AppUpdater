@@ -8,32 +8,38 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
 
+import java.lang.ref.WeakReference;
+
 class UtilsAsync {
 
     static class LatestAppVersion extends AsyncTask<Void, Void, Update> {
-        private Context context;
+        private WeakReference<Context> contextRef;
         private LibraryPreferences libraryPreferences;
         private Boolean fromUtils;
         private UpdateFrom updateFrom;
         private GitHub gitHub;
         private String xmlOrJsonUrl;
-        private AppUpdater.LibraryListener listener;
+        private WeakReference<AppUpdater.LibraryListener> listenerRef;
 
         public LatestAppVersion(Context context, Boolean fromUtils, UpdateFrom updateFrom, GitHub gitHub, String xmlOrJsonUrl, AppUpdater.LibraryListener listener) {
-            this.context = context;
+            this.contextRef = new WeakReference<>(context);
             this.libraryPreferences = new LibraryPreferences(context);
             this.fromUtils = fromUtils;
             this.updateFrom = updateFrom;
             this.gitHub = gitHub;
             this.xmlOrJsonUrl = xmlOrJsonUrl;
-            this.listener = listener;
+            this.listenerRef = new WeakReference<>(listener);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            if (UtilsLibrary.isNetworkAvailable(context)) {
+            Context context = contextRef.get();
+            AppUpdater.LibraryListener listener = listenerRef.get();
+            if (context == null || listener == null) {
+                cancel(true);
+            } else if (UtilsLibrary.isNetworkAvailable(context)) {
                 if (!fromUtils && !libraryPreferences.getAppUpdaterShow()) {
                     cancel(true);
                 } else {
@@ -60,28 +66,41 @@ class UtilsAsync {
         protected Update doInBackground(Void... voids) {
             if (updateFrom == UpdateFrom.XML || updateFrom == UpdateFrom.JSON) {
                 Update update = UtilsLibrary.getLatestAppVersion(updateFrom, xmlOrJsonUrl);
-                    if (update != null) {
+                if (update != null) {
                     return update;
                 } else {
                     AppUpdaterError error = updateFrom == UpdateFrom.XML ? AppUpdaterError.XML_ERROR
                             : AppUpdaterError.JSON_ERROR;
 
-                    listener.onFailed(error);
+                    AppUpdater.LibraryListener listener = listenerRef.get();
+                    if (listener != null) {
+                        listener.onFailed(error);
+                    }
                     cancel(true);
                     return null;
                 }
             } else {
-                return UtilsLibrary.getLatestAppVersionHttp(context, updateFrom, gitHub);
+                Context context = contextRef.get();
+                if (context != null) {
+                    return UtilsLibrary.getLatestAppVersionHttp(context, updateFrom, gitHub);
+                } else {
+                    cancel(true);
+                    return null;
+                }
             }
         }
 
         @Override
         protected void onPostExecute(Update update) {
             super.onPostExecute(update);
-            if (UtilsLibrary.isStringAVersion(update.getLatestVersion())) {
-                listener.onSuccess(update);
-            } else {
-                listener.onFailed(AppUpdaterError.UPDATE_VARIES_BY_DEVICE);
+
+            AppUpdater.LibraryListener listener = listenerRef.get();
+            if (listener != null) {
+                if (UtilsLibrary.isStringAVersion(update.getLatestVersion())) {
+                    listener.onSuccess(update);
+                } else {
+                    listener.onFailed(AppUpdaterError.UPDATE_VARIES_BY_DEVICE);
+                }
             }
         }
     }
