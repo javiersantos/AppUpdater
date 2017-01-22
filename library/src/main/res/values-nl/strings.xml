@@ -1,0 +1,12 @@
+<resources>
+    <string name="appupdater_update_available">Nieuwe update beschikbaar!</string>
+    <string name="appupdater_update_available_description_dialog">Update %1$s is beschikbaar om te downloaden. Door het downloaden van de nieuwste update kunt u de nieuwste functies, verbeteringen en bug fixes voor %2$s krijgen.</string>
+    <string name="appupdater_update_available_description_dialog_before_release_notes">Update %1$s is beschikbaar om te downloaden.\n\nU kunt deze nieuwe functies te krijgen:\n%2$s</string>
+    <string name="appupdater_update_available_description_snackbar">Update %1$s is beschikbaar!</string>
+    <string name="appupdater_update_available_description_notification">Update %1$s voor %2$s is beschikbaar om te downloaden</string>
+    <string name="appupdater_update_not_available">Geen updates beschikbaar</string>
+    <string name="appupdater_update_not_available_description">U hebt de laatste versie beschikbaar voor %s!</string>
+    <string name="appupdater_btn_update">Update</string>
+    <string name="appupdater_btn_disable">Niet meer laten zien</string>
+    <string name="appupdater_btn_dismiss">Afwijzen</string>
+</resources>
