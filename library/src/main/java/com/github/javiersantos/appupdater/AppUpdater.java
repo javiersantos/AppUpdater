@@ -2,6 +2,7 @@ package com.github.javiersantos.appupdater;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -31,6 +32,7 @@ public class AppUpdater implements IAppUpdater {
     private String titleNoUpdate, descriptionNoUpdate; // Update not available
     private int iconResId;
     private UtilsAsync.LatestAppVersion latestAppVersion;
+    private DialogInterface.OnClickListener btnUpdateClickListener, btnDismissClickListener, btnDisableClickListener;
 
     private AlertDialog alertDialog;
     private Snackbar snackbar;
@@ -285,6 +287,24 @@ public class AppUpdater implements IAppUpdater {
     }
 
     @Override
+    public AppUpdater setButtonUpdateClickListener(final DialogInterface.OnClickListener clickListener) {
+        btnUpdateClickListener = clickListener;
+        return this;
+    }
+
+    @Override
+    public AppUpdater setButtonDismissClickListener(final DialogInterface.OnClickListener clickListener) {
+        btnDismissClickListener = clickListener;
+        return this;
+    }
+
+    @Override
+    public AppUpdater setButtonDoNotShowAgainClickListener(final DialogInterface.OnClickListener clickListener) {
+        btnDisableClickListener = clickListener;
+        return this;
+    }
+
+    @Override
     public AppUpdater setIcon(@DrawableRes int iconRes) {
         this.iconResId = iconRes;
         return this;
@@ -310,7 +330,10 @@ public class AppUpdater implements IAppUpdater {
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                         switch (display) {
                             case DIALOG:
-                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateFrom, update.getUrlToDownload());
+                                final DialogInterface.OnClickListener updateClickListener = btnUpdateClickListener == null ? new UpdateClickListener(context, updateFrom, update.getUrlToDownload()) : btnUpdateClickListener;
+                                final DialogInterface.OnClickListener disableClickListener = btnDisableClickListener == null ? new DisableClickListener(context) : btnDisableClickListener;
+
+                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener);
                                 alertDialog.show();
                                 break;
                             case SNACKBAR:

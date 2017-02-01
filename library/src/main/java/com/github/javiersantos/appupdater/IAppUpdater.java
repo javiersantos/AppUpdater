@@ -1,5 +1,6 @@
 package com.github.javiersantos.appupdater;
 
+import android.content.DialogInterface;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -318,6 +319,32 @@ public interface IAppUpdater {
      * @return this
      */
     AppUpdater setButtonDoNotShowAgain(@StringRes int textResource);
+
+    /**
+     * Sets a custom click listener for the "Update" button when a new update is available.
+     * In order to maintain the default functionality, extend {@link UpdateClickListener}
+     *
+     * @param clickListener for update button
+     * @return this
+     */
+    AppUpdater setButtonUpdateClickListener(DialogInterface.OnClickListener clickListener);
+
+    /**
+     * Sets a custom click listener for the "Dismiss" button when a new update is available.
+     *
+     * @param clickListener for dismiss button
+     * @return this
+     */
+    AppUpdater setButtonDismissClickListener(DialogInterface.OnClickListener clickListener);
+
+    /**
+     * Sets a custom click listener for the "Don't show again" button when a new update is available. <br/>
+     * In order to maintain the default functionality, extend {@link DisableClickListener}
+     *
+     * @param clickListener for disable button
+     * @return this
+     */
+    AppUpdater setButtonDoNotShowAgainClickListener(DialogInterface.OnClickListener clickListener);
 
     /**
      * Sets the resource identifier for the small notification icon
