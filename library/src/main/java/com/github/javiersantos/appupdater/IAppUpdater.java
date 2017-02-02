@@ -1,5 +1,7 @@
 package com.github.javiersantos.appupdater;
 
+import android.content.DialogInterface.OnClickListener;
+
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -224,7 +226,7 @@ public interface IAppUpdater {
      * @return this
      * @deprecated use {@link #setButtonUpdate(String)} instead
      */
-    AppUpdater setDialogButtonUpdate(@NonNull String text);
+    AppUpdater setDialogButtonUpdate(@NonNull String text, OnClickListener listener);
 
     /**
      * Set a custom "Update" button text when a new update is available.
@@ -233,7 +235,7 @@ public interface IAppUpdater {
      * @return this
      * @deprecated use {@link #setButtonUpdate(int)} instead
      */
-    AppUpdater setDialogButtonUpdate(@StringRes int textResource);
+    AppUpdater setDialogButtonUpdate(@StringRes int textResource, OnClickListener listener);
 
     /**
      * Set a custom "Update" button text when a new update is available.
@@ -241,7 +243,7 @@ public interface IAppUpdater {
      * @param text for the update button
      * @return this
      */
-    AppUpdater setButtonUpdate(@NonNull String text);
+    AppUpdater setButtonUpdate(@NonNull String text, OnClickListener listener);
 
     /**
      * Set a custom "Update" button text when a new update is available.
@@ -249,7 +251,7 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the update button
      * @return this
      */
-    AppUpdater setButtonUpdate(@StringRes int textResource);
+    AppUpdater setButtonUpdate(@StringRes int textResource, OnClickListener listener);
 
     /**
      * Set a custom "Dismiss" button text when a new update is available.
