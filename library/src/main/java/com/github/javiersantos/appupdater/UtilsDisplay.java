@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.media.RingtoneManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
@@ -17,18 +18,13 @@ import java.net.URL;
 
 class UtilsDisplay {
 
-    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
+    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, OnClickListener listener, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
         final LibraryPreferences libraryPreferences = new LibraryPreferences(context);
 
         return new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
-                .setPositiveButton(btnPositive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        UtilsLibrary.goToUpdate(context, updateFrom, apk);
-                    }
-                })
+                .setPositiveButton(btnPositive, listener)
                 .setNegativeButton(btnNegative, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {}
