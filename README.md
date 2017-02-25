@@ -135,7 +135,8 @@ AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
         @Override
         public void onFailed(AppUpdaterError error) {
             Log.d("AppUpdater", "Something went wrong");
-        });
+        }
+     });
 appUpdaterUtils.start();
 ```
 
