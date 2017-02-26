@@ -2,6 +2,7 @@ package com.github.javiersantos.appupdater;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface.OnClickListener;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -19,6 +20,7 @@ import com.github.javiersantos.appupdater.objects.Update;
 
 public class AppUpdater implements IAppUpdater {
     private Context context;
+    private OnClickListener listener;
     private LibraryPreferences libraryPreferences;
     private Display display;
     private UpdateFrom updateFrom;
@@ -36,7 +38,7 @@ public class AppUpdater implements IAppUpdater {
     private Snackbar snackbar;
 
     public AppUpdater(Context context) {
-        this.context = context;
+        this.context = context; 
         this.libraryPreferences = new LibraryPreferences(context);
         this.display = Display.DIALOG;
         this.updateFrom = UpdateFrom.GOOGLE_PLAY;
@@ -208,27 +210,29 @@ public class AppUpdater implements IAppUpdater {
 
     @Override
     @Deprecated
-    public AppUpdater setDialogButtonUpdate(@NonNull String text) {
-        setButtonUpdate(text);
+    public AppUpdater setDialogButtonUpdate(@NonNull String text, OnClickListener listenee) {
+        setButtonUpdate(text, listenee);
         return this;
     }
 
     @Override
     @Deprecated
-    public AppUpdater setDialogButtonUpdate(@StringRes int textResource) {
-        setButtonUpdate(textResource);
+    public AppUpdater setDialogButtonUpdate(@StringRes int textResource, OnClickListener listener) {
+        setButtonUpdate(textResource, listener);
         return this;
     }
 
     @Override
-    public AppUpdater setButtonUpdate(@NonNull String text) {
+    public AppUpdater setButtonUpdate(@NonNull String text, OnClickListener listener) {
         this.btnUpdate = text;
+		this.listener = listener;
         return this;
     }
 
     @Override
-    public AppUpdater setButtonUpdate(@StringRes int textResource) {
+    public AppUpdater setButtonUpdate(@StringRes int textResource, OnClickListener listener) {
         this.btnUpdate = context.getString(textResource);
+		this.listener = listener;
         return this;
     }
 
@@ -310,7 +314,7 @@ public class AppUpdater implements IAppUpdater {
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                         switch (display) {
                             case DIALOG:
-                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateFrom, update.getUrlToDownload());
+                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, listener, btnDisable, updateFrom, update.getUrlToDownload());
                                 alertDialog.show();
                                 break;
                             case SNACKBAR:
