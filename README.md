@@ -28,7 +28,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Javascript
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:2.5.1'
+    compile 'com.github.javiersantos:AppUpdater:2.5.2'
 }
 ```
 
@@ -112,8 +112,11 @@ new AppUpdater(this)
 	.setTitleOnUpdateNotAvailable("Update not available")
 	.setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
 	.setButtonUpdate("Update now?")
+	.setButtonUpdateClickListener(...)
 	.setButtonDismiss("Maybe later")
+	.setButtonDismissClickListener(...)
 	.setButtonDoNotShowAgain("Huh, not interested")
+	.setButtonDoNotShowAgainClickListener(...)
 	.setIcon(R.drawable.ic_update) // Notification icon 
 	...
 ```
