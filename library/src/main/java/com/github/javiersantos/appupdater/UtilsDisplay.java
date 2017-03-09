@@ -17,28 +17,13 @@ import java.net.URL;
 
 class UtilsDisplay {
 
-    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final UpdateFrom updateFrom, final URL apk) {
-        final LibraryPreferences libraryPreferences = new LibraryPreferences(context);
-
+    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final DialogInterface.OnClickListener updateClickListener, final DialogInterface.OnClickListener dismissClickListener, final DialogInterface.OnClickListener disableClickListener) {
         return new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
-                .setPositiveButton(btnPositive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        UtilsLibrary.goToUpdate(context, updateFrom, apk);
-                    }
-                })
-                .setNegativeButton(btnNegative, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {}
-                })
-                .setNeutralButton(btnNeutral, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        libraryPreferences.setAppUpdaterShow(false);
-                    }
-                }).create();
+                .setPositiveButton(btnPositive, updateClickListener)
+                .setNegativeButton(btnNegative, dismissClickListener)
+                .setNeutralButton(btnNeutral, disableClickListener).create();
     }
 
     static AlertDialog showUpdateNotAvailableDialog(final Context context, String title, String content) {
