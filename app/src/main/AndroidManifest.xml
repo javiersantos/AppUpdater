@@ -22,9 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AboutActivity"
-            android:label="@string/action_about"/>
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"/>
     </application>
