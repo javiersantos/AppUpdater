@@ -11,6 +11,7 @@ android {
         versionCode 4
         versionName "2.5.2"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,8 +24,13 @@ android {
             }
         }
     }
+
     dataBinding {
         enabled = true
+    }
+
+    lintOptions {
+        disable 'MissingTranslation'
     }
 }
 

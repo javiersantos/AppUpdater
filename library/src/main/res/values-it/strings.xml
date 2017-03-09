@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="library_appupdater_libraryDescription">AppUpdater è una libreria che controlla aggiornamenti per le tue app su Google Play, GitHub, Amazon e F-Droid, mostrando un dialogo, un Snackbar o una notifica quando una versione è disponibile</string>
     <string name="appupdater_btn_disable">Non mostrare di nuovo</string>
     <string name="appupdater_btn_dismiss">Ignora</string>
     <string name="appupdater_btn_update">Aggiorna</string>
