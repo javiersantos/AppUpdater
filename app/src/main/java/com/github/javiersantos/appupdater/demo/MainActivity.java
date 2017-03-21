@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         binding.included.dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 new AppUpdater(context)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
-                        .setUpdateFrom(UpdateFrom.JSON)
+                        .setUpdateFrom(UpdateFrom.XML)
                         .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
                         .setDisplay(Display.NOTIFICATION)
                         .showAppUpdated(true)

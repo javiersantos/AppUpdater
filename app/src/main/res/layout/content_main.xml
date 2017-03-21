@@ -127,7 +127,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/btn_dialog_no_update"
+                        android:text="@string/btn_dialog_google_play"
                         android:textAllCaps="true" />
                 </LinearLayout>
 
@@ -150,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/btn_snackbar_no_update"
+                        android:text="@string/btn_snackbar_google_play"
                         android:textAllCaps="true" />
                 </LinearLayout>
 
@@ -173,7 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/btn_notification_no_update"
+                        android:text="@string/btn_notification_google_play"
                         android:textAllCaps="true" />
                 </LinearLayout>
 
