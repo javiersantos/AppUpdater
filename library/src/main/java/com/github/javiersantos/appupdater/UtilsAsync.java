@@ -19,7 +19,7 @@ class UtilsAsync {
         private UpdateFrom updateFrom;
         private GitHub gitHub;
         private String xmlOrJsonUrl;
-        private WeakReference<AppUpdater.LibraryListener> listenerRef;
+        private AppUpdater.LibraryListener listener;
 
         public LatestAppVersion(Context context, Boolean fromUtils, UpdateFrom updateFrom, GitHub gitHub, String xmlOrJsonUrl, AppUpdater.LibraryListener listener) {
             this.contextRef = new WeakReference<>(context);
@@ -28,7 +28,7 @@ class UtilsAsync {
             this.updateFrom = updateFrom;
             this.gitHub = gitHub;
             this.xmlOrJsonUrl = xmlOrJsonUrl;
-            this.listenerRef = new WeakReference<>(listener);
+            this.listener = listener;
         }
 
         @Override
@@ -36,7 +36,6 @@ class UtilsAsync {
             super.onPreExecute();
 
             Context context = contextRef.get();
-            AppUpdater.LibraryListener listener = listenerRef.get();
             if (context == null || listener == null) {
                 cancel(true);
             } else if (UtilsLibrary.isNetworkAvailable(context)) {
@@ -72,7 +71,6 @@ class UtilsAsync {
                     AppUpdaterError error = updateFrom == UpdateFrom.XML ? AppUpdaterError.XML_ERROR
                             : AppUpdaterError.JSON_ERROR;
 
-                    AppUpdater.LibraryListener listener = listenerRef.get();
                     if (listener != null) {
                         listener.onFailed(error);
                     }
@@ -94,7 +92,6 @@ class UtilsAsync {
         protected void onPostExecute(Update update) {
             super.onPostExecute(update);
 
-            AppUpdater.LibraryListener listener = listenerRef.get();
             if (listener != null) {
                 if (UtilsLibrary.isStringAVersion(update.getLatestVersion())) {
                     listener.onSuccess(update);
