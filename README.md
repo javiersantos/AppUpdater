@@ -121,6 +121,8 @@ new AppUpdater(this)
 	...
 ```
 
+By default, the "Don't show again" button will be displayed. Use `.setButtonDoNotShowAgain(null)` to hide the button.
+
 ## Other features
 ### Get the latest update and compare with the installed one (asynchronous)
 ```Java
