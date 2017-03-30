@@ -398,11 +398,14 @@ public class AppUpdater implements IAppUpdater {
     }
 
     private String getDescriptionUpdate(Context context, Update update, Display display) {
-        if (descriptionUpdate == null) {
+        if (descriptionUpdate == null || TextUtils.isEmpty(descriptionUpdate)) {
             switch (display) {
                 case DIALOG:
                     if (update.getReleaseNotes() != null && !TextUtils.isEmpty(update.getReleaseNotes())) {
-                        return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog_before_release_notes), update.getLatestVersion(), update.getReleaseNotes());
+                        if (TextUtils.isEmpty(descriptionUpdate))
+                            return update.getReleaseNotes();
+                        else
+                            return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog_before_release_notes), update.getLatestVersion(), update.getReleaseNotes());
                     } else {
                         return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog), update.getLatestVersion(), UtilsLibrary.getAppName(context));
                     }
@@ -415,8 +418,8 @@ public class AppUpdater implements IAppUpdater {
 
             }
         }
-        return descriptionUpdate;
 
+        return descriptionUpdate;
     }
 
     private String getDescriptionNoUpdate(Context context) {
