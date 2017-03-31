@@ -54,7 +54,8 @@ class RssParser {
             Log.e("AppUpdater", "I/O error. AppUpdate can't check for updates.", e);
             return null;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Log.e("AppUpdater", "The server is down or there isn't an active Internet connection.", e);
+            return null;
         } finally {
             if (inputStream != null) {
                 try {
