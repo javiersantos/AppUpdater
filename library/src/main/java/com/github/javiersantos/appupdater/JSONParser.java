@@ -42,12 +42,14 @@ class JSONParser {
             update.setLatestVersion(json.getString(KEY_LATEST_VERSION).trim());
             update.setLatestVersionCode(json.optInt(KEY_LATEST_VERSION_CODE));
             JSONArray releaseArr = json.optJSONArray(KEY_RELEASE_NOTES);
-            StringBuilder builder = new StringBuilder();
-            for(int i = 0; i < releaseArr.length(); ++i) {
-                builder.append(releaseArr.getString(i).trim());
-                builder.append(System.getProperty("line.separator"));
+            if (releaseArr != null) {
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < releaseArr.length(); ++i) {
+                    builder.append(releaseArr.getString(i).trim());
+                    builder.append(System.getProperty("line.separator"));
+                }
+                update.setReleaseNotes(builder.toString());
             }
-            update.setReleaseNotes(builder.toString());
             URL url = new URL(json.getString(KEY_URL).trim());
             update.setUrlToDownload(url);
             return update;
