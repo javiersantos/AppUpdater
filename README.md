@@ -123,8 +123,9 @@ new AppUpdater(this)
 
 By default, the "Don't show again" button will be displayed. Use `.setButtonDoNotShowAgain(null)` to hide the button.
 
-## Other features
-### Get the latest update and compare with the installed one (asynchronous)
+### Using custom callbacks
+Adding a callback to the builder allows you to customize what will happen when the latest update has been checked. Keep in mind that when using this method you must be aware of displaying any dialog, snackbar or whatever you want to let the user know that there is a new update available.
+
 ```Java
 AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
     //.setUpdateFrom(UpdateFrom.AMAZON)
@@ -134,12 +135,15 @@ AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
     .withListener(new AppUpdaterUtils.UpdateListener() {
         @Override
         public void onSuccess(Update update, Boolean isUpdateAvailable) {
-            Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
+            Log.d("Latest Version", update.getLatestVersion());
+	    Log.d("Latest Version Code", update.getLatestVersionCode());
+	    Log.d("Release notes", update.getReleaseNotes());
+	    Log.d("URL", update.getUrlToDownload());
         }
         
         @Override
         public void onFailed(AppUpdaterError error) {
-            Log.d("AppUpdater", "Something went wrong");
+            Log.d("AppUpdater Error", "Something went wrong");
         }
      });
 appUpdaterUtils.start();
