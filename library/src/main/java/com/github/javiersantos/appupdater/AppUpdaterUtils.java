@@ -130,10 +130,12 @@ public class AppUpdaterUtils {
         latestAppVersion = new UtilsAsync.LatestAppVersion(context, true, updateFrom, gitHub, xmlOrJSONUrl, new AppUpdater.LibraryListener() {
             @Override
             public void onSuccess(Update update) {
+                Update installedUpdate = new Update(UtilsLibrary.getAppInstalledVersion(context), UtilsLibrary.getAppInstalledVersionCode(context));
+
                 if (updateListener != null) {
-                    updateListener.onSuccess(update, UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion()));
+                    updateListener.onSuccess(update, UtilsLibrary.isUpdateAvailable(installedUpdate, update));
                 } else if (appUpdaterListener != null) {
-                    appUpdaterListener.onSuccess(update.getLatestVersion(), UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion()));
+                    appUpdaterListener.onSuccess(update.getLatestVersion(), UtilsLibrary.isUpdateAvailable(installedUpdate, update));
                 } else {
                     throw new RuntimeException("You must provide a listener for the AppUpdaterUtils");
                 }

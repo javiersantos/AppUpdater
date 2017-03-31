@@ -17,10 +17,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-public class JSONParser {
+class JSONParser {
     private URL jsonUrl;
 
     private static final String KEY_LATEST_VERSION = "latestVersion";
+    private static final String KEY_LATEST_VERSION_CODE = "latestVersionCode";
     private static final String KEY_RELEASE_NOTES = "releaseNotes";
     private static final String KEY_URL = "url";
 
@@ -39,6 +40,7 @@ public class JSONParser {
             JSONObject json = readJsonFromUrl();
             Update update = new Update();
             update.setLatestVersion(json.getString(KEY_LATEST_VERSION).trim());
+            update.setLatestVersionCode(json.optInt(KEY_LATEST_VERSION_CODE));
             JSONArray releaseArr = json.optJSONArray(KEY_RELEASE_NOTES);
             StringBuilder builder = new StringBuilder();
             for(int i = 0; i < releaseArr.length(); ++i) {

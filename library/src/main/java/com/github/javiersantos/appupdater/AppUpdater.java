@@ -325,7 +325,8 @@ public class AppUpdater implements IAppUpdater {
                     return;
                 }
 
-                if (UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion())) {
+                Update installedUpdate = new Update(UtilsLibrary.getAppInstalledVersion(context), UtilsLibrary.getAppInstalledVersionCode(context));
+                if (UtilsLibrary.isUpdateAvailable(installedUpdate, update)) {
                     Integer successfulChecks = libraryPreferences.getSuccessfulChecks();
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                         switch (display) {

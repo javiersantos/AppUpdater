@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.github.javiersantos.appupdater.enums.Duration;
@@ -50,13 +51,29 @@ class UtilsLibrary {
         return version;
     }
 
-    static Boolean isUpdateAvailable(String installedVersion, String latestVersion) {
+    static Integer getAppInstalledVersionCode(Context context) {
+        Integer versionCode = 0;
+
+        try {
+            versionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return versionCode;
+    }
+
+    static Boolean isUpdateAvailable(Update installedVersion, Update latestVersion) {
         Boolean res = false;
 
-        if (!installedVersion.equals("0.0.0.0") && !latestVersion.equals("0.0.0.0")) {
-            Version installed = new Version(installedVersion);
-            Version latest = new Version(latestVersion);
-            res = installed.compareTo(latest) < 0;
+        if (latestVersion.getLatestVersionCode() != null) {
+            return latestVersion.getLatestVersionCode() > installedVersion.getLatestVersionCode();
+        } else {
+            if (!TextUtils.equals(installedVersion.getLatestVersion(), "0.0.0.0") && !TextUtils.equals(latestVersion.getLatestVersion(), "0.0.0.0")) {
+                Version installed = new Version(installedVersion.getLatestVersion());
+                Version latest = new Version(latestVersion.getLatestVersion());
+                res = installed.compareTo(latest) < 0;
+            }
         }
 
         return res;
