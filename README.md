@@ -123,6 +123,9 @@ new AppUpdater(this)
 
 By default, the "Don't show again" button will be displayed. Use `.setButtonDoNotShowAgain(null)` to hide the button.
 
+## AppUpdaterUtils
+The AppUpdaterUtils class works in the same way that the AppUpdater class does, but it won't display any dialog, Snackbar or notification. When using the AppUpdaterUtils class you must provide a custom callback that will be called when the latest version has been checked.
+
 ### Using custom callbacks
 Adding a callback to the builder allows you to customize what will happen when the latest update has been checked. Keep in mind that when using this method you must be aware of displaying any dialog, snackbar or whatever you want to let the user know that there is a new update available.
 
@@ -139,6 +142,7 @@ AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
 	    Log.d("Latest Version Code", update.getLatestVersionCode());
 	    Log.d("Release notes", update.getReleaseNotes());
 	    Log.d("URL", update.getUrlToDownload());
+	    Log.d("Is update available?", Boolean.toString(isUpdateAvailable));
         }
         
         @Override
