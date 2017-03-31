@@ -28,7 +28,7 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Javascript
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:2.5.4'
+    compile 'com.github.javiersantos:AppUpdater:2.6'
 }
 ```
 
