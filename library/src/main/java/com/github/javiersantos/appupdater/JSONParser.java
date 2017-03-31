@@ -54,7 +54,7 @@ class JSONParser {
             update.setUrlToDownload(url);
             return update;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Log.e("AppUpdater", "The server is down or there isn't an active Internet connection.", e);
         } catch (JSONException e) {
             Log.e("AppUpdater", "The JSON updater file is mal-formatted. AppUpdate can't check for updates.");
         }
