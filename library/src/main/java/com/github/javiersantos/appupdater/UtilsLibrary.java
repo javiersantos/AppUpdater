@@ -66,7 +66,7 @@ class UtilsLibrary {
     static Boolean isUpdateAvailable(Update installedVersion, Update latestVersion) {
         Boolean res = false;
 
-        if (latestVersion.getLatestVersionCode() != null) {
+        if (latestVersion.getLatestVersionCode() != null && latestVersion.getLatestVersionCode() > 0) {
             return latestVersion.getLatestVersionCode() > installedVersion.getLatestVersionCode();
         } else {
             if (!TextUtils.equals(installedVersion.getLatestVersion(), "0.0.0.0") && !TextUtils.equals(latestVersion.getLatestVersion(), "0.0.0.0")) {
