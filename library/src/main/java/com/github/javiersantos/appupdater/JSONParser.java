@@ -46,7 +46,8 @@ class JSONParser {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < releaseArr.length(); ++i) {
                     builder.append(releaseArr.getString(i).trim());
-                    builder.append(System.getProperty("line.separator"));
+                    if (i != releaseArr.length() - 1)
+                        builder.append(System.getProperty("line.separator"));
                 }
                 update.setReleaseNotes(builder.toString());
             }
