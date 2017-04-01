@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 new AppUpdater(context)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
-                        .setUpdateFrom(UpdateFrom.XML)
-                        .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.xml")
+                        .setUpdateFrom(UpdateFrom.JSON)
+                        .setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update.json")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
                         .start();

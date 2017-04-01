@@ -6,7 +6,7 @@
     <string name="app_description">A library that checks for your apps\' updates on Google Play, GitHub, Amazon or F-Droid.</string>
     <string name="app_icon"><a href="https://plus.google.com/+AdrienZier">Sample icon designed by Adrien Zier.</a></string>
     <string name="btn_dialog_update_changelog">Show dialog (JSON with changelog)</string>
-    <string name="btn_dialog_update">Show dialog (XML)</string>
+    <string name="btn_dialog_update">Show dialog (JSON)</string>
     <string name="btn_snackbar_update">Show snackbar (XML)</string>
     <string name="btn_notification_update">Show notification (XML)</string>
     <string name="btn_dialog_google_play">Show dialog (Google Play)</string>
