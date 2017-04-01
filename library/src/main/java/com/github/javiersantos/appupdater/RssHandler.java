@@ -34,7 +34,7 @@ class RssHandler extends DefaultHandler {
             if (localName.equals("latestVersion")) {
                 update.setLatestVersion(builder.toString().trim());
             } else if (localName.equals("latestVersionCode")) {
-                update.setLatestVersionCode(Integer.valueOf(builder.toString()));
+                update.setLatestVersionCode(Integer.valueOf(builder.toString().trim()));
             } else if (localName.equals("releaseNotes")) {
                 update.setReleaseNotes(builder.toString().trim());
             } else if (localName.equals("url")) {
