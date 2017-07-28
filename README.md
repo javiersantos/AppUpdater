@@ -67,7 +67,9 @@ new AppUpdater(this)
 	...
 ```
 
-When using the Snackbar, you can change the duration by using `.setDuration(Duration.NORMAL)` (default) or 
+When using `Display.DIALOG`, you can make the dialog dismissable when touching outside by using `.setCancelable(false)` (enabled by default).
+
+When using `Display.SNACKBAR`, you can change the duration by using `.setDuration(Duration.NORMAL)` (default) or 
 `.setDuration(Duration.INDEFINITE)`.
 
 ### Providing a source for the updates
@@ -118,7 +120,7 @@ new AppUpdater(this)
 	.setButtonDoNotShowAgain("Huh, not interested")
 	.setButtonDoNotShowAgainClickListener(...)
 	.setIcon(R.drawable.ic_update) // Notification icon 
-	.setCancelable(false) //Dialog could not be dismissable
+	.setCancelable(false) // Dialog could not be dismissable
 	...
 ```
 
