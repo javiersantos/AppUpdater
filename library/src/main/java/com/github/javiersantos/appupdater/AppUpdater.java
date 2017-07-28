@@ -36,7 +36,7 @@ public class AppUpdater implements IAppUpdater {
 
     private AlertDialog alertDialog;
     private Snackbar snackbar;
-    private boolean isDialogCancelable;
+    private Boolean isDialogCancelable;
 
     public AppUpdater(Context context) {
         this.context = context;
@@ -54,6 +54,7 @@ public class AppUpdater implements IAppUpdater {
         this.btnUpdate = context.getResources().getString(R.string.appupdater_btn_update);
         this.btnDismiss = context.getResources().getString(R.string.appupdater_btn_dismiss);
         this.btnDisable = context.getResources().getString(R.string.appupdater_btn_disable);
+        this.isDialogCancelable = true;
     }
 
     @Override
