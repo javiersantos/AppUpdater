@@ -118,6 +118,7 @@ new AppUpdater(this)
 	.setButtonDoNotShowAgain("Huh, not interested")
 	.setButtonDoNotShowAgainClickListener(...)
 	.setIcon(R.drawable.ic_update) // Notification icon 
+	.setCancelable(false) //Dialog could not be dismissable
 	...
 ```
 
