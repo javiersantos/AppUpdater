@@ -17,7 +17,7 @@ You can download the latest sample APK from Google Play:
 
 ## How to include
 Add the repository to your project **build.gradle**:
-```Javascript
+```Gradle
 repositories {
     maven {
         url "https://jitpack.io"
@@ -26,9 +26,9 @@ repositories {
 ```
 
 And add the library to your module **build.gradle**:
-```Javascript
+```Gradle
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:2.6.1'
+    compile 'com.github.javiersantos:AppUpdater:2.6.2'
 }
 ```
 
