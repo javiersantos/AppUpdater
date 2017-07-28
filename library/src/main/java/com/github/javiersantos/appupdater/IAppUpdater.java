@@ -355,6 +355,14 @@ public interface IAppUpdater {
     AppUpdater setIcon(@DrawableRes int iconRes);
 
     /**
+     * Make update dialog non-cancelable, and
+     * force user to make update
+     *  @param isCancelable true to force user to make update, false otherwise
+     *  @return this
+     */
+    AppUpdater setCancelable(Boolean isCancelable);
+
+    /**
      * Execute AppUpdater in background.
      *
      * @return this
@@ -376,13 +384,6 @@ public interface IAppUpdater {
      * Dismisses the alert dialog or the snackbar.
      */
     void dismiss();
-
-    /**
-     * Make update dialog non-cancelable, and
-     * force user to make update
-     *  @param isCancelable
-     */
-    void setCancelable(boolean isCancelable);
 
     interface LibraryListener {
         void onSuccess(Update update);

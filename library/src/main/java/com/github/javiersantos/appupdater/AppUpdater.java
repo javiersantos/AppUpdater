@@ -313,6 +313,12 @@ public class AppUpdater implements IAppUpdater {
     }
 
     @Override
+    public AppUpdater setCancelable(Boolean isDialogCancelable) {
+        this.isDialogCancelable = isDialogCancelable;
+        return this;
+    }
+
+    @Override
     public AppUpdater init() {
         start();
         return this;
@@ -400,11 +406,6 @@ public class AppUpdater implements IAppUpdater {
         if (snackbar != null && snackbar.isShown()) {
             snackbar.dismiss();
         }
-    }
-
-    @Override
-    public void setCancelable(boolean isDialogCancelable) {
-        this.isDialogCancelable = isDialogCancelable;
     }
 
     private String getDescriptionUpdate(Context context, Update update, Display display) {
