@@ -377,6 +377,13 @@ public interface IAppUpdater {
      */
     void dismiss();
 
+    /**
+     * Make update dialog non-cancelable, and
+     * force user to make update
+     *  @param isCancelable
+     */
+    void setCancelable(boolean isCancelable);
+
     interface LibraryListener {
         void onSuccess(Update update);
 
