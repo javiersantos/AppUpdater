@@ -28,16 +28,11 @@ repositories {
 And add the library to your module **build.gradle**:
 ```Gradle
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:2.6.2'
+    compile 'com.github.javiersantos:AppUpdater:2.6.3'
 }
 ```
 
 ## Usage
-Add **INTERNET** and **ACCESS_NETWORK_STATE** permissions to your app's Manifest:
-```xml
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-```
 
 ### Activity / Fragment
 By default, the basic usage will show a default dialog when a new version is found on the Play Store (otherwise nothing will be shown). By calling the `.start()` method, the library will work in background. You can cancel it at any time by calling `.stop()`. Other customizations are explained below.

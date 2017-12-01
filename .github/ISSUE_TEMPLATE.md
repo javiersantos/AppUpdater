@@ -8,6 +8,13 @@
  - Device OS version: `7.1.1`
  - Device Manufacturer: `LG`
  - Device Name: `Nexus 5X`
+ 
+###### Builder
+```Java
+new AppUpdater(this)
+   ...
+   .start();
+```
 
 ###### Reproduction Steps
 
