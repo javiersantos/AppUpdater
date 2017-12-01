@@ -17,12 +17,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    output.outputFile = new File(output.outputFile.parent, output.outputFile.name.replace("app-release.apk", applicationId + "_" + versionName + "_" + versionCode + ".apk"))
-                }
-            }
         }
     }
 
