@@ -42,7 +42,7 @@ public class UpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
@@ -72,7 +72,7 @@ public class UpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
@@ -102,7 +102,7 @@ public class UpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
@@ -132,7 +132,7 @@ public class UpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
@@ -161,7 +161,7 @@ public class UpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })

@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class NoUpdateAvailableTest {
@@ -43,7 +44,7 @@ public class NoUpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
@@ -73,7 +74,7 @@ public class NoUpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
@@ -103,7 +104,7 @@ public class NoUpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
@@ -133,7 +134,7 @@ public class NoUpdateAvailableTest {
 
                             @Override
                             public void onFailed(AppUpdaterError error) {
-                                assertNotNull(error);
+                                assertTrue("Failed", false);
                                 signal.countDown();
                             }
                         })
