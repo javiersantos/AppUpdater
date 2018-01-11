@@ -15,12 +15,22 @@ android:
   licenses:
     - '.+'
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
+
 before_script:
   - echo yes | android update sdk --no-ui --all --filter platform-tools,tools
   - echo yes | android update sdk --no-ui --all --filter build-tools-27.0.3
   - echo yes | android update sdk --no-ui --all --filter android-27
   - echo no | android create avd --force -n test -t android-25 --abi google_apis/armeabi-v7a
-  - emulator -avd test -no-audio -no-window &
+  - emulator -avd test -no-skin -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
