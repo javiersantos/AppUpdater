@@ -1,17 +1,23 @@
 language: android
 jdk: oraclejdk8
 
+env:
+  global:
+    - ANDROID_API=27
+    - ANDROID_BUILD_TOOLS=27.0.3
+    - EMULATOR_API=24
+
 android:
   components:
-    - build-tools-27.0.3
-    - android-27
+    - build-tools-$ANDROID_BUILD_TOOLS
+    - android-$ANDROID_API
     - extra-android-support
     - extra-google-m2repository
     - extra-android-m2repository
 
     # Needed to run emulator(s)
-    - android-24
-    - sys-img-armeabi-v7a-android-24
+    - android-$EMULATOR_API
+    - sys-img-armeabi-v7a-android-$EMULATOR_API
   licenses:
     - '.+'
 
@@ -27,9 +33,9 @@ cache:
 
 before_script:
   - echo yes | android update sdk --no-ui --all --filter platform-tools,tools
-  - echo yes | android update sdk --no-ui --all --filter build-tools-27.0.3
-  - echo yes | android update sdk --no-ui --all --filter android-27
-  - echo no | android create avd --force -n test -t android-25 --abi armeabi-v7a
+  - echo yes | android update sdk --no-ui --all --filter build-tools-$ANDROID_BUILD_TOOLS
+  - echo yes | android update sdk --no-ui --all --filter android-$ANDROID_API
+  - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
   - emulator -avd test -no-skin -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
