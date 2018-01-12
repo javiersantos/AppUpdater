@@ -1,20 +1,43 @@
 language: android
 jdk: oraclejdk8
 
+env:
+  global:
+    - ANDROID_API=27
+    - ANDROID_BUILD_TOOLS=27.0.3
+    - EMULATOR_API=24
+
 android:
   components:
-    - build-tools-27.0.3
-    - android-27
+    - build-tools-$ANDROID_BUILD_TOOLS
+    - android-$ANDROID_API
     - extra-android-support
     - extra-google-m2repository
     - extra-android-m2repository
+
+    # Needed to run emulator(s)
+    - android-$EMULATOR_API
+    - sys-img-armeabi-v7a-android-$EMULATOR_API
   licenses:
     - '.+'
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
 before_script:
   - echo yes | android update sdk --no-ui --all --filter platform-tools,tools
-  - echo yes | android update sdk --no-ui --all --filter build-tools-27.0.3
-  - echo yes | android update sdk --no-ui --all --filter android-27
+  - echo yes | android update sdk --no-ui --all --filter build-tools-$ANDROID_BUILD_TOOLS
+  - echo yes | android update sdk --no-ui --all --filter android-$ANDROID_API
+  - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
 
 script:
-    - ./gradlew clean test
+    - ./gradlew build connectedCheck
