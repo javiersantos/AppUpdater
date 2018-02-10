@@ -14,7 +14,8 @@ public class Version implements Comparable<Version> {
         final String TAG = "AppUpdater";
         if (version == null)
             Log.e(TAG, "Version can not be null");
-        else if (!version.matches("[0-9]+(\\.[0-9]+)*"))
+        version = version.replaceAll("[^0-9?!\\.]", "");
+        if (!version.matches("[0-9]+(\\.[0-9]+)*"))
             Log.e(TAG, "Invalid version format");
         this.version = version;
     }

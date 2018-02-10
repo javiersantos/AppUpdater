@@ -1,12 +1,11 @@
-<h1 align="center">AppUpdater</h1>
+<h1 align="center">AppUpdater <a href="https://github.com/javiersantos/AppUpdater#how-to-include"><img src="https://jitpack.io/v/javiersantos/AppUpdater.svg"></a></h1>
 <h4 align="center">Android Library</h4>
 
 <p align="center">
-  <a target="_blank" href="https://android-arsenal.com/api?level=8"><img src="https://img.shields.io/badge/API-8%2B-orange.svg"></a>
+  <a target="_blank" href="https://android-arsenal.com/api?level=8"><img src="https://img.shields.io/badge/API-9%2B-orange.svg"></a>
   <a target="_blank" href="https://travis-ci.org/javiersantos/AppUpdater"><img src="https://travis-ci.org/javiersantos/AppUpdater.svg?branch=master"></a>
   <a target="_blank" href="http://android-arsenal.com/details/1/3094"><img src="https://img.shields.io/badge/Android%20Arsenal-AppUpdater-blue.svg"></a>
   <a target="_blank" href="https://www.paypal.me/javiersantos" title="Donate using PayPal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" /></a>
-  <a target="_blank" href="http://patreon.com/javiersantos" title="Donate using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" /></a>
 </p>
 
 <p align="center">Android Library that checks for updates on Google Play, GitHub, Amazon, F-Droid or your own server. This library notifies your apps' updates by showing a Material dialog, Snackbar or notification. Check out the <a href="https://github.com/javiersantos/AppUpdater/wiki">wiki</a>.</p>
@@ -18,7 +17,7 @@ You can download the latest sample APK from Google Play:
 
 ## How to include
 Add the repository to your project **build.gradle**:
-```Javascript
+```Gradle
 repositories {
     maven {
         url "https://jitpack.io"
@@ -27,26 +26,24 @@ repositories {
 ```
 
 And add the library to your module **build.gradle**:
-```Javascript
+```Gradle
 dependencies {
-    compile 'com.github.javiersantos:AppUpdater:2.1.1'
+    compile 'com.github.javiersantos:AppUpdater:2.6.4'
 }
 ```
 
 ## Usage
-Add **INTERNET** and **ACCESS_NETWORK_STATE** permissions to your app's Manifest:
-```xml
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-```
 
-### Activity
+### Activity / Fragment
+By default, the basic usage will show a default dialog when a new version is found on the Play Store (otherwise nothing will be shown). By calling the `.start()` method, the library will work in background. You can cancel it at any time by calling `.stop()`. Other customizations are explained below.
+
+#### Activity
 ```Java
 AppUpdater appUpdater = new AppUpdater(this);
 appUpdater.start();
 ```
 
-### Fragment
+#### Fragment
 ```Java
 AppUpdater appUpdater = new AppUpdater(getActivity());
 appUpdater.start();
@@ -54,74 +51,82 @@ appUpdater.start();
 
 ## Customizations ([Wiki](https://github.com/javiersantos/AppUpdater/wiki))
 
-Use the builder and add following:
-```Java
-// (Optional) Provide a Display mode.
-// Default: Display.DIALOG
-.setDisplay(Display.DIALOG)
-.setDisplay(Display.SNACKBAR)
-.setDisplay(Display.NOTIFICATION)
-```
+### Displaying a dialog, Snackbar or notification
+The default usage is configured to display a dialog. However, there are other ways to show the update notice.
 
 ```Java
-// (Optional) Provide a duration for the Snackbars. 
-// Default: Duration.NORMAL
-.setDuration(Duration.NORMAL)
-.setDuration(Duration.INDEFINITE)
+new AppUpdater(this)
+	.setDisplay(Display.SNACKBAR)
+	.setDisplay(Display.DIALOG)
+	.setDisplay(Display.NOTIFICATION)
+	...
 ```
+
+When using `Display.DIALOG`, you can make the dialog dismissable when touching outside by using `.setCancelable(false)` (enabled by default).
+
+When using `Display.SNACKBAR`, you can change the duration by using `.setDuration(Duration.NORMAL)` (default) or 
+`.setDuration(Duration.INDEFINITE)`.
+
+### Providing a source for the updates
+By default the library will check for updates on the Play Store. However, there are other alternatives, such as GitHub, Amazon, F-Droid or using your own server.
 
 ```Java
-// (Optional) Provide a source for the updates.
-// Check out the wiki for more documentation: https://github.com/javiersantos/AppUpdater/wiki
-// Default: UpdateFrom.GOOGLE_PLAY
-.setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
-.setUpdateFrom(UpdateFrom.GITHUB)
-.setUpdateFrom(UpdateFrom.AMAZON)
-.setUpdateFrom(UpdateFrom.FDROID)
-.setUpdateFrom(UpdateFrom.XML)
+new AppUpdater(this)
+	.setUpdateFrom(UpdateFrom.GITHUB)
+	.setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+	.setUpdateFrom(UpdateFrom.AMAZON)
+	.setUpdateFrom(UpdateFrom.FDROID)
+	.setUpdateFrom(UpdateFrom.XML)
+	.setUpdateFrom(UpdateFrom.JSON)
+	...
 ```
+
+When using GitHub you must provide the repo where the library will check for updates: `.setGitHubUserAndRepo("javiersantos", "AppUpdater")`. Check out the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.GITHUB) for more details.
+
+When using the XML source you must upload a .xml file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML) and add the URL as shown in this example: `.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")`.
+
+When using the JSON source you must upload a .json file somewhere on the Internet following the structure explained in the [wiki](https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON) and add the URL as shown in this example: `.setUpdateJSON("https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON")`.
+
+A detailed description with examples is available at: https://github.com/javiersantos/AppUpdater/wiki
+
+### Setting the frequency to show updates
+By default, a dialog/Snackbar/notification will be shown whenever a new version is found. However, this can be set to show only every X times that the app ascertains that a new update is available.
 
 ```Java
-// (Required for GITHUB, optional otherwise) Provide the GitHub user and repo where releases are available.
-// Check out the wiki for more documentation: https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.GITHUB
-.setGitHubUserAndRepo("javiersantos", "AppUpdater")
+new AppUpdater(this)
+	.showEvery(5)
+	...
 ```
+
+You can also show the dialog, Snackbar or notification although there aren't updates by using `.showAppUpdated(true)` (disabled by default).
+
+### Customizing the title, description, buttons and more
 
 ```Java
-// (Required for XML, optional otherwise) Set the URL to the XML file with the latest version info.
-// Check out the wiki for more documentation: https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.XML
-.setUpdateXML("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.xml")
+new AppUpdater(this)
+	.setTitleOnUpdateAvailable("Update available")
+	.setContentOnUpdateAvailable("Check out the latest version available of my app!")
+	.setTitleOnUpdateNotAvailable("Update not available")
+	.setContentOnUpdateNotAvailable("No update available. Check for updates again later!")
+	.setButtonUpdate("Update now?")
+	.setButtonUpdateClickListener(...)
+	.setButtonDismiss("Maybe later")
+	.setButtonDismissClickListener(...)
+	.setButtonDoNotShowAgain("Huh, not interested")
+	.setButtonDoNotShowAgainClickListener(...)
+	.setIcon(R.drawable.ic_update) // Notification icon 
+	.setCancelable(false) // Dialog could not be dismissable
+	...
 ```
 
-```Java
-// (Optional) Updates will be displayed only every X times the app ascertains that a new update is available. 
-// Default: 1 (Always)
-.showEvery(5)
-```
+By default, the "Don't show again" button will be displayed. Use `.setButtonDoNotShowAgain(null)` to hide the button.
 
-```Java
-// (Optional) Show dialog, snackbar or notification although there aren't updates. 
-// Default: false
-.showAppUpdated(true)
-```
+## AppUpdaterUtils
+The AppUpdaterUtils class works in the same way that the AppUpdater class does, but it won't display any dialog, Snackbar or notification. When using the AppUpdaterUtils class you must provide a custom callback that will be called when the latest version has been checked.
 
-```Java
-// (Optional) Customize the dialog title, description and buttons
-.setDialogTitleWhenUpdateAvailable("Update available")
-.setDialogDescriptionWhenUpdateAvailable("Check out the latest version available of my app!")
-.setDialogButtonUpdate("Update now?")
-.setDialogButtonDoNotShowAgain("Huh, not interested")
-.setDialogTitleWhenUpdateNotAvailable("Update not available")
-.setDialogDescriptionWhenUpdateNotAvailable("No update available. Check for updates again later!")
-```
+### Using custom callbacks
+Adding a callback to the builder allows you to customize what will happen when the latest update has been checked. Keep in mind that when using this method you must be aware of displaying any dialog, snackbar or whatever you want to let the user know that there is a new update available.
 
-```Java
-// (Optional) Set a resource identifier for the small notification icon 
-.setIcon(R.drawable.ic_update)
-```
-
-## Other features
-### Get the latest update and compare with the installed one (asynchronous)
 ```Java
 AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
     //.setUpdateFrom(UpdateFrom.AMAZON)
@@ -131,17 +136,22 @@ AppUpdaterUtils appUpdaterUtils = new AppUpdaterUtils(this)
     .withListener(new AppUpdaterUtils.UpdateListener() {
         @Override
         public void onSuccess(Update update, Boolean isUpdateAvailable) {
-            Log.d("AppUpdater", update.getLatestVersion() + ", " + update.getUrlToDownload() + ", " + Boolean.toString(isUpdateAvailable));
+            Log.d("Latest Version", update.getLatestVersion());
+	    Log.d("Latest Version Code", update.getLatestVersionCode());
+	    Log.d("Release notes", update.getReleaseNotes());
+	    Log.d("URL", update.getUrlToDownload());
+	    Log.d("Is update available?", Boolean.toString(isUpdateAvailable));
         }
         
         @Override
         public void onFailed(AppUpdaterError error) {
-            Log.d("AppUpdater", "Something went wrong");
-        });
+            Log.d("AppUpdater Error", "Something went wrong");
+        }
+     });
 appUpdaterUtils.start();
 ```
 
-![ML Manager](https://raw.githubusercontent.com/javiersantos/AppUpdater/master/Screenshots/banner.png)
+![AppUpdater](https://raw.githubusercontent.com/javiersantos/AppUpdater/master/Screenshots/banner.png)
 
 ## License
 	Copyright 2016 Javier Santos

@@ -14,7 +14,8 @@ public class AppUpdaterUtils {
     private AppUpdaterListener appUpdaterListener;
     private UpdateFrom updateFrom;
     private GitHub gitHub;
-    private String xmlUrl;
+    private String xmlOrJSONUrl;
+    private UtilsAsync.LatestAppVersion latestAppVersion;
 
     public interface UpdateListener {
         /**
@@ -81,9 +82,21 @@ public class AppUpdaterUtils {
      * @return this
      */
     public AppUpdaterUtils setUpdateXML(@NonNull String xmlUrl) {
-        this.xmlUrl = xmlUrl;
+        this.xmlOrJSONUrl = xmlUrl;
         return this;
     }
+
+    /**
+     * Set the url to the xml with the latest version info.
+     *
+     * @param jsonUrl file
+     * @return this
+     */
+    public AppUpdaterUtils setUpdateJSON(@NonNull String jsonUrl) {
+        this.xmlOrJSONUrl = jsonUrl;
+        return this;
+    }
+
 
     /**
      * Method to set the AppUpdaterListener for the AppUpdaterUtils actions
@@ -114,13 +127,15 @@ public class AppUpdaterUtils {
      * Execute AppUpdaterUtils in background.
      */
     public void start() {
-        UtilsAsync.LatestAppVersion latestAppVersion = new UtilsAsync.LatestAppVersion(context, true, updateFrom, gitHub, xmlUrl, new AppUpdater.LibraryListener() {
+        latestAppVersion = new UtilsAsync.LatestAppVersion(context, true, updateFrom, gitHub, xmlOrJSONUrl, new AppUpdater.LibraryListener() {
             @Override
             public void onSuccess(Update update) {
+                Update installedUpdate = new Update(UtilsLibrary.getAppInstalledVersion(context), UtilsLibrary.getAppInstalledVersionCode(context));
+
                 if (updateListener != null) {
-                    updateListener.onSuccess(update, UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion()));
+                    updateListener.onSuccess(update, UtilsLibrary.isUpdateAvailable(installedUpdate, update));
                 } else if (appUpdaterListener != null) {
-                    appUpdaterListener.onSuccess(update.getLatestVersion(), UtilsLibrary.isUpdateAvailable(UtilsLibrary.getAppInstalledVersion(context), update.getLatestVersion()));
+                    appUpdaterListener.onSuccess(update.getLatestVersion(), UtilsLibrary.isUpdateAvailable(installedUpdate, update));
                 } else {
                     throw new RuntimeException("You must provide a listener for the AppUpdaterUtils");
                 }
@@ -141,4 +156,12 @@ public class AppUpdaterUtils {
         latestAppVersion.execute();
     }
 
+    /**
+     * Stops the execution of AppUpdater.
+     */
+    public void stop() {
+        if (latestAppVersion != null && !latestAppVersion.isCancelled()) {
+            latestAppVersion.cancel(true);
+        }
+    }
 }

@@ -1,0 +1,12 @@
+<resources>
+    <string name="appupdater_update_available">Νέα έκδοση διαθέσιμη!</string>
+    <string name="appupdater_update_available_description_dialog">Η ενημέρωση %1$s είναι διαθέσιμη για λήψη. Με την λήψη της τελευταίας ενημέρωσης θα έχετε τις τελευταίες λειτουργίες, διορθώσεις και βελτιώσεις του %2$s.</string>
+    <string name="appupdater_update_available_description_dialog_before_release_notes">Η ενημέρωση %1$s είναι διαθέσιμη για λήψη.\n\nΜπορείτε να λάβετε τις νέες λειτουργίες:\n%2$s</string>
+    <string name="appupdater_update_available_description_snackbar">Η ενημέρωση %1$s είναι διαθέσιμη!</string>
+    <string name="appupdater_update_available_description_notification">Ενημέρωση %1$s του %2$s διαθέσιμη για λήψη</string>
+    <string name="appupdater_update_not_available">Δεν υπάρχουν νέες ενημερώσεις</string>
+    <string name="appupdater_update_not_available_description">Έχετε την τελευταία έκδοση του %s διαθέσιμη!</string>
+    <string name="appupdater_btn_update">Ενημέρωση</string>
+    <string name="appupdater_btn_disable">Να μην εμφανιστεί ξανά</string>
+    <string name="appupdater_btn_dismiss">Απόκρυψη</string>
+</resources>

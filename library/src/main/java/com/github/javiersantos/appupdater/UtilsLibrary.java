@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.github.javiersantos.appupdater.enums.Duration;
@@ -18,11 +19,15 @@ import com.github.javiersantos.appupdater.objects.Version;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 class UtilsLibrary {
 
@@ -46,13 +51,29 @@ class UtilsLibrary {
         return version;
     }
 
-    static Boolean isUpdateAvailable(String installedVersion, String latestVersion) {
+    static Integer getAppInstalledVersionCode(Context context) {
+        Integer versionCode = 0;
+
+        try {
+            versionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return versionCode;
+    }
+
+    static Boolean isUpdateAvailable(Update installedVersion, Update latestVersion) {
         Boolean res = false;
 
-        if (!installedVersion.equals("0.0.0.0") && !latestVersion.equals("0.0.0.0")) {
-            Version installed = new Version(installedVersion);
-            Version latest = new Version(latestVersion);
-            res = installed.compareTo(latest) < 0;
+        if (latestVersion.getLatestVersionCode() != null && latestVersion.getLatestVersionCode() > 0) {
+            return latestVersion.getLatestVersionCode() > installedVersion.getLatestVersionCode();
+        } else {
+            if (!TextUtils.equals(installedVersion.getLatestVersion(), "0.0.0.0") && !TextUtils.equals(latestVersion.getLatestVersion(), "0.0.0.0")) {
+                Version installed = new Version(installedVersion.getLatestVersion());
+                Version latest = new Version(latestVersion.getLatestVersion());
+                res = installed.compareTo(latest) < 0;
+            }
         }
 
         return res;
@@ -89,7 +110,7 @@ class UtilsLibrary {
 
         switch (updateFrom) {
             default:
-                res = Config.PLAY_STORE_URL + getAppPackageName(context);
+                res = String.format(Config.PLAY_STORE_URL, getAppPackageName(context), Locale.getDefault().getLanguage());
                 break;
             case GITHUB:
                 res = Config.GITHUB_URL + gitHub.getGitHubUser() + "/" + gitHub.getGitHubRepo() + "/releases";
@@ -112,17 +133,18 @@ class UtilsLibrary {
 
     static Update getLatestAppVersionHttp(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         Boolean isAvailable = false;
-        String version = "0.0.0.0";
         String source = "";
+        OkHttpClient client = new OkHttpClient();
+        URL url = getUpdateURL(context, updateFrom, gitHub);
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        ResponseBody body = null;
 
         try {
-            URL url = getUpdateURL(context, updateFrom, gitHub);
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-
-            InputStream inputStream = connection.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            Response response = client.newCall(request).execute();
+            body = response.body();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(body.byteStream(), "UTF-8"));
             StringBuilder str = new StringBuilder();
 
             String line;
@@ -158,26 +180,45 @@ class UtilsLibrary {
                 Log.e("AppUpdater", "Cannot retrieve latest version. Is it configured properly?");
             }
 
-            inputStream.close();
+            response.body().close();
             source = str.toString();
         } catch (FileNotFoundException e) {
             Log.e("AppUpdater", "App wasn't found in the provided source. Is it published?");
-        } catch (IOException ignore) {}
+        } catch (IOException ignore) {
 
+        } finally {
+            if (body != null) {
+                body.close();
+            }
+        }
+
+        final String version = getVersion(updateFrom, isAvailable, source);
+        final String recentChanges = getRecentChanges(updateFrom, isAvailable, source);
+        final URL updateUrl = getUpdateURL(context, updateFrom, gitHub);
+
+        return new Update(version, recentChanges, updateUrl);
+    }
+
+    private static String getVersion(UpdateFrom updateFrom, Boolean isAvailable, String source) {
+        String version = "0.0.0.0";
         if (isAvailable) {
             switch (updateFrom) {
                 default:
                     String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_RELEASE);
-                    splitPlayStore = splitPlayStore[1].split("(<)");
-                    version = splitPlayStore[0].trim();
+                    if (splitPlayStore.length > 1) {
+                        splitPlayStore = splitPlayStore[1].split("(<)");
+                        version = splitPlayStore[0].trim();
+                    }
                     break;
                 case GITHUB:
                     String[] splitGitHub = source.split(Config.GITHUB_TAG_RELEASE);
-                    splitGitHub = splitGitHub[1].split("(\")");
-                    version = splitGitHub[0].trim();
-                    if (version.contains("v")) { // Some repo uses vX.X.X
-                        splitGitHub = version.split("(v)");
-                        version = splitGitHub[1].trim();
+                    if (splitGitHub.length > 1) {
+                        splitGitHub = splitGitHub[1].split("(\")");
+                        version = splitGitHub[0].trim();
+                        if (version.contains("v")) { // Some repo uses vX.X.X
+                            splitGitHub = version.split("(v)");
+                            version = splitGitHub[1].trim();
+                        }
                     }
                     break;
                 case AMAZON:
@@ -192,14 +233,41 @@ class UtilsLibrary {
                     break;
             }
         }
-
-        return new Update(version, null, getUpdateURL(context, updateFrom, gitHub));
+        return version;
     }
 
-    static Update getLatestAppVersionXml(String urlXml) {
-        RssParser parser = new RssParser(urlXml);
-        return parser.parse();
+    private static String getRecentChanges(UpdateFrom updateFrom, Boolean isAvailable, String source) {
+        String recentChanges = "";
+        if (isAvailable) {
+            switch (updateFrom) {
+                default:
+                    String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_CHANGES);
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 1; i < splitPlayStore.length; i++) {
+                        sb.append(splitPlayStore[i].split("(<)")[0]).append("\n");
+                    }
+                    recentChanges = sb.toString();
+                    break;
+                case GITHUB:
+                    break;
+                case AMAZON:
+                    break;
+                case FDROID:
+                    break;
+            }
+        }
+        return recentChanges;
     }
+
+    static Update getLatestAppVersion(UpdateFrom updateFrom, String url) {
+        if (updateFrom == UpdateFrom.XML){
+            RssParser parser = new RssParser(url);
+            return parser.parse();
+        } else {
+            return new JSONParser(url).parse();
+        }
+    }
+
 
     static Intent intentToUpdate(Context context, UpdateFrom updateFrom, URL url) {
         Intent intent;
