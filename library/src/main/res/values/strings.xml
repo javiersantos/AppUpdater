@@ -9,4 +9,7 @@
     <string name="appupdater_btn_update">Update</string>
     <string name="appupdater_btn_disable">Don\'t show again</string>
     <string name="appupdater_btn_dismiss">Dismiss</string>
+    <string name="appupdater_channel_name">Update notifications</string>
+
+    <string name="appupdater_channel" translatable="false">appupdater_channel_01</string>
 </resources>

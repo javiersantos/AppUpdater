@@ -10,4 +10,5 @@
     <string name="appupdater_btn_update">Actualizar</string>
     <string name="appupdater_btn_disable">No mostrar de nuevo</string>
     <string name="appupdater_btn_dismiss">Ocultar</string>
+    <string name="appupdater_channel_name">Notificaciones de actualización</string>
 </resources>
