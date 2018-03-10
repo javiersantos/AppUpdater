@@ -17,16 +17,15 @@ import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
 public class MainActivity extends AppCompatActivity {
-    private Context context;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        this.context = this;
-
-        setSupportActionBar(binding.toolbar);
-
+        this.mContext = this;
+		setSupportActionBar(binding.toolbar);
+		
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(context)
+                new AppUpdater(mContext)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.JSON)
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.dialogUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(context)
+                new AppUpdater(mContext)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.JSON)
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.snackbarUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(context)
+                new AppUpdater(mContext)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.XML)
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.notificationUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(context)
+                new AppUpdater(mContext)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.XML)
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.dialogNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(context)
+                new AppUpdater(mContext)
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.snackbarNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(context)
+                new AppUpdater(mContext)
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.SNACKBAR)
                         .showAppUpdated(true)
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.notificationNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(context)
+                new AppUpdater(mContext)
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.NOTIFICATION)
                         .showAppUpdated(true)
@@ -142,5 +141,4 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }
