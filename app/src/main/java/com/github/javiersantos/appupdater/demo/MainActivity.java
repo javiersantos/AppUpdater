@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         this.mContext = this;
-		setSupportActionBar(binding.toolbar);
+        setSupportActionBar(binding.toolbar);
 		
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
