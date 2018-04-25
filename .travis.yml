@@ -9,6 +9,7 @@ env:
 
 android:
   components:
+    - tools
     - build-tools-$ANDROID_BUILD_TOOLS
     - android-$ANDROID_API
     - extra-android-support
