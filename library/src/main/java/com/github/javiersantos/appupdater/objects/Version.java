@@ -1,7 +1,6 @@
 package com.github.javiersantos.appupdater.objects;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 public class Version implements Comparable<Version> {
     private String version;
@@ -10,14 +9,14 @@ public class Version implements Comparable<Version> {
         return this.version;
     }
 
-    public Version(String version) {
-        final String TAG = "AppUpdater";
-        if (version == null)
-            Log.e(TAG, "Version can not be null");
-        version = version.replaceAll("[^0-9?!\\.]", "");
-        if (!version.matches("[0-9]+(\\.[0-9]+)*"))
-            Log.e(TAG, "Invalid version format");
-        this.version = version;
+    public Version(@NonNull final String version) throws Exception
+    {
+        String trimmedVersion = version.replaceAll("[^0-9?!\\.]", "");
+        // replace all empty version number-parts with zeros
+        trimmedVersion = trimmedVersion.replaceAll("\\.(\\.|$)", "\\.0$1");
+        if (!trimmedVersion.matches("[0-9]+(\\.[0-9]+)*"))
+            throw new Exception("Invalid version format. Original: `" + version + "` trimmed: `" + trimmedVersion + "`");
+        this.version = trimmedVersion;
     }
 
     @Override
