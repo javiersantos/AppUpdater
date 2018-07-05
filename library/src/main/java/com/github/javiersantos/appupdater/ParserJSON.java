@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 
-class JSONParser {
+class ParserJSON {
     private URL jsonUrl;
 
     private static final String KEY_LATEST_VERSION = "latestVersion";
@@ -25,7 +25,7 @@ class JSONParser {
     private static final String KEY_RELEASE_NOTES = "releaseNotes";
     private static final String KEY_URL = "url";
 
-    public JSONParser(String url) {
+    public ParserJSON(String url) {
         try {
             this.jsonUrl = new URL(url);
         } catch (MalformedURLException e) {

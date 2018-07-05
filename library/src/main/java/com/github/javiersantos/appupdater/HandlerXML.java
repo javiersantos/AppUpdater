@@ -9,7 +9,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-class RssHandler extends DefaultHandler {
+class HandlerXML extends DefaultHandler {
     private Update update;
     private StringBuilder builder;
 

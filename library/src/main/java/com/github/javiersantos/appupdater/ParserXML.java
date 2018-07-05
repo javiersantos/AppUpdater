@@ -20,12 +20,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-class RssParser {
-    private URL rssUrl;
+class ParserXML {
+    private URL xmlUrl;
 
-    public RssParser(String url) {
+    public ParserXML(String url) {
         try {
-            this.rssUrl = new URL(url);
+            this.xmlUrl = new URL(url);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -38,10 +38,10 @@ class RssParser {
         InputStream inputStream = null;
 
         try {
-            URLConnection connection = rssUrl.openConnection();
+            URLConnection connection = xmlUrl.openConnection();
             inputStream = connection.getInputStream();
             SAXParser parser = factory.newSAXParser();
-            RssHandler handler = new RssHandler();
+            HandlerXML handler = new HandlerXML();
             parser.parse(inputStream, handler);
             return handler.getUpdate();
         } catch (ParserConfigurationException | SAXException e) {

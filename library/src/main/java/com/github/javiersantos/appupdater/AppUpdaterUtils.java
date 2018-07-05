@@ -15,7 +15,7 @@ public class AppUpdaterUtils {
     private UpdateFrom updateFrom;
     private GitHub gitHub;
     private String xmlOrJSONUrl;
-    private UtilsAsync.LatestAppVersion latestAppVersion;
+    private AsyncLatestAppVersion.LatestAppVersion latestAppVersion;
 
     public interface UpdateListener {
         /**
@@ -127,7 +127,7 @@ public class AppUpdaterUtils {
      * Execute AppUpdaterUtils in background.
      */
     public void start() {
-        latestAppVersion = new UtilsAsync.LatestAppVersion(context, true, updateFrom, gitHub, xmlOrJSONUrl, new AppUpdater.LibraryListener() {
+        latestAppVersion = new AsyncLatestAppVersion.LatestAppVersion(context, true, updateFrom, gitHub, xmlOrJSONUrl, new AppUpdater.LibraryListener() {
             @Override
             public void onSuccess(Update update) {
                 Update installedUpdate = new Update(UtilsLibrary.getAppInstalledVersion(context), UtilsLibrary.getAppInstalledVersionCode(context));

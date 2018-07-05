@@ -26,6 +26,9 @@ public enum UpdateFrom {
      */
     XML,
 
+    /**
+     * @see <a href="https://github.com/javiersantos/AppUpdater/wiki/UpdateFrom.JSON">Wiki: UpdateFrom.JSON</a>
+     */
     JSON
 
 }

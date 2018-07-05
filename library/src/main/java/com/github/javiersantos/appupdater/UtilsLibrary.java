@@ -261,10 +261,10 @@ class UtilsLibrary {
 
     static Update getLatestAppVersion(UpdateFrom updateFrom, String url) {
         if (updateFrom == UpdateFrom.XML){
-            RssParser parser = new RssParser(url);
+            ParserXML parser = new ParserXML(url);
             return parser.parse();
         } else {
-            return new JSONParser(url).parse();
+            return new ParserJSON(url).parse();
         }
     }
 

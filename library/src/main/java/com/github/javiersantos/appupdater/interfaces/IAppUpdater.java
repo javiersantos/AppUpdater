@@ -1,10 +1,13 @@
-package com.github.javiersantos.appupdater;
+package com.github.javiersantos.appupdater.interfaces;
 
 import android.content.DialogInterface;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.DisableClickListener;
+import com.github.javiersantos.appupdater.UpdateClickListener;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.Duration;
