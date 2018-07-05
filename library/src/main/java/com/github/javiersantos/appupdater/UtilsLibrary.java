@@ -249,8 +249,9 @@ class UtilsLibrary {
                     if (splitGitHub.length > 1) {
                         splitGitHub = splitGitHub[1].split("(\")");
                         version = splitGitHub[0].trim();
-                        if (version.contains("v")) { // Some repo uses vX.X.X
-                            splitGitHub = version.split("(v)");
+                        if (version.startsWith("v"))
+                        { // Some repo uses vX.X.X
+                            splitGitHub = version.split("(v)", 2);
                             version = splitGitHub[1].trim();
                         }
                     }
