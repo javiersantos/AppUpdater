@@ -16,6 +16,8 @@ import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.github.javiersantos.appupdater.objects.Version;
 
+import org.jsoup.Jsoup;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -105,7 +107,7 @@ class UtilsLibrary {
         return res;
     }
 
-    static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    private static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         String res;
 
         switch (updateFrom) {
@@ -131,7 +133,50 @@ class UtilsLibrary {
 
     }
 
-    static Update getLatestAppVersionHttp(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    static Update getLatestAppVersionStore(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+        switch (updateFrom) {
+            case GOOGLE_PLAY:
+                return getLatestAppVersionGooglePlay(context);
+            default:
+                return getLatestAppVersionHttp(context, updateFrom, gitHub);
+        }
+    }
+
+    private static Update getLatestAppVersionGooglePlay(Context context) {
+        String version = "0.0.0.0";
+        String recentChanges = "";
+
+        URL updateURL = getUpdateURL(context, UpdateFrom.GOOGLE_PLAY, null);
+
+        try {
+            version = getJsoupString(updateURL.toString(), ".hAyfc .htlgb", 7);
+
+            //TODO: Release Notes for Google Play is not working
+            //recentChanges = getJsoupString(updateURL.toString(), ".W4P4ne .DWPxHb", 1);
+
+            if (TextUtils.isEmpty(version)) {
+                Log.e("AppUpdater", "Cannot retrieve latest version. Is it configured properly?");
+            }
+        } catch (Exception e) {
+            Log.e("AppUpdater", "App wasn't found in the provided source. Is it published?");
+        }
+
+        Log.e("Update", version);
+
+        return new Update(version, recentChanges, updateURL);
+    }
+
+    private static String getJsoupString(String url, String css, int position) throws Exception {
+        return Jsoup.connect(url)
+                .timeout(30000)
+                .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                .get()
+                .select(css)
+                .get(position)
+                .ownText();
+    }
+
+    private static Update getLatestAppVersionHttp(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         Boolean isAvailable = false;
         String source = "";
         OkHttpClient client = new OkHttpClient();
@@ -150,12 +195,6 @@ class UtilsLibrary {
             String line;
             while ((line = reader.readLine()) != null) {
                 switch (updateFrom) {
-                    default:
-                        if (line.contains(Config.PLAY_STORE_TAG_RELEASE)) {
-                            str.append(line);
-                            isAvailable = true;
-                        }
-                        break;
                     case GITHUB:
                         if (line.contains(Config.GITHUB_TAG_RELEASE)) {
                             str.append(line);
@@ -193,23 +232,15 @@ class UtilsLibrary {
         }
 
         final String version = getVersion(updateFrom, isAvailable, source);
-        final String recentChanges = getRecentChanges(updateFrom, isAvailable, source);
         final URL updateUrl = getUpdateURL(context, updateFrom, gitHub);
 
-        return new Update(version, recentChanges, updateUrl);
+        return new Update(version, updateUrl);
     }
 
     private static String getVersion(UpdateFrom updateFrom, Boolean isAvailable, String source) {
         String version = "0.0.0.0";
         if (isAvailable) {
             switch (updateFrom) {
-                default:
-                    String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_RELEASE);
-                    if (splitPlayStore.length > 1) {
-                        splitPlayStore = splitPlayStore[1].split("(<)");
-                        version = splitPlayStore[0].trim();
-                    }
-                    break;
                 case GITHUB:
                     String[] splitGitHub = source.split(Config.GITHUB_TAG_RELEASE);
                     if (splitGitHub.length > 1) {
@@ -234,29 +265,6 @@ class UtilsLibrary {
             }
         }
         return version;
-    }
-
-    private static String getRecentChanges(UpdateFrom updateFrom, Boolean isAvailable, String source) {
-        String recentChanges = "";
-        if (isAvailable) {
-            switch (updateFrom) {
-                default:
-                    String[] splitPlayStore = source.split(Config.PLAY_STORE_TAG_CHANGES);
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 1; i < splitPlayStore.length; i++) {
-                        sb.append(splitPlayStore[i].split("(<)")[0]).append("\n");
-                    }
-                    recentChanges = sb.toString();
-                    break;
-                case GITHUB:
-                    break;
-                case AMAZON:
-                    break;
-                case FDROID:
-                    break;
-            }
-        }
-        return recentChanges;
     }
 
     static Update getLatestAppVersion(UpdateFrom updateFrom, String url) {

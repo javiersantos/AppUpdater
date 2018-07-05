@@ -15,6 +15,11 @@ public class Update {
         this.versionCode = latestVersionCode;
     }
 
+    public Update(String latestVersion, URL apk) {
+        this.version = latestVersion;
+        this.apk = apk;
+    }
+
     public Update(String latestVersion, String releaseNotes, URL apk) {
         this.version = latestVersion;
         this.apk = apk;

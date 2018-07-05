@@ -81,7 +81,7 @@ class UtilsAsync {
                 } else {
                     Context context = contextRef.get();
                     if (context != null) {
-                        return UtilsLibrary.getLatestAppVersionHttp(context, updateFrom, gitHub);
+                        return UtilsLibrary.getLatestAppVersionStore(context, updateFrom, gitHub);
                     } else {
                         cancel(true);
                         return null;
