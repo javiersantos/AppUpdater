@@ -32,7 +32,7 @@ public class AppUpdater implements IAppUpdater {
     private String titleUpdate, descriptionUpdate, btnDismiss, btnUpdate, btnDisable; // Update available
     private String titleNoUpdate, descriptionNoUpdate; // Update not available
     private int iconResId;
-    private AsyncLatestAppVersion.LatestAppVersion latestAppVersion;
+    private UtilsAsync.LatestAppVersion latestAppVersion;
     private DialogInterface.OnClickListener btnUpdateClickListener, btnDismissClickListener, btnDisableClickListener;
 
     private AlertDialog alertDialog;
@@ -327,7 +327,7 @@ public class AppUpdater implements IAppUpdater {
 
     @Override
     public void start() {
-        latestAppVersion = new AsyncLatestAppVersion.LatestAppVersion(context, false, updateFrom, gitHub, xmlOrJsonUrl, new LibraryListener() {
+        latestAppVersion = new UtilsAsync.LatestAppVersion(context, false, updateFrom, gitHub, xmlOrJsonUrl, new LibraryListener() {
             @Override
             public void onSuccess(Update update) {
                 if (context instanceof Activity && ((Activity) context).isFinishing()) {

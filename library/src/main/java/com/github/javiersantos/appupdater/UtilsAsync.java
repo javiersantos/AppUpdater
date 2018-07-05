@@ -10,7 +10,7 @@ import com.github.javiersantos.appupdater.objects.Update;
 
 import java.lang.ref.WeakReference;
 
-class AsyncLatestAppVersion {
+class UtilsAsync {
 
     static class LatestAppVersion extends AsyncTask<Void, Void, Update> {
         private WeakReference<Context> contextRef;
