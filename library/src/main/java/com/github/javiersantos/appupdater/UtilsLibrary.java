@@ -3,6 +3,7 @@ package com.github.javiersantos.appupdater;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -34,7 +35,9 @@ import okhttp3.ResponseBody;
 class UtilsLibrary {
 
     static String getAppName(Context context) {
-        return context.getString(context.getApplicationInfo().labelRes);
+        ApplicationInfo applicationInfo = context.getApplicationInfo();
+        int stringId = applicationInfo.labelRes;
+        return stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() : context.getString(stringId);
     }
 
     static String getAppPackageName(Context context) {
