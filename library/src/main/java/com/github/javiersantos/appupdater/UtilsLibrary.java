@@ -18,6 +18,9 @@ import com.github.javiersantos.appupdater.objects.Update;
 import com.github.javiersantos.appupdater.objects.Version;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -113,12 +116,17 @@ class UtilsLibrary {
         return res;
     }
 
-    private static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    private static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub,String defaultLang ) {
         String res;
+        String lang = defaultLang;
+        if(lang == null )
+        {
+            lang = Locale.getDefault().getLanguage();
+        }
 
         switch (updateFrom) {
             default:
-                res = String.format(Config.PLAY_STORE_URL, getAppPackageName(context), Locale.getDefault().getLanguage());
+                res = String.format(Config.PLAY_STORE_URL, "jc01rho.ogame.ognotifier.vending",lang);
                 break;
             case GITHUB:
                 res = Config.GITHUB_URL + gitHub.getGitHubUser() + "/" + gitHub.getGitHubRepo() + "/releases/latest";
@@ -152,10 +160,10 @@ class UtilsLibrary {
         String version = "0.0.0.0";
         String recentChanges = "";
 
-        URL updateURL = getUpdateURL(context, UpdateFrom.GOOGLE_PLAY, null);
+        URL updateURL = getUpdateURL(context, UpdateFrom.GOOGLE_PLAY, null,"en");
 
         try {
-            version = getJsoupString(updateURL.toString(), ".hAyfc .htlgb", 7);
+            version = getJsoupString(updateURL.toString(), ".hAyfc .htlgb", 7,context.getResources().getString(R.string.appupdater_google_play_currentversion));
 
             //TODO: Release Notes for Google Play is not working
             //recentChanges = getJsoupString(updateURL.toString(), ".W4P4ne .DWPxHb", 1);
@@ -172,11 +180,32 @@ class UtilsLibrary {
         return new Update(version, recentChanges, updateURL);
     }
 
-    private static String getJsoupString(String url, String css, int position) throws Exception {
-        return Jsoup.connect(url)
+    private static String getJsoupString(String url, String css, int position, String currentVersionText) throws Exception {
+        Document temp = Jsoup.connect(url)
                 .timeout(30000)
                 .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-                .get()
+                .get();
+
+
+
+
+        Elements seletedTemp = ((Document) temp).select(".hAyfc");
+        int i = 0;
+        for(i = 0; seletedTemp.size() > i; i ++)
+        {
+
+            Element elm = seletedTemp.get(i);
+            if(elm.text().contains(currentVersionText))
+            {
+                position = i * 2 +1 ;
+                break;
+            }
+        }
+
+
+
+
+        return temp
                 .select(css)
                 .get(position)
                 .ownText();
@@ -186,7 +215,7 @@ class UtilsLibrary {
         Boolean isAvailable = false;
         String source = "";
         OkHttpClient client = new OkHttpClient();
-        URL url = getUpdateURL(context, updateFrom, gitHub);
+        URL url = getUpdateURL(context, updateFrom, gitHub,null);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -238,7 +267,7 @@ class UtilsLibrary {
         }
 
         final String version = getVersion(updateFrom, isAvailable, source);
-        final URL updateUrl = getUpdateURL(context, updateFrom, gitHub);
+        final URL updateUrl = getUpdateURL(context, updateFrom, gitHub,null);
 
         return new Update(version, updateUrl);
     }
