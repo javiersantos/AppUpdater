@@ -1,0 +1,12 @@
+<resources>
+    <string name="appupdater_update_available">有可用更新</string>
+    <string name="appupdater_update_available_description_dialog">可下載%1$s版本。\n透過下載最新版本，您可獲得%2$s的新功能、改進以及bug的修復。 </string>
+    <string name="appupdater_update_available_description_dialog_before_release_notes">可下載%1$s版本。\n\n安裝後，您可獲得以下新功能:\n%2$s</string>
+    <string name="appupdater_update_available_description_snackbar">可更新至%1$s版本！ </string>
+    <string name="appupdater_update_available_description_notification">可下載%1$s的%2$s版本</string>
+    <string name="appupdater_update_not_available">無可用更新</string>
+    <string name="appupdater_update_not_available_description">您目前已經更新到%s最新版本！ </string>
+    <string name="appupdater_btn_update">更新</string>
+    <string name="appupdater_btn_disable">不再提示</string>
+    <string name="appupdater_btn_dismiss">取消</string>
+</resources>
