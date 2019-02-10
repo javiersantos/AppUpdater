@@ -126,7 +126,7 @@ class UtilsLibrary {
 
         switch (updateFrom) {
             default:
-                res = String.format(Config.PLAY_STORE_URL, "jc01rho.ogame.ognotifier.vending",lang);
+                res = String.format(Config.PLAY_STORE_URL, getAppPackageName(context),lang);
                 break;
             case GITHUB:
                 res = Config.GITHUB_URL + gitHub.getGitHubUser() + "/" + gitHub.getGitHubRepo() + "/releases/latest";
