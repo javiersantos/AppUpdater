@@ -1,6 +1,5 @@
 package com.github.javiersantos.appupdater;
 
-import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -38,8 +37,8 @@ class UtilsDisplay {
                 .create();
     }
 
-    static Snackbar showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
-        Activity activity = (Activity) context;
+    static Snackbar showUpdateAvailableSnackbar(View view, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
+        final Context context = view.getContext();
         int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
         /*if (indefinite) {
@@ -48,7 +47,7 @@ class UtilsDisplay {
             snackbarTime = Snackbar.LENGTH_LONG;
         }*/
 
-        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), content, snackbarTime);
+        Snackbar snackbar = Snackbar.make(view, content, snackbarTime);
         snackbar.setAction(context.getResources().getString(R.string.appupdater_btn_update), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,8 +57,7 @@ class UtilsDisplay {
         return snackbar;
     }
 
-    static Snackbar showUpdateNotAvailableSnackbar(final Context context, String content, Boolean indefinite) {
-        Activity activity = (Activity) context;
+    static Snackbar showUpdateNotAvailableSnackbar(View view, String content, Boolean indefinite) {
         int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
         /*if (indefinite) {
@@ -69,7 +67,7 @@ class UtilsDisplay {
         }*/
 
 
-        return Snackbar.make(activity.findViewById(android.R.id.content), content, snackbarTime);
+        return Snackbar.make(view, content, snackbarTime);
     }
 
     static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, URL apk, int smallIconResourceId) {

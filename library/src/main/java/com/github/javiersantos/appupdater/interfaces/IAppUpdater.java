@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.view.View;
 
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.DisableClickListener;
@@ -42,6 +43,15 @@ public interface IAppUpdater {
      * @see com.github.javiersantos.appupdater.enums.Duration
      */
     AppUpdater setDuration(Duration duration);
+
+
+    /**
+     * Set the view where Snackbar will be placed.
+     *
+     * @param view view where Snackbar will be placed.
+     * @return this
+     */
+    AppUpdater setView(View view);
 
     /**
      * Set the user and repo where the releases are uploaded. You must upload your updates as a release in order to work properly tagging them as vX.X.X or X.X.X.

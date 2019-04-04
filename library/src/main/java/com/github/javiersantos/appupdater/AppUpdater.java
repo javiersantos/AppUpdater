@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.Display;
@@ -20,6 +21,7 @@ import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
 
 public class AppUpdater implements IAppUpdater {
+    private View view;
     private Context context;
     private LibraryPreferences libraryPreferences;
     private Display display;
@@ -73,6 +75,12 @@ public class AppUpdater implements IAppUpdater {
     @Override
     public AppUpdater setDuration(Duration duration) {
         this.duration = duration;
+        return this;
+    }
+
+    @Override
+    public AppUpdater setView(View view) {
+        this.view = view;
         return this;
     }
 
@@ -348,7 +356,7 @@ public class AppUpdater implements IAppUpdater {
                                 alertDialog.show();
                                 break;
                             case SNACKBAR:
-                                snackbar = UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, update, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, update.getUrlToDownload());
+                                snackbar = UtilsDisplay.showUpdateAvailableSnackbar(view, getDescriptionUpdate(context, update, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, update.getUrlToDownload());
                                 snackbar.show();
                                 break;
                             case NOTIFICATION:
@@ -365,7 +373,7 @@ public class AppUpdater implements IAppUpdater {
                             alertDialog.show();
                             break;
                         case SNACKBAR:
-                            snackbar = UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
+                            snackbar = UtilsDisplay.showUpdateNotAvailableSnackbar(view, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
                             snackbar.show();
                             break;
                         case NOTIFICATION:
