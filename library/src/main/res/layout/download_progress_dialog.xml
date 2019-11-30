@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="13dp"
+    android:layout_centerHorizontal="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_marginEnd="5dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="5dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@string/downloading_update_dialog"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/loading_msg"
+        android:layout_toEndOf="@+id/loader"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/loader" />
+
+</LinearLayout>

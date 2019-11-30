@@ -29,4 +29,5 @@ dependencies {
     api 'com.android.support:design:27.1.1'
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     api 'org.jsoup:jsoup:1.11.3'
+    api 'com.mindorks.android:prdownloader:0.6.0'
 }

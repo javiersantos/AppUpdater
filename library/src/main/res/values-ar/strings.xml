@@ -1,0 +1,4 @@
+<resources>
+    <string name="downloading_update_dialog">تحميل آخر نسخة من التطبيق!</string>
+    <string name="message_download_failed" >لا يمكن تحميل التطبيق حالياً</string>
+</resources>
