@@ -1,6 +1,6 @@
 <AppUpdater>
   <update>
-    <latestVersion>0.1</latestVersion>
+    <latestVersion>0.2</latestVersion>
     <url>https://github.com/javiersantos/AppUpdater/releases</url>
   </update>
 </AppUpdater>

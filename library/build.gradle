@@ -1,14 +1,16 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
-        versionCode 28
-        versionName "2.7"
+        targetSdkVersion 29
+        versionCode 29
+        versionName "3.0"
     }
 
     buildTypes {
@@ -25,8 +27,13 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api 'com.android.support:appcompat-v7:27.1.1'
-    api 'com.android.support:design:27.1.1'
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
-    api 'org.jsoup:jsoup:1.11.3'
+    api 'com.google.android.material:material:1.0.0'
+    api 'androidx.appcompat:appcompat:1.1.0'
+    implementation "androidx.core:core-ktx:1.1.0"
+    api 'com.squareup.okhttp3:okhttp:4.2.2'
+    api 'org.jsoup:jsoup:1.12.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

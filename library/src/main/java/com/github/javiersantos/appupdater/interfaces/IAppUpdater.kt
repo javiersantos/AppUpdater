@@ -1,20 +1,16 @@
-package com.github.javiersantos.appupdater.interfaces;
+package com.github.javiersantos.appupdater.interfaces
 
-import android.content.DialogInterface;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import android.content.DialogInterface
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.enums.AppUpdaterError
+import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.Duration
+import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.github.javiersantos.appupdater.objects.Update
 
-import com.github.javiersantos.appupdater.AppUpdater;
-import com.github.javiersantos.appupdater.DisableClickListener;
-import com.github.javiersantos.appupdater.UpdateClickListener;
-import com.github.javiersantos.appupdater.enums.AppUpdaterError;
-import com.github.javiersantos.appupdater.enums.Display;
-import com.github.javiersantos.appupdater.enums.Duration;
-import com.github.javiersantos.appupdater.enums.UpdateFrom;
-import com.github.javiersantos.appupdater.objects.Update;
-
-public interface IAppUpdater {
+interface IAppUpdater {
     /**
      * Set the type of message used to notify the user when a new update has been found. Default: DIALOG.
      *
@@ -22,7 +18,7 @@ public interface IAppUpdater {
      * @return this
      * @see com.github.javiersantos.appupdater.enums.Display
      */
-    AppUpdater setDisplay(Display display);
+    fun setDisplay(display: Display): AppUpdater
 
     /**
      * Set the source where the latest update can be found. Default: GOOGLE_PLAY.
@@ -30,9 +26,10 @@ public interface IAppUpdater {
      * @param updateFrom source where the latest update is uploaded. If GITHUB is selected, .setGitHubAndRepo method is required.
      * @return this
      * @see com.github.javiersantos.appupdater.enums.UpdateFrom
-     * @see <a href="https://github.com/javiersantos/AppUpdater/wiki">Additional documentation</a>
+     *
+     * @see [Additional documentation](https://github.com/javiersantos/AppUpdater/wiki)
      */
-    AppUpdater setUpdateFrom(UpdateFrom updateFrom);
+    fun setUpdateFrom(updateFrom: UpdateFrom): AppUpdater
 
     /**
      * Set the duration of the Snackbar Default: NORMAL.
@@ -41,7 +38,7 @@ public interface IAppUpdater {
      * @return this
      * @see com.github.javiersantos.appupdater.enums.Duration
      */
-    AppUpdater setDuration(Duration duration);
+    fun setDuration(duration: Duration): AppUpdater
 
     /**
      * Set the user and repo where the releases are uploaded. You must upload your updates as a release in order to work properly tagging them as vX.X.X or X.X.X.
@@ -50,7 +47,7 @@ public interface IAppUpdater {
      * @param repo GitHub repository
      * @return this
      */
-    AppUpdater setGitHubUserAndRepo(@NonNull String user, @NonNull String repo);
+    fun setGitHubUserAndRepo(user: String, repo: String): AppUpdater
 
     /**
      * Set the url to the xml file with the latest version info.
@@ -58,7 +55,7 @@ public interface IAppUpdater {
      * @param xmlUrl file
      * @return this
      */
-    AppUpdater setUpdateXML(@NonNull String xmlUrl);
+    fun setUpdateXML(xmlUrl: String): AppUpdater
 
     /**
      * Set the url to the json file with the latest version info.
@@ -66,8 +63,7 @@ public interface IAppUpdater {
      * @param jsonUrl file
      * @return this
      */
-
-    AppUpdater setUpdateJSON(@NonNull String jsonUrl);
+    fun setUpdateJSON(jsonUrl: String): AppUpdater
 
     /**
      * Set the times the app ascertains that a new update is available and display a dialog, Snackbar or notification. It makes the updates less invasive. Default: 1.
@@ -75,7 +71,7 @@ public interface IAppUpdater {
      * @param times every X times
      * @return this
      */
-    AppUpdater showEvery(Integer times);
+    fun showEvery(times: Int): AppUpdater
 
     /**
      * Set if the dialog, Snackbar or notification is displayed although there aren't updates. Default: false.
@@ -83,25 +79,7 @@ public interface IAppUpdater {
      * @param res true to show, false otherwise
      * @return this
      */
-    AppUpdater showAppUpdated(Boolean res);
-
-    /**
-     * Set a custom title for the dialog when an update is available.
-     *
-     * @param title for the dialog
-     * @return this
-     * @deprecated use {@link #setTitleOnUpdateAvailable(String)} instead
-     */
-    AppUpdater setDialogTitleWhenUpdateAvailable(@NonNull String title);
-
-    /**
-     * Set a custom title for the dialog when an update is available.
-     *
-     * @param textResource resource from the strings xml file for the dialog
-     * @return this
-     * @deprecated use {@link #setTitleOnUpdateAvailable(int)} instead
-     */
-    AppUpdater setDialogTitleWhenUpdateAvailable(@StringRes int textResource);
+    fun showAppUpdated(res: Boolean): AppUpdater
 
     /**
      * Set a custom title for the dialog when an update is available.
@@ -109,7 +87,8 @@ public interface IAppUpdater {
      * @param title for the dialog
      * @return this
      */
-    AppUpdater setTitleOnUpdateAvailable(@NonNull String title);
+    @Deprecated("use {@link #setTitleOnUpdateAvailable(String)} instead")
+    fun setDialogTitleWhenUpdateAvailable(title: String): AppUpdater
 
     /**
      * Set a custom title for the dialog when an update is available.
@@ -117,25 +96,42 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the dialog
      * @return this
      */
-    AppUpdater setTitleOnUpdateAvailable(@StringRes int textResource);
+    @Deprecated("use {@link #setTitleOnUpdateAvailable(int)} instead")
+    fun setDialogTitleWhenUpdateAvailable(@StringRes textResource: Int): AppUpdater
+
+    /**
+     * Set a custom title for the dialog when an update is available.
+     *
+     * @param title for the dialog
+     * @return this
+     */
+    fun setTitleOnUpdateAvailable(title: String): AppUpdater
+
+    /**
+     * Set a custom title for the dialog when an update is available.
+     *
+     * @param textResource resource from the strings xml file for the dialog
+     * @return this
+     */
+    fun setTitleOnUpdateAvailable(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom description for the dialog when an update is available.
      *
      * @param description for the dialog
      * @return this
-     * @deprecated use {@link #setContentOnUpdateAvailable(String)} instead
      */
-    AppUpdater setDialogDescriptionWhenUpdateAvailable(@NonNull String description);
+    @Deprecated("use {@link #setContentOnUpdateAvailable(String)} instead")
+    fun setDialogDescriptionWhenUpdateAvailable(description: String): AppUpdater
 
     /**
      * Set a custom description for the dialog when an update is available.
      *
      * @param textResource resource from the strings xml file for the dialog
      * @return this
-     * @deprecated use {@link #setContentOnUpdateAvailable(int)} instead
      */
-    AppUpdater setDialogDescriptionWhenUpdateAvailable(@StringRes int textResource);
+    @Deprecated("use {@link #setContentOnUpdateAvailable(int)} instead")
+    fun setDialogDescriptionWhenUpdateAvailable(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom description for the dialog when an update is available.
@@ -143,7 +139,7 @@ public interface IAppUpdater {
      * @param description for the dialog
      * @return this
      */
-    AppUpdater setContentOnUpdateAvailable(@NonNull String description);
+    fun setContentOnUpdateAvailable(description: String): AppUpdater
 
     /**
      * Set a custom description for the dialog when an update is available.
@@ -151,25 +147,25 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the dialog
      * @return this
      */
-    AppUpdater setContentOnUpdateAvailable(@StringRes int textResource);
+    fun setContentOnUpdateAvailable(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom title for the dialog when no update is available.
      *
      * @param title for the dialog
      * @return this
-     * @deprecated use {@link #setTitleOnUpdateNotAvailable(String)} instead
      */
-    AppUpdater setDialogTitleWhenUpdateNotAvailable(@NonNull String title);
+    @Deprecated("use {@link #setTitleOnUpdateNotAvailable(String)} instead")
+    fun setDialogTitleWhenUpdateNotAvailable(title: String): AppUpdater
 
     /**
      * Set a custom title for the dialog when no update is available.
      *
      * @param textResource resource from the strings xml file for the dialog
      * @return this
-     * @deprecated use {@link #setTitleOnUpdateNotAvailable(int)} instead
      */
-    AppUpdater setDialogTitleWhenUpdateNotAvailable(@StringRes int textResource);
+    @Deprecated("use {@link #setTitleOnUpdateNotAvailable(int)} instead")
+    fun setDialogTitleWhenUpdateNotAvailable(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom title for the dialog when no update is available.
@@ -177,7 +173,7 @@ public interface IAppUpdater {
      * @param title for the dialog
      * @return this
      */
-    AppUpdater setTitleOnUpdateNotAvailable(@NonNull String title);
+    fun setTitleOnUpdateNotAvailable(title: String): AppUpdater
 
     /**
      * Set a custom title for the dialog when no update is available.
@@ -185,25 +181,7 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the dialog
      * @return this
      */
-    AppUpdater setTitleOnUpdateNotAvailable(@StringRes int textResource);
-
-    /**
-     * Set a custom description for the dialog when no update is available.
-     *
-     * @param description for the dialog
-     * @return this
-     * @deprecated use {@link #setContentOnUpdateNotAvailable(String)} instead
-     */
-    AppUpdater setDialogDescriptionWhenUpdateNotAvailable(@NonNull String description);
-
-    /**
-     * Set a custom description for the dialog when no update is available.
-     *
-     * @param textResource resource from the strings xml file for the dialog
-     * @return this
-     * @deprecated use {@link #setContentOnUpdateNotAvailable(int)} instead
-     */
-    AppUpdater setDialogDescriptionWhenUpdateNotAvailable(@StringRes int textResource);
+    fun setTitleOnUpdateNotAvailable(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom description for the dialog when no update is available.
@@ -211,7 +189,8 @@ public interface IAppUpdater {
      * @param description for the dialog
      * @return this
      */
-    AppUpdater setContentOnUpdateNotAvailable(@NonNull String description);
+    @Deprecated("use {@link #setContentOnUpdateNotAvailable(String)} instead")
+    fun setDialogDescriptionWhenUpdateNotAvailable(description: String): AppUpdater
 
     /**
      * Set a custom description for the dialog when no update is available.
@@ -219,25 +198,24 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the dialog
      * @return this
      */
-    AppUpdater setContentOnUpdateNotAvailable(@StringRes int textResource);
+    @Deprecated("use {@link #setContentOnUpdateNotAvailable(int)} instead")
+    fun setDialogDescriptionWhenUpdateNotAvailable(@StringRes textResource: Int): AppUpdater
 
     /**
-     * Set a custom "Update" button text when a new update is available.
+     * Set a custom description for the dialog when no update is available.
      *
-     * @param text for the update button
+     * @param description for the dialog
      * @return this
-     * @deprecated use {@link #setButtonUpdate(String)} instead
      */
-    AppUpdater setDialogButtonUpdate(@NonNull String text);
+    fun setContentOnUpdateNotAvailable(description: String): AppUpdater
 
     /**
-     * Set a custom "Update" button text when a new update is available.
+     * Set a custom description for the dialog when no update is available.
      *
-     * @param textResource resource from the strings xml file for the update button
+     * @param textResource resource from the strings xml file for the dialog
      * @return this
-     * @deprecated use {@link #setButtonUpdate(int)} instead
      */
-    AppUpdater setDialogButtonUpdate(@StringRes int textResource);
+    fun setContentOnUpdateNotAvailable(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom "Update" button text when a new update is available.
@@ -245,7 +223,8 @@ public interface IAppUpdater {
      * @param text for the update button
      * @return this
      */
-    AppUpdater setButtonUpdate(@NonNull String text);
+    @Deprecated("use {@link #setButtonUpdate(String)} instead")
+    fun setDialogButtonUpdate(text: String): AppUpdater
 
     /**
      * Set a custom "Update" button text when a new update is available.
@@ -253,25 +232,42 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the update button
      * @return this
      */
-    AppUpdater setButtonUpdate(@StringRes int textResource);
+    @Deprecated("use {@link #setButtonUpdate(int)} instead")
+    fun setDialogButtonUpdate(@StringRes textResource: Int): AppUpdater
+
+    /**
+     * Set a custom "Update" button text when a new update is available.
+     *
+     * @param text for the update button
+     * @return this
+     */
+    fun setButtonUpdate(text: String): AppUpdater
+
+    /**
+     * Set a custom "Update" button text when a new update is available.
+     *
+     * @param textResource resource from the strings xml file for the update button
+     * @return this
+     */
+    fun setButtonUpdate(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom "Dismiss" button text when a new update is available.
      *
      * @param text for the dismiss button
      * @return this
-     * @deprecated use {@link #setButtonDismiss(String)} instead
      */
-    AppUpdater setDialogButtonDismiss(@NonNull String text);
+    @Deprecated("use {@link #setButtonDismiss(String)} instead")
+    fun setDialogButtonDismiss(text: String): AppUpdater
 
     /**
      * Set a custom "Dismiss" button text when a new update is available.
      *
      * @param textResource resource from the strings xml file for the dismiss button
      * @return this
-     * @deprecated  use {@link #setButtonDismiss(int)} instead
      */
-    AppUpdater setDialogButtonDismiss(@StringRes int textResource);
+    @Deprecated("use {@link #setButtonDismiss(int)} instead")
+    fun setDialogButtonDismiss(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom "Dismiss" button text when a new update is available.
@@ -279,7 +275,7 @@ public interface IAppUpdater {
      * @param text for the dismiss button
      * @return this
      */
-    AppUpdater setButtonDismiss(@NonNull String text);
+    fun setButtonDismiss(text: String): AppUpdater
 
     /**
      * Set a custom "Dismiss" button text when a new update is available.
@@ -287,25 +283,7 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the dismiss button
      * @return this
      */
-    AppUpdater setButtonDismiss(@StringRes int textResource);
-
-    /**
-     * Set a custom "Don't show again" button text when a new update is available.
-     *
-     * @param text for the disable button
-     * @return this
-     * @deprecated use {@link #setButtonDoNotShowAgain(String)} instead
-     */
-    AppUpdater setDialogButtonDoNotShowAgain(@NonNull String text);
-
-    /**
-     * Set a custom "Don't show again" button text when a new update is available.
-     *
-     * @param textResource resource from the strings xml file for the disable button
-     * @return this
-     * @deprecated use {@link #setButtonDoNotShowAgain(int)} instead
-     */
-    AppUpdater setDialogButtonDoNotShowAgain(@StringRes int textResource);
+    fun setButtonDismiss(@StringRes textResource: Int): AppUpdater
 
     /**
      * Set a custom "Don't show again" button text when a new update is available.
@@ -313,7 +291,8 @@ public interface IAppUpdater {
      * @param text for the disable button
      * @return this
      */
-    AppUpdater setButtonDoNotShowAgain(@NonNull String text);
+    @Deprecated("use {@link #setButtonDoNotShowAgain(String)} instead")
+    fun setDialogButtonDoNotShowAgain(text: String): AppUpdater
 
     /**
      * Set a custom "Don't show again" button text when a new update is available.
@@ -321,16 +300,33 @@ public interface IAppUpdater {
      * @param textResource resource from the strings xml file for the disable button
      * @return this
      */
-    AppUpdater setButtonDoNotShowAgain(@StringRes int textResource);
+    @Deprecated("use {@link #setButtonDoNotShowAgain(int)} instead")
+    fun setDialogButtonDoNotShowAgain(@StringRes textResource: Int): AppUpdater
+
+    /**
+     * Set a custom "Don't show again" button text when a new update is available.
+     *
+     * @param text for the disable button
+     * @return this
+     */
+    fun setButtonDoNotShowAgain(text: String): AppUpdater
+
+    /**
+     * Set a custom "Don't show again" button text when a new update is available.
+     *
+     * @param textResource resource from the strings xml file for the disable button
+     * @return this
+     */
+    fun setButtonDoNotShowAgain(@StringRes textResource: Int): AppUpdater
 
     /**
      * Sets a custom click listener for the "Update" button when a new update is available.
-     * In order to maintain the default functionality, extend {@link UpdateClickListener}
+     * In order to maintain the default functionality, extend [UpdateClickListener]
      *
      * @param clickListener for update button
      * @return this
      */
-    AppUpdater setButtonUpdateClickListener(DialogInterface.OnClickListener clickListener);
+    fun setButtonUpdateClickListener(clickListener: DialogInterface.OnClickListener): AppUpdater
 
     /**
      * Sets a custom click listener for the "Dismiss" button when a new update is available.
@@ -338,16 +334,16 @@ public interface IAppUpdater {
      * @param clickListener for dismiss button
      * @return this
      */
-    AppUpdater setButtonDismissClickListener(DialogInterface.OnClickListener clickListener);
+    fun setButtonDismissClickListener(clickListener: DialogInterface.OnClickListener): AppUpdater
 
     /**
-     * Sets a custom click listener for the "Don't show again" button when a new update is available. <br/>
-     * In order to maintain the default functionality, extend {@link DisableClickListener}
+     * Sets a custom click listener for the "Don't show again" button when a new update is available. <br></br>
+     * In order to maintain the default functionality, extend [DisableClickListener]
      *
      * @param clickListener for disable button
      * @return this
      */
-    AppUpdater setButtonDoNotShowAgainClickListener(DialogInterface.OnClickListener clickListener);
+    fun setButtonDoNotShowAgainClickListener(clickListener: DialogInterface.OnClickListener): AppUpdater
 
     /**
      * Sets the resource identifier for the small notification icon
@@ -355,42 +351,41 @@ public interface IAppUpdater {
      * @param iconRes The id of the drawable item
      * @return this
      */
-    AppUpdater setIcon(@DrawableRes int iconRes);
+    fun setIcon(@DrawableRes iconRes: Int): AppUpdater
 
     /**
      * Make update dialog non-cancelable, and
      * force user to make update
-     *  @param isCancelable true to force user to make update, false otherwise
-     *  @return this
+     * @param isCancelable true to force user to make update, false otherwise
+     * @return this
      */
-    AppUpdater setCancelable(Boolean isCancelable);
+    fun setCancelable(isCancelable: Boolean): AppUpdater
 
     /**
      * Execute AppUpdater in background.
      *
      * @return this
-     * @deprecated use {@link #start()} instead
      */
-    AppUpdater init();
+    @Deprecated("use {@link #start()} instead")
+    fun init(): AppUpdater
 
     /**
      * Execute AppUpdater in background.
      */
-    void start();
+    fun start()
 
     /**
      * Stops the execution of AppUpdater.
      */
-    void stop();
+    fun stop()
 
     /**
      * Dismisses the alert dialog or the snackbar.
      */
-    void dismiss();
+    fun dismiss()
 
     interface LibraryListener {
-        void onSuccess(Update update);
-
-        void onFailed(AppUpdaterError error);
+        fun onSuccess(update: Update)
+        fun onFailed(error: AppUpdaterError)
     }
 }
