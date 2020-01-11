@@ -24,6 +24,7 @@ class ParserJSON {
     private static final String KEY_LATEST_VERSION_CODE = "latestVersionCode";
     private static final String KEY_RELEASE_NOTES = "releaseNotes";
     private static final String KEY_URL = "url";
+    private static final String KEY_CHANGELOG_URL = "urlChangelog";
 
     public ParserJSON(String url) {
         try {
@@ -42,6 +43,12 @@ class ParserJSON {
             update.setLatestVersion(json.getString(KEY_LATEST_VERSION).trim());
             update.setLatestVersionCode(json.optInt(KEY_LATEST_VERSION_CODE));
             JSONArray releaseArr = json.optJSONArray(KEY_RELEASE_NOTES);
+            String changelogUrl = json.getString(KEY_CHANGELOG_URL);
+
+            if(changelogUrl != null) {
+                update.setChangelogUrl(changelogUrl);
+            }
+
             if (releaseArr != null) {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < releaseArr.length(); ++i) {
@@ -51,6 +58,7 @@ class ParserJSON {
                 }
                 update.setReleaseNotes(builder.toString());
             }
+
             URL url = new URL(json.getString(KEY_URL).trim());
             update.setUrlToDownload(url);
             return update;

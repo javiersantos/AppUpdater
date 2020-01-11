@@ -7,6 +7,7 @@ public class Update {
     private Integer versionCode;
     private String releaseNotes;
     private URL apk;
+    private String changelog;
 
     public Update() {}
 
@@ -53,6 +54,14 @@ public class Update {
 
     public void setReleaseNotes(String releaseNotes) {
         this.releaseNotes = releaseNotes;
+    }
+
+    public String getChangelogUrl() {
+        return changelog;
+    }
+
+    public void setChangelogUrl(String changelog) {
+        this.changelog = changelog;
     }
 
     public URL getUrlToDownload() {

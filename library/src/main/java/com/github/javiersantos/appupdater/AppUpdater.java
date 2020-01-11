@@ -38,6 +38,7 @@ public class AppUpdater implements IAppUpdater {
     private AlertDialog alertDialog;
     private Snackbar snackbar;
     private Boolean isDialogCancelable;
+    private Boolean useWebviewChangelog;
 
     public AppUpdater(Context context) {
         this.context = context;
@@ -56,6 +57,7 @@ public class AppUpdater implements IAppUpdater {
         this.btnDismiss = context.getResources().getString(R.string.appupdater_btn_dismiss);
         this.btnDisable = context.getResources().getString(R.string.appupdater_btn_disable);
         this.isDialogCancelable = true;
+        this.useWebviewChangelog = false;
     }
 
     @Override
@@ -320,6 +322,12 @@ public class AppUpdater implements IAppUpdater {
     }
 
     @Override
+    public AppUpdater setWebviewChangelog(Boolean useWebview) {
+        this.useWebviewChangelog = useWebview;
+        return this;
+    }
+
+    @Override
     public AppUpdater init() {
         start();
         return this;
@@ -343,7 +351,7 @@ public class AppUpdater implements IAppUpdater {
                                 final DialogInterface.OnClickListener updateClickListener = btnUpdateClickListener == null ? new UpdateClickListener(context, updateFrom, update.getUrlToDownload()) : btnUpdateClickListener;
                                 final DialogInterface.OnClickListener disableClickListener = btnDisableClickListener == null ? new DisableClickListener(context) : btnDisableClickListener;
 
-                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener);
+                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener, useWebviewChangelog);
                                 alertDialog.setCancelable(isDialogCancelable);
                                 alertDialog.show();
                                 break;
@@ -413,7 +421,9 @@ public class AppUpdater implements IAppUpdater {
         if (descriptionUpdate == null || TextUtils.isEmpty(descriptionUpdate)) {
             switch (display) {
                 case DIALOG:
-                    if (update.getReleaseNotes() != null && !TextUtils.isEmpty(update.getReleaseNotes())) {
+                    if(update.getChangelogUrl() != null && !TextUtils.isEmpty(update.getChangelogUrl()) && useWebviewChangelog) {
+                        return update.getChangelogUrl();
+                    }else if (update.getReleaseNotes() != null && !TextUtils.isEmpty(update.getReleaseNotes())) {
                         if (TextUtils.isEmpty(descriptionUpdate))
                             return update.getReleaseNotes();
                         else

@@ -366,6 +366,14 @@ public interface IAppUpdater {
     AppUpdater setCancelable(Boolean isCancelable);
 
     /**
+     * Use Webview in the update dialog to
+     * display changelog webpages
+     *  @param useWebview true to force user to make update, false otherwise
+     *  @return this
+     */
+    AppUpdater setWebviewChangelog(Boolean useWebview);
+
+    /**
      * Execute AppUpdater in background.
      *
      * @return this
