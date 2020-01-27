@@ -374,6 +374,15 @@ public interface IAppUpdater {
     AppUpdater setWebviewChangelog(Boolean useWebview);
 
     /**
+     * Use Webview in the update dialog to
+     * display changelog webpages
+     *  @param useWebview true to force user to make update, false otherwise
+     *  @param changelogURL
+     *  @return this
+     */
+    AppUpdater setWebviewChangelog(Boolean useWebview, String changelogURL);
+
+    /**
      * Execute AppUpdater in background.
      *
      * @return this
