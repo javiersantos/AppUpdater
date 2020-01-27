@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
@@ -28,6 +29,7 @@ class UtilsDisplay {
 
         if(useWebview) {
             WebView webView = new WebView(context);
+            webView.setWebViewClient(new WebViewClient());
             webView.loadUrl(content);
             alertDialog.setView(webView);
         }else{
