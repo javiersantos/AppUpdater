@@ -1,0 +1,12 @@
+<resources>
+    <string name="appupdater_update_available">নতুন আপডেট পাওয়া গেছে!</string>
+    <string name="appupdater_update_available_description_dialog">আপডেট %1$s ডাউনলোডযোগ্য\n\n সর্বশেষ আপডেট ডাউনলোড করার ফলে আপনি %2$s এর  সর্বশেষ ফিচার, উন্নতি এবং বাগ সংশোধন গুলো পাবেন।</string>
+    <string name="appupdater_update_available_description_dialog_before_release_notes">আপডেট %1$s ডাউনলোডযোগ্য\n\nআপনি এই নতুন ফিচার গুলো পাবেন:\n%2$s</string>
+    <string name="appupdater_update_available_description_snackbar">আপডেট %1$s পাওয়া গেছে!</string>
+    <string name="appupdater_update_available_description_notification">%2$s এর %1$s আপডেট ডাউনলোডযোগ্য</string>
+    <string name="appupdater_update_not_available">কোনো আপডেট পাওয়া যায় নি</string>
+    <string name="appupdater_update_not_available_description">আপনি %s এর সর্বশেষ সংস্করণ ব্যবহার করছেন!</string>
+    <string name="appupdater_btn_update">আপডেট</string>
+    <string name="appupdater_btn_disable">আর দেখাবেন না</string>
+    <string name="appupdater_btn_dismiss">বাদ দিন</string>
+</resources>

@@ -12,4 +12,6 @@
     <string name="appupdater_channel_name">Update notifications</string>
 
     <string name="appupdater_channel" translatable="false">appupdater_channel_01</string>
+    <string name="message_download_failed">Cannot download at this time!</string>
+    <string name="downloading_update_dialog">Downloading update!</string>
 </resources>
