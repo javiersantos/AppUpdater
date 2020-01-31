@@ -43,11 +43,15 @@ class ParserJSON {
             update.setLatestVersion(json.getString(KEY_LATEST_VERSION).trim());
             update.setLatestVersionCode(json.optInt(KEY_LATEST_VERSION_CODE));
             JSONArray releaseArr = json.optJSONArray(KEY_RELEASE_NOTES);
-            String changelogUrl = json.getString(KEY_CHANGELOG_URL);
+            Log.e("AppUpdater", String.valueOf(update.useWebview()));
+            if(update.useWebview()) {
+                String changelogUrl = json.getString(KEY_CHANGELOG_URL);
 
-            if(changelogUrl != null) {
-                update.setChangelogUrl(changelogUrl);
+                if (changelogUrl != null) {
+                    update.setChangelogUrl(changelogUrl);
+                }
             }
+
 
             if (releaseArr != null) {
                 StringBuilder builder = new StringBuilder();

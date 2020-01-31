@@ -8,6 +8,7 @@ public class Update {
     private String releaseNotes;
     private URL apk;
     private String changelog;
+    private static Boolean useWebviewChangelog;
 
     public Update() {}
 
@@ -58,6 +59,14 @@ public class Update {
 
     public String getChangelogUrl() {
         return changelog;
+    }
+
+    public void setwebview(Boolean useWebview){
+        useWebviewChangelog = useWebview;
+    }
+
+    public boolean useWebview(){
+        return useWebviewChangelog;
     }
 
     public void setChangelogUrl(String changelog) {
