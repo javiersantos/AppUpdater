@@ -1,0 +1,11 @@
+{
+  "latestVersion": "1.2.2",
+  "latestVersionCode": "10",
+  "url": "https://github.com/javiersantos/AppUpdater/releases",
+  "urlChangelog": "https://kissableaustrian.htmlpasta.com/",
+  "releaseNotes": [
+    "- First evolution",
+    "- Second evolution",
+    "- Bug fixes"
+  ]
+}

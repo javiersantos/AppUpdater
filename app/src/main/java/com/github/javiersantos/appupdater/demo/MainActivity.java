@@ -33,6 +33,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.included.dialogUpdateChangelogWebview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AppUpdater(mContext)
+                        //.setUpdateFrom(UpdateFrom.GITHUB)
+                        //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setUpdateFrom(UpdateFrom.JSON)
+                        .setUpdateJSON("https://pastebin.com/raw/eHrKfPMn")
+                        .setDisplay(Display.DIALOG)
+                        .showAppUpdated(true)
+                        .setWebviewChangelog(true)
+                        //.setWebviewChangelog(true, "http://urltochangelog.com/changelog.html")
+                        .start();
+            }
+        });
+
         binding.included.dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.JSON)
-                        .setUpdateJSON("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.json")
+                        .setUpdateJSON("https://pastebin.com/raw/eHrKfPMn")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
                         .start();
