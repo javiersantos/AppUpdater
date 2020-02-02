@@ -3,14 +3,26 @@ package com.github.javiersantos.appupdater.objects;
 import java.net.URL;
 
 public class Update {
+    private static Update instance;
+
     private String version;
     private Integer versionCode;
     private String releaseNotes;
     private URL apk;
     private String changelog;
-    private static Boolean useWebviewChangelog;
+    private Boolean useWebviewChangelog = false;
 
-    public Update() {}
+    private Update() {}
+
+    public static void init() {
+        synchronized(Update.class) {
+                instance = new Update();
+        }
+    }
+
+    public static Update getInstance() {
+        return instance;
+    }
 
     public Update(String latestVersion, Integer latestVersionCode) {
         this.version = latestVersion;

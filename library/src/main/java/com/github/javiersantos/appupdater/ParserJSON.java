@@ -35,23 +35,22 @@ class ParserJSON {
 
     }
 
-    public Update parse(){
+    public Update parse() {
 
         try {
             JSONObject json = readJsonFromUrl();
-            Update update = new Update();
+            Update update = Update.getInstance();
             update.setLatestVersion(json.getString(KEY_LATEST_VERSION).trim());
             update.setLatestVersionCode(json.optInt(KEY_LATEST_VERSION_CODE));
             JSONArray releaseArr = json.optJSONArray(KEY_RELEASE_NOTES);
-            Log.e("AppUpdater", String.valueOf(update.useWebview()));
+
             if(update.useWebview()) {
                 String changelogUrl = json.getString(KEY_CHANGELOG_URL);
-
+                Log.e("AppUpdater", String.valueOf(changelogUrl));
                 if (changelogUrl != null) {
                     update.setChangelogUrl(changelogUrl);
                 }
             }
-
 
             if (releaseArr != null) {
                 StringBuilder builder = new StringBuilder();

@@ -62,7 +62,7 @@ class HandlerXML extends DefaultHandler {
         super.startElement(uri, localName, name, attributes);
 
         if (localName.equals("update")) {
-            update = new Update();
+            update = Update.getInstance();
         }
     }
 

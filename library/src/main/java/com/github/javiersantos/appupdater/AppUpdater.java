@@ -57,7 +57,7 @@ public class AppUpdater implements IAppUpdater {
         this.btnDismiss = context.getResources().getString(R.string.appupdater_btn_dismiss);
         this.btnDisable = context.getResources().getString(R.string.appupdater_btn_disable);
         this.isDialogCancelable = true;
-        new Update().setwebview(false); //default value for every call of AppUpdater
+        Update.init(); //create a new instance of Update, reset the values
     }
 
     @Override
@@ -323,13 +323,13 @@ public class AppUpdater implements IAppUpdater {
 
     @Override
     public AppUpdater setWebviewChangelog(Boolean useWebview) {
-        new Update().setwebview(useWebview);
+        Update.getInstance().setwebview(useWebview);
         return this;
     }
 
     @Override
     public AppUpdater setWebviewChangelog(Boolean useWebview, String changelogURL) {
-        new Update().setwebview(useWebview);
+        Update.getInstance().setwebview(useWebview);
         this.webviewChangelogUrl = changelogURL;
         return this;
     }
