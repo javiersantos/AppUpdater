@@ -1,5 +1,6 @@
 package com.github.javiersantos.appupdater;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.github.javiersantos.appupdater.objects.Update;
@@ -7,6 +8,7 @@ import com.github.javiersantos.appupdater.objects.Update;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,9 +46,8 @@ class ParserJSON {
             update.setLatestVersionCode(json.optInt(KEY_LATEST_VERSION_CODE));
             JSONArray releaseArr = json.optJSONArray(KEY_RELEASE_NOTES);
 
-            if(update.useWebview()) {
+            if(update.useWebview() && update.getChangelogUrl() == null || TextUtils.isEmpty(update.getChangelogUrl())) {
                 String changelogUrl = json.getString(KEY_CHANGELOG_URL);
-                Log.e("AppUpdater", String.valueOf(changelogUrl));
                 if (changelogUrl != null) {
                     update.setChangelogUrl(changelogUrl);
                 }
