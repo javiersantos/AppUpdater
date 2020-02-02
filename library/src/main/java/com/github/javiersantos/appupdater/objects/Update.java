@@ -12,7 +12,7 @@ public class Update {
     private String changelog;
     private Boolean useWebviewChangelog = false;
 
-    private Update() {}
+    public Update() {}
 
     public static void init() {
         synchronized(Update.class) {
