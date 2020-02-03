@@ -9,8 +9,8 @@ public class Update {
     private Integer versionCode;
     private String releaseNotes;
     private URL apk;
-    private String changelog;
-    private Boolean useWebviewChangelog = false;
+    private String changelogUrl; //
+    private Boolean useWebviewChangelog = false; //
 
     public Update() {}
 
@@ -21,6 +21,11 @@ public class Update {
     }
 
     public static Update getInstance() {
+        if (instance == null) {
+            synchronized (Update.class) {
+                instance = new Update();
+            }
+        }
         return instance;
     }
 
@@ -70,7 +75,7 @@ public class Update {
     }
 
     public String getChangelogUrl() {
-        return changelog;
+        return changelogUrl;
     }
 
     public void setwebview(Boolean useWebview){
@@ -81,8 +86,8 @@ public class Update {
         return useWebviewChangelog;
     }
 
-    public void setChangelogUrl(String changelog) {
-        this.changelog = changelog;
+    public void setChangelogUrl(String changelogUrl) {
+        this.changelogUrl = changelogUrl;
     }
 
     public URL getUrlToDownload() {
