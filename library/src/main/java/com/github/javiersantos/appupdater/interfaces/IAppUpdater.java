@@ -366,6 +366,23 @@ public interface IAppUpdater {
     AppUpdater setCancelable(Boolean isCancelable);
 
     /**
+     * Use Webview in the update dialog to
+     * display changelog webpages
+     *  @param useWebview true to use webview
+     *  @return this
+     */
+    AppUpdater setWebviewChangelog(Boolean useWebview);
+
+    /**
+     * Use Webview in the update dialog to
+     * display changelog webpages
+     *  @param useWebview true to use webview
+     *  @param changelogURL url to the changelog webpage
+     *  @return this
+     */
+    AppUpdater setWebviewChangelog(Boolean useWebview, String changelogURL);
+
+    /**
      * Execute AppUpdater in background.
      *
      * @return this
