@@ -41,7 +41,7 @@ class ParserJSON {
 
         try {
             JSONObject json = readJsonFromUrl();
-            Update update = Update.getInstance();
+            Update update = new Update();
             update.setLatestVersion(json.getString(KEY_LATEST_VERSION).trim());
             update.setLatestVersionCode(json.optInt(KEY_LATEST_VERSION_CODE));
             JSONArray releaseArr = json.optJSONArray(KEY_RELEASE_NOTES);

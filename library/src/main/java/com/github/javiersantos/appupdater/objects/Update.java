@@ -3,31 +3,14 @@ package com.github.javiersantos.appupdater.objects;
 import java.net.URL;
 
 public class Update {
-    private static Update instance;
-
     private String version;
     private Integer versionCode;
     private String releaseNotes;
     private URL apk;
-    private String changelogUrl; //
-    private Boolean useWebviewChangelog = false; //
+    private static String changelogUrl;
+    private static Boolean useWebviewChangelog = false;
 
     public Update() {}
-
-    public static void init() {
-        synchronized(Update.class) {
-                instance = new Update();
-        }
-    }
-
-    public static Update getInstance() {
-        if (instance == null) {
-            synchronized (Update.class) {
-                instance = new Update();
-            }
-        }
-        return instance;
-    }
 
     public Update(String latestVersion, Integer latestVersionCode) {
         this.version = latestVersion;
@@ -48,6 +31,11 @@ public class Update {
     public Update(String latestVersion, Integer latestVersionCode, String releaseNotes, URL apk) {
         this(latestVersion, releaseNotes, apk);
         this.versionCode = latestVersionCode;
+    }
+
+    public void resetStaticValues(){
+        changelogUrl = null;
+        useWebviewChangelog = false;
     }
 
     public String getLatestVersion() {
@@ -87,7 +75,7 @@ public class Update {
     }
 
     public void setChangelogUrl(String changelogUrl) {
-        this.changelogUrl = changelogUrl;
+        Update.changelogUrl = changelogUrl;
     }
 
     public URL getUrlToDownload() {
