@@ -1,6 +1,6 @@
 package com.github.javiersantos.appupdater;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.Log;
 
 import com.github.javiersantos.appupdater.objects.Update;
