@@ -20,6 +20,8 @@ import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
 import com.google.android.material.snackbar.Snackbar;
 
+import static android.util.Log.d;
+
 public class AppUpdater implements IAppUpdater {
     private Context context;
     private LibraryPreferences libraryPreferences;
@@ -336,23 +338,16 @@ public class AppUpdater implements IAppUpdater {
                 }
 
                 Update installedUpdate = new Update(UtilsLibrary.getAppInstalledVersion(context), UtilsLibrary.getAppInstalledVersionCode(context));
+                d("=====", update.isMajorUpdate() + update.getReleaseNotes());
                 if (UtilsLibrary.isUpdateAvailable(installedUpdate, update)) {
                     Integer successfulChecks = libraryPreferences.getSuccessfulChecks();
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
                         switch (display) {
                             case DIALOG:
                                 final DialogInterface.OnClickListener updateClickListener = btnUpdateClickListener == null ? new UpdateClickListener(context, updateFrom, update.getUrlToDownload()) : btnUpdateClickListener;
-                                if (installedUpdate.isMajorUpdate()) {
-                                    alertDialog = UtilsDisplay.showMajorUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnUpdate, updateClickListener);
-                                    alertDialog.setCancelable(false);
-                                    alertDialog.show();
-                                } else {
-                                    final DialogInterface.OnClickListener disableClickListener = btnDisableClickListener == null ? new DisableClickListener(context) : btnDisableClickListener;
-        
-                                    alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener);
-                                    alertDialog.setCancelable(isDialogCancelable);
-                                    alertDialog.show();
-                                }
+                                alertDialog = UtilsDisplay.showMajorUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnUpdate, updateClickListener);
+                                alertDialog.setCancelable(false);
+                                alertDialog.show();
                                 break;
                             case SNACKBAR:
                                 snackbar = UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, update, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, update.getUrlToDownload());

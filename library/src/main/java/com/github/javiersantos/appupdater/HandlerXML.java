@@ -44,7 +44,7 @@ class HandlerXML extends DefaultHandler {
                     throw new RuntimeException(e);
                 }
             } else if (localName.equals("majorUpdate")) {
-                update.setMajorUpdate(Boolean.parseBoolean(builder.toString()));
+                update.setMajorUpdate(true);
             }
 
             builder.setLength(0);
