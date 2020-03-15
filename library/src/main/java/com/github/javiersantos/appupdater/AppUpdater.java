@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import static android.util.Log.d;
 
 public class AppUpdater implements IAppUpdater {
+    private static final String TAG = "AppUpdater";
     private Context context;
     private LibraryPreferences libraryPreferences;
     private Display display;
@@ -338,7 +339,7 @@ public class AppUpdater implements IAppUpdater {
                 }
 
                 Update installedUpdate = new Update(UtilsLibrary.getAppInstalledVersion(context), UtilsLibrary.getAppInstalledVersionCode(context));
-                d("=====", update.isMajorUpdate() + update.getReleaseNotes());
+                d(TAG, "majorUpdate: " + update.isMajorUpdate());
                 if (UtilsLibrary.isUpdateAvailable(installedUpdate, update)) {
                     Integer successfulChecks = libraryPreferences.getSuccessfulChecks();
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
@@ -350,11 +351,11 @@ public class AppUpdater implements IAppUpdater {
                                 if (update.isMajorUpdate()) {
                                     alertDialog = UtilsDisplay.showMajorUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnUpdate, updateClickListener);
                                     alertDialog.setCancelable(false);
-                                    d("------", "major update");
+                                    d(TAG, "Major Update");
                                 } else {
                                     alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener);
                                     alertDialog.setCancelable(isDialogCancelable);
-                                    d("---", "minor update");
+                                    d(TAG, "Minor Update");
                                 }
                                 alertDialog.show();
                                 break;
