@@ -17,8 +17,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.net.URL;
 
-import static android.util.Log.d;
-
 class UtilsDisplay {
 
     static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final DialogInterface.OnClickListener updateClickListener, final DialogInterface.OnClickListener dismissClickListener, final DialogInterface.OnClickListener disableClickListener) {
@@ -42,10 +40,9 @@ class UtilsDisplay {
     }
     
     static AlertDialog showMajorUpdateAvailableDialog(final Context context, String title, String content, String btnPositive, final DialogInterface.OnClickListener updateClickListener) {
-        d("------", "major");
         return new AlertDialog.Builder(context)
-                .setTitle("major update ")
-                .setMessage("major")
+                .setTitle(title)
+                .setMessage(content)
                 .setPositiveButton(btnPositive, updateClickListener).create();
     }
 

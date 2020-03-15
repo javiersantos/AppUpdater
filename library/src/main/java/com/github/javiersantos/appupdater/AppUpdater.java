@@ -345,8 +345,17 @@ public class AppUpdater implements IAppUpdater {
                         switch (display) {
                             case DIALOG:
                                 final DialogInterface.OnClickListener updateClickListener = btnUpdateClickListener == null ? new UpdateClickListener(context, updateFrom, update.getUrlToDownload()) : btnUpdateClickListener;
-                                alertDialog = UtilsDisplay.showMajorUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnUpdate, updateClickListener);
-                                alertDialog.setCancelable(false);
+                                final DialogInterface.OnClickListener disableClickListener = btnDisableClickListener == null ? new DisableClickListener(context) : btnDisableClickListener;
+    
+                                if (update.isMajorUpdate()) {
+                                    alertDialog = UtilsDisplay.showMajorUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnUpdate, updateClickListener);
+                                    alertDialog.setCancelable(false);
+                                    d("------", "major update");
+                                } else {
+                                    alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener);
+                                    alertDialog.setCancelable(isDialogCancelable);
+                                    d("---", "minor update");
+                                }
                                 alertDialog.show();
                                 break;
                             case SNACKBAR:
