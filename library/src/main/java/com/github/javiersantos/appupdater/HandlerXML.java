@@ -48,8 +48,8 @@ class HandlerXML extends DefaultHandler {
                         throw new RuntimeException(e);
                     }
                     break;
-                case "majorUpdate":
-                    update.setMajorUpdate(Boolean.parseBoolean(builder.toString().trim()));
+                case "lastMajorUpdateVersion":
+                    update.setLastMajorUpdateVersion(Integer.valueOf(builder.toString().trim()));
                     break;
             }
 

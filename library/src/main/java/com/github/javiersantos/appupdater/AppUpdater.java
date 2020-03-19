@@ -25,6 +25,7 @@ import static android.util.Log.d;
 public class AppUpdater implements IAppUpdater {
     private static final String TAG = "AppUpdater";
     private Context context;
+    private long appVersionCode;
     private LibraryPreferences libraryPreferences;
     private Display display;
     private UpdateFrom updateFrom;
@@ -42,9 +43,10 @@ public class AppUpdater implements IAppUpdater {
     private AlertDialog alertDialog;
     private Snackbar snackbar;
     private Boolean isDialogCancelable;
-
-    public AppUpdater(Context context) {
+    
+    public AppUpdater(Context context, long appVersionCode) {
         this.context = context;
+        this.appVersionCode = appVersionCode;
         this.libraryPreferences = new LibraryPreferences(context);
         this.display = Display.DIALOG;
         this.updateFrom = UpdateFrom.GOOGLE_PLAY;
@@ -339,7 +341,7 @@ public class AppUpdater implements IAppUpdater {
                 }
 
                 Update installedUpdate = new Update(UtilsLibrary.getAppInstalledVersion(context), UtilsLibrary.getAppInstalledVersionCode(context));
-                d(TAG, "majorUpdate: " + update.isMajorUpdate());
+                d(TAG, "majorUpdate: " + update.getLastMajorUpdateVersion());
                 if (UtilsLibrary.isUpdateAvailable(installedUpdate, update)) {
                     Integer successfulChecks = libraryPreferences.getSuccessfulChecks();
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
@@ -348,7 +350,7 @@ public class AppUpdater implements IAppUpdater {
                                 final DialogInterface.OnClickListener updateClickListener = btnUpdateClickListener == null ? new UpdateClickListener(context, updateFrom, update.getUrlToDownload()) : btnUpdateClickListener;
                                 final DialogInterface.OnClickListener disableClickListener = btnDisableClickListener == null ? new DisableClickListener(context) : btnDisableClickListener;
     
-                                if (update.isMajorUpdate()) {
+                                if (update.getLastMajorUpdateVersion() >= appVersionCode) {
                                     alertDialog = UtilsDisplay.showMajorUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnUpdate, updateClickListener);
                                     alertDialog.setCancelable(false);
                                     d(TAG, "Major Update");

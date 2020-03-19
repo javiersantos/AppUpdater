@@ -7,7 +7,7 @@ public class Update {
     private Integer versionCode;
     private String releaseNotes;
     private URL apk;
-    private boolean majorUpdate;
+    private Integer lastMajorUpdateVersion;
 
     public Update() {}
 
@@ -26,8 +26,8 @@ public class Update {
         this.apk = apk;
         this.releaseNotes = releaseNotes;
     }
-
-    public Update(String latestVersion, Integer latestVersionCode, String releaseNotes, URL apk) {
+    
+    public Update(String latestVersion, Integer latestVersionCode, String releaseNotes, URL apk, Integer lastMajorUpdateVersion) {
         this(latestVersion, releaseNotes, apk);
         this.versionCode = latestVersionCode;
     }
@@ -64,11 +64,11 @@ public class Update {
         this.apk = apk;
     }
     
-    public boolean isMajorUpdate() {
-        return majorUpdate;
+    public Integer getLastMajorUpdateVersion() {
+        return lastMajorUpdateVersion;
     }
     
-    public void setMajorUpdate(boolean majorUpdate) {
-        this.majorUpdate = majorUpdate;
+    public void setLastMajorUpdateVersion(Integer lastMajorUpdateVersion) {
+        this.lastMajorUpdateVersion = lastMajorUpdateVersion;
     }
 }
