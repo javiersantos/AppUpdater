@@ -25,7 +25,7 @@ import static android.util.Log.d;
 public class AppUpdater implements IAppUpdater {
     private static final String TAG = "AppUpdater";
     private Context context;
-    private long appVersionCode;
+    private int appVersionCode;
     private LibraryPreferences libraryPreferences;
     private Display display;
     private UpdateFrom updateFrom;
@@ -44,7 +44,7 @@ public class AppUpdater implements IAppUpdater {
     private Snackbar snackbar;
     private Boolean isDialogCancelable;
     
-    public AppUpdater(Context context, long appVersionCode) {
+    public AppUpdater(Context context, int appVersionCode) {
         this.context = context;
         this.appVersionCode = appVersionCode;
         this.libraryPreferences = new LibraryPreferences(context);
