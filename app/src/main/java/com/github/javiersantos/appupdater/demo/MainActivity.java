@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(mContext)
+                new AppUpdater(mContext, BuildConfig.VERSION_CODE)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.JSON)
@@ -51,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
         binding.included.dialogUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(mContext)
+                new AppUpdater(mContext, BuildConfig.VERSION_CODE)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.XML)
-                        .setUpdateXML("https://raw.githubusercontent.com/amitbd1508/AppUpdater/master/app/update.xml")
+                        .setUpdateXML("https://github.com/amitbd1508/AppUpdater/blob/major-update-feature-with-application-version-code/app/update.xml")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
                         .start();
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.snackbarUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(mContext)
+                new AppUpdater(mContext, BuildConfig.VERSION_CODE)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.XML)
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.notificationUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(mContext)
+                new AppUpdater(mContext, BuildConfig.VERSION_CODE)
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.XML)
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.dialogNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(mContext)
+                new AppUpdater(mContext, BuildConfig.VERSION_CODE)
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.snackbarNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(mContext)
+                new AppUpdater(mContext, BuildConfig.VERSION_CODE)
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.SNACKBAR)
                         .showAppUpdated(true)
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         binding.included.notificationNoUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new AppUpdater(mContext)
+                new AppUpdater(mContext, BuildConfig.VERSION_CODE)
                         .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
                         .setDisplay(Display.NOTIFICATION)
                         .showAppUpdated(true)
