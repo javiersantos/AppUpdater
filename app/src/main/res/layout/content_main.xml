@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -18,7 +18,7 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/dialog_update_changelog"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -39,9 +39,9 @@
                         android:textAllCaps="true" />
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/dialog_update"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -62,9 +62,9 @@
                         android:textAllCaps="true" />
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/snackbar_update"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -85,9 +85,9 @@
                         android:textAllCaps="true" />
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/notification_update"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -108,9 +108,9 @@
                         android:textAllCaps="true" />
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/dialog_no_update"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -131,9 +131,9 @@
                         android:textAllCaps="true" />
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/snackbar_no_update"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -154,9 +154,9 @@
                         android:textAllCaps="true" />
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/notification_no_update"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -177,9 +177,9 @@
                         android:textAllCaps="true" />
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

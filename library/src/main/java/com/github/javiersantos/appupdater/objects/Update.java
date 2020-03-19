@@ -7,6 +7,7 @@ public class Update {
     private Integer versionCode;
     private String releaseNotes;
     private URL apk;
+    private Integer lastMajorUpdateVersion;
 
     public Update() {}
 
@@ -25,8 +26,8 @@ public class Update {
         this.apk = apk;
         this.releaseNotes = releaseNotes;
     }
-
-    public Update(String latestVersion, Integer latestVersionCode, String releaseNotes, URL apk) {
+    
+    public Update(String latestVersion, Integer latestVersionCode, String releaseNotes, URL apk, Integer lastMajorUpdateVersion) {
         this(latestVersion, releaseNotes, apk);
         this.versionCode = latestVersionCode;
     }
@@ -61,5 +62,13 @@ public class Update {
 
     public void setUrlToDownload(URL apk) {
         this.apk = apk;
+    }
+    
+    public Integer getLastMajorUpdateVersion() {
+        return lastMajorUpdateVersion;
+    }
+    
+    public void setLastMajorUpdateVersion(Integer lastMajorUpdateVersion) {
+        this.lastMajorUpdateVersion = lastMajorUpdateVersion;
     }
 }

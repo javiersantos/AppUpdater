@@ -7,12 +7,13 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.RingtoneManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
+
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.net.URL;
 
@@ -36,6 +37,13 @@ class UtilsDisplay {
                     public void onClick(DialogInterface dialogInterface, int i) {}
                 })
                 .create();
+    }
+    
+    static AlertDialog showMajorUpdateAvailableDialog(final Context context, String title, String content, String btnPositive, final DialogInterface.OnClickListener updateClickListener) {
+        return new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(content)
+                .setPositiveButton(btnPositive, updateClickListener).create();
     }
 
     static Snackbar showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
