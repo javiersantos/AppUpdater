@@ -9,6 +9,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static android.util.Log.d;
+
 class HandlerXML extends DefaultHandler {
     private Update update;
     private StringBuilder builder;
@@ -49,6 +51,7 @@ class HandlerXML extends DefaultHandler {
                     }
                     break;
                 case "lastMajorUpdateVersion":
+                    d("-----", localName + "----" + builder.toString());
                     update.setLastMajorUpdateVersion(Integer.valueOf(builder.toString().trim()));
                     break;
             }
