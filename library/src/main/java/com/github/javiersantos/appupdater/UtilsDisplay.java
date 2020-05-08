@@ -16,9 +16,9 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 
 import java.net.URL;
 
-class UtilsDisplay {
+public class UtilsDisplay {
 
-    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final DialogInterface.OnClickListener updateClickListener, final DialogInterface.OnClickListener dismissClickListener, final DialogInterface.OnClickListener disableClickListener) {
+    public static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final DialogInterface.OnClickListener updateClickListener, final DialogInterface.OnClickListener dismissClickListener, final DialogInterface.OnClickListener disableClickListener) {
         return new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
@@ -27,7 +27,7 @@ class UtilsDisplay {
                 .setNeutralButton(btnNeutral, disableClickListener).create();
     }
 
-    static AlertDialog showUpdateNotAvailableDialog(final Context context, String title, String content) {
+    public static AlertDialog showUpdateNotAvailableDialog(final Context context, String title, String content) {
         return new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(content)
@@ -38,7 +38,7 @@ class UtilsDisplay {
                 .create();
     }
 
-    static Snackbar showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
+    public static Snackbar showUpdateAvailableSnackbar(final Context context, String content, Boolean indefinite, final UpdateFrom updateFrom, final URL apk) {
         Activity activity = (Activity) context;
         int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
@@ -58,7 +58,7 @@ class UtilsDisplay {
         return snackbar;
     }
 
-    static Snackbar showUpdateNotAvailableSnackbar(final Context context, String content, Boolean indefinite) {
+    public static Snackbar showUpdateNotAvailableSnackbar(final Context context, String content, Boolean indefinite) {
         Activity activity = (Activity) context;
         int snackbarTime = indefinite ? Snackbar.LENGTH_INDEFINITE : Snackbar.LENGTH_LONG;
 
@@ -72,7 +72,7 @@ class UtilsDisplay {
         return Snackbar.make(activity.findViewById(android.R.id.content), content, snackbarTime);
     }
 
-    static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, URL apk, int smallIconResourceId) {
+    public static void showUpdateAvailableNotification(Context context, String title, String content, UpdateFrom updateFrom, URL apk, int smallIconResourceId) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         initNotificationChannel(context, notificationManager);
 
@@ -85,7 +85,7 @@ class UtilsDisplay {
         notificationManager.notify(0, builder.build());
     }
 
-    static void showUpdateNotAvailableNotification(Context context, String title, String content, int smallIconResourceId) {
+    public static void showUpdateNotAvailableNotification(Context context, String title, String content, int smallIconResourceId) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         initNotificationChannel(context, notificationManager);
 
