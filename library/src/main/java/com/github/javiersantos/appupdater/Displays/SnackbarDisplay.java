@@ -3,36 +3,30 @@ package com.github.javiersantos.appupdater.Displays;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 
+import com.github.javiersantos.appupdater.R;
 import com.github.javiersantos.appupdater.UtilsDisplay;
 import com.github.javiersantos.appupdater.enums.Duration;
-import com.github.javiersantos.appupdater.enums.UpdateFrom;
-import com.github.javiersantos.appupdater.interfaces.IUpdateDisplay;
+import com.github.javiersantos.appupdater.objects.Update;
 
-import java.net.URL;
-
-public class SnackbarDisplay implements IUpdateDisplay {
+public class SnackbarDisplay extends BaseDisplay {
     private Snackbar snackbar;
-    private Context context;
-    String descriptionText;
-    String descriptionNoUpdateText;
-    UpdateFrom updateFrom;
     private Duration duration;
-    URL updateUrl;
 
     public SnackbarDisplay(Context context) {
-        this.context = context;
+        super(context);
         this.duration = Duration.NORMAL;
     }
 
     @Override
-    public void onShow() {
-        snackbar = UtilsDisplay.showUpdateAvailableSnackbar(context, descriptionText, getDurationEnumToBoolean(duration), updateFrom, updateUrl);
+    public void onShow(Update update) {
+        setDescriptionUpdate(String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), update.getLatestVersion()));
+        snackbar = UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(), getDurationEnumToBoolean(duration), updateFrom, getUpdateUrl(update));
         snackbar.show();
     }
 
     @Override
-    public void onUpdated() {
-        snackbar = UtilsDisplay.showUpdateNotAvailableSnackbar(context, descriptionNoUpdateText, getDurationEnumToBoolean(duration));
+    public void onUpdated(Update update) {
+        snackbar = UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(), getDurationEnumToBoolean(duration));
         snackbar.show();
     }
 
@@ -48,27 +42,8 @@ public class SnackbarDisplay implements IUpdateDisplay {
         return res;
     }
 
-    @Override
-    public IUpdateDisplay setDescriptionUpdate(String text) {
-        this.descriptionText = text;
-        return this;
-    }
-
-    @Override
-    public IUpdateDisplay setDescriptionNoUpdate(String text) {
-        this.descriptionNoUpdateText = text;
-        return this;
-    }
-
-    @Override
-    public IUpdateDisplay setUpdateUrl(URL url) {
-        this.updateUrl = url;
-        return this;
-    }
-
-    @Override
-    public IUpdateDisplay setUpdateFrom(UpdateFrom updateFrom) {
-        this.updateFrom = updateFrom;
+    public SnackbarDisplay setDuration(Duration duration) {
+        this.duration = duration;
         return this;
     }
 
