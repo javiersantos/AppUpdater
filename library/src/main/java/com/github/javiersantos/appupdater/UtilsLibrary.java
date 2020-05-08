@@ -101,17 +101,7 @@ class UtilsLibrary {
         return res;
     }
 
-    static Boolean getDurationEnumToBoolean(Duration duration) {
-        Boolean res = false;
 
-        switch (duration) {
-            case INDEFINITE:
-                res = true;
-                break;
-        }
-
-        return res;
-    }
 
     private static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         String res;
