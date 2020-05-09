@@ -121,6 +121,17 @@ public class MainActivity extends AppCompatActivity {
                         .start();
             }
         });
+
+        binding.included.customDisplay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AppUpdater(mContext)
+                        .setUpdateFrom(UpdateFrom.JSON)
+                        .setDisplayUpdater(new CustomDisplay(mContext))
+                        .setUpdateJSON("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.json")
+                        .start();
+            }
+        });
     }
 
     @Override
