@@ -12,6 +12,7 @@
     <string name="btn_dialog_google_play">Show dialog (Google Play)</string>
     <string name="btn_snackbar_google_play">Show snackbar (Google Play)</string>
     <string name="btn_notification_google_play">Show notification (Google Play)</string>
+    <string name="custom_update_display">Show custom display</string>
 
     <string name="settings_check_for_updates">Check for updates</string>
     <string name="settings_check_for_updates_summary">Check for new versions using AppUpdater library.</string>

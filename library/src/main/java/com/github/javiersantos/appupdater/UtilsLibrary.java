@@ -32,19 +32,19 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-class UtilsLibrary {
+public class UtilsLibrary {
 
-    static String getAppName(Context context) {
+    public static String getAppName(Context context) {
         ApplicationInfo applicationInfo = context.getApplicationInfo();
         int stringId = applicationInfo.labelRes;
         return stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() : context.getString(stringId);
     }
 
-    static String getAppPackageName(Context context) {
+    public static String getAppPackageName(Context context) {
         return context.getPackageName();
     }
 
-    static String getAppInstalledVersion(Context context) {
+    public static String getAppInstalledVersion(Context context) {
         String version = "0.0.0.0";
 
         try {
@@ -56,7 +56,7 @@ class UtilsLibrary {
         return version;
     }
 
-    static Integer getAppInstalledVersionCode(Context context) {
+    public static Integer getAppInstalledVersionCode(Context context) {
         Integer versionCode = 0;
 
         try {
@@ -101,19 +101,9 @@ class UtilsLibrary {
         return res;
     }
 
-    static Boolean getDurationEnumToBoolean(Duration duration) {
-        Boolean res = false;
 
-        switch (duration) {
-            case INDEFINITE:
-                res = true;
-                break;
-        }
 
-        return res;
-    }
-
-    private static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    public static URL getUpdateURL(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         String res;
 
         switch (updateFrom) {
@@ -139,7 +129,7 @@ class UtilsLibrary {
 
     }
 
-    static Update getLatestAppVersionStore(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    public static Update getLatestAppVersionStore(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         switch (updateFrom) {
             case GOOGLE_PLAY:
                 return getLatestAppVersionGooglePlay(context);
@@ -148,7 +138,7 @@ class UtilsLibrary {
         }
     }
 
-    private static Update getLatestAppVersionGooglePlay(Context context) {
+    public static Update getLatestAppVersionGooglePlay(Context context) {
         String version = "0.0.0.0";
         String recentChanges = "";
 
@@ -172,7 +162,7 @@ class UtilsLibrary {
         return new Update(version, recentChanges, updateURL);
     }
 
-    private static String getJsoupString(String url, String css, int position) throws Exception {
+    public static String getJsoupString(String url, String css, int position) throws Exception {
         return Jsoup.connect(url)
                 .timeout(30000)
                 .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
@@ -182,7 +172,7 @@ class UtilsLibrary {
                 .ownText();
     }
 
-    private static Update getLatestAppVersionHttp(Context context, UpdateFrom updateFrom, GitHub gitHub) {
+    public static Update getLatestAppVersionHttp(Context context, UpdateFrom updateFrom, GitHub gitHub) {
         Boolean isAvailable = false;
         String source = "";
         OkHttpClient client = new OkHttpClient();
@@ -243,7 +233,7 @@ class UtilsLibrary {
         return new Update(version, updateUrl);
     }
 
-    private static String getVersion(UpdateFrom updateFrom, Boolean isAvailable, String source) {
+    public static String getVersion(UpdateFrom updateFrom, Boolean isAvailable, String source) {
         String version = "0.0.0.0";
         if (isAvailable) {
             switch (updateFrom) {
@@ -274,7 +264,7 @@ class UtilsLibrary {
         return version;
     }
 
-    static Update getLatestAppVersion(UpdateFrom updateFrom, String url) {
+    public static Update getLatestAppVersion(UpdateFrom updateFrom, String url) {
         if (updateFrom == UpdateFrom.XML){
             ParserXML parser = new ParserXML(url);
             return parser.parse();
@@ -284,7 +274,7 @@ class UtilsLibrary {
     }
 
 
-    static Intent intentToUpdate(Context context, UpdateFrom updateFrom, URL url) {
+    public static Intent intentToUpdate(Context context, UpdateFrom updateFrom, URL url) {
         Intent intent;
 
         if (updateFrom.equals(UpdateFrom.GOOGLE_PLAY)) {
@@ -296,7 +286,7 @@ class UtilsLibrary {
         return intent;
     }
 
-    static void goToUpdate(Context context, UpdateFrom updateFrom, URL url) {
+    public static void goToUpdate(Context context, UpdateFrom updateFrom, URL url) {
         Intent intent = intentToUpdate(context, updateFrom, url);
 
         if (updateFrom.equals(UpdateFrom.GOOGLE_PLAY)) {
@@ -311,11 +301,11 @@ class UtilsLibrary {
         }
     }
 
-    static Boolean isAbleToShow(Integer successfulChecks, Integer showEvery) {
+    public static Boolean isAbleToShow(Integer successfulChecks, Integer showEvery) {
         return successfulChecks % showEvery == 0;
     }
 
-    static Boolean isNetworkAvailable(Context context) {
+    public static Boolean isNetworkAvailable(Context context) {
         Boolean res = false;
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {

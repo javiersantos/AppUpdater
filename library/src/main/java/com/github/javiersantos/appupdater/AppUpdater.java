@@ -6,16 +6,17 @@ import android.content.DialogInterface;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 
+import com.github.javiersantos.appupdater.Displays.DialogDisplay;
+import com.github.javiersantos.appupdater.Displays.NotificationDisplay;
+import com.github.javiersantos.appupdater.Displays.SnackbarDisplay;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.Duration;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.interfaces.IAppUpdater;
+import com.github.javiersantos.appupdater.interfaces.IUpdateDisplay;
 import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
 
@@ -35,9 +36,8 @@ public class AppUpdater implements IAppUpdater {
     private UtilsAsync.LatestAppVersion latestAppVersion;
     private DialogInterface.OnClickListener btnUpdateClickListener, btnDismissClickListener, btnDisableClickListener;
 
-    private AlertDialog alertDialog;
-    private Snackbar snackbar;
     private Boolean isDialogCancelable;
+    private IUpdateDisplay displayUpdater;
 
     public AppUpdater(Context context) {
         this.context = context;
@@ -50,29 +50,43 @@ public class AppUpdater implements IAppUpdater {
         this.iconResId = R.drawable.ic_stat_name;
 
         // Dialog
-        this.titleUpdate = context.getResources().getString(R.string.appupdater_update_available);
-        this.titleNoUpdate = context.getResources().getString(R.string.appupdater_update_not_available);
-        this.btnUpdate = context.getResources().getString(R.string.appupdater_btn_update);
-        this.btnDismiss = context.getResources().getString(R.string.appupdater_btn_dismiss);
-        this.btnDisable = context.getResources().getString(R.string.appupdater_btn_disable);
-        this.isDialogCancelable = true;
+        displayUpdater = new DialogDisplay(context);
+    }
+
+    public AppUpdater setDisplayUpdater(IUpdateDisplay displayUpdater) {
+        this.displayUpdater = displayUpdater;
+        return this;
+    }
+
+    public IUpdateDisplay getDisplayUpdater(){
+        return displayUpdater;
     }
 
     @Override
     public AppUpdater setDisplay(Display display) {
         this.display = display;
+        switch (display){
+            case SNACKBAR:
+                displayUpdater = new SnackbarDisplay(context).setUpdateFrom(updateFrom);
+                break;
+            case NOTIFICATION:
+                displayUpdater = new NotificationDisplay(context).setUpdateFrom(updateFrom);
+                break;
+        }
         return this;
     }
 
     @Override
     public AppUpdater setUpdateFrom(UpdateFrom updateFrom) {
         this.updateFrom = updateFrom;
+        displayUpdater.setUpdateFrom(updateFrom);
         return this;
     }
 
     @Override
     public AppUpdater setDuration(Duration duration) {
-        this.duration = duration;
+        SnackbarDisplay disp = (SnackbarDisplay) displayUpdater;
+        disp.setDuration(duration);
         return this;
     }
 
@@ -338,40 +352,12 @@ public class AppUpdater implements IAppUpdater {
                 if (UtilsLibrary.isUpdateAvailable(installedUpdate, update)) {
                     Integer successfulChecks = libraryPreferences.getSuccessfulChecks();
                     if (UtilsLibrary.isAbleToShow(successfulChecks, showEvery)) {
-                        switch (display) {
-                            case DIALOG:
-                                final DialogInterface.OnClickListener updateClickListener = btnUpdateClickListener == null ? new UpdateClickListener(context, updateFrom, update.getUrlToDownload()) : btnUpdateClickListener;
-                                final DialogInterface.OnClickListener disableClickListener = btnDisableClickListener == null ? new DisableClickListener(context) : btnDisableClickListener;
-
-                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener);
-                                alertDialog.setCancelable(isDialogCancelable);
-                                alertDialog.show();
-                                break;
-                            case SNACKBAR:
-                                snackbar = UtilsDisplay.showUpdateAvailableSnackbar(context, getDescriptionUpdate(context, update, Display.SNACKBAR), UtilsLibrary.getDurationEnumToBoolean(duration), updateFrom, update.getUrlToDownload());
-                                snackbar.show();
-                                break;
-                            case NOTIFICATION:
-                                UtilsDisplay.showUpdateAvailableNotification(context, titleUpdate, getDescriptionUpdate(context, update, Display.NOTIFICATION), updateFrom, update.getUrlToDownload(), iconResId);
-                                break;
-                        }
+                        displayUpdater.setUpdateFrom(updateFrom);
+                        displayUpdater.onShow(update);
                     }
                     libraryPreferences.setSuccessfulChecks(successfulChecks + 1);
                 } else if (showAppUpdated) {
-                    switch (display) {
-                        case DIALOG:
-                            alertDialog = UtilsDisplay.showUpdateNotAvailableDialog(context, titleNoUpdate, getDescriptionNoUpdate(context));
-                            alertDialog.setCancelable(isDialogCancelable);
-                            alertDialog.show();
-                            break;
-                        case SNACKBAR:
-                            snackbar = UtilsDisplay.showUpdateNotAvailableSnackbar(context, getDescriptionNoUpdate(context), UtilsLibrary.getDurationEnumToBoolean(duration));
-                            snackbar.show();
-                            break;
-                        case NOTIFICATION:
-                            UtilsDisplay.showUpdateNotAvailableNotification(context, titleNoUpdate, getDescriptionNoUpdate(context), iconResId);
-                            break;
-                    }
+                    displayUpdater.onUpdated(update);
                 }
             }
 
@@ -401,45 +387,7 @@ public class AppUpdater implements IAppUpdater {
 
     @Override
     public void dismiss() {
-        if (alertDialog != null && alertDialog.isShowing()) {
-            alertDialog.dismiss();
-        }
-        if (snackbar != null && snackbar.isShown()) {
-            snackbar.dismiss();
-        }
-    }
-
-    private String getDescriptionUpdate(Context context, Update update, Display display) {
-        if (descriptionUpdate == null || TextUtils.isEmpty(descriptionUpdate)) {
-            switch (display) {
-                case DIALOG:
-                    if (update.getReleaseNotes() != null && !TextUtils.isEmpty(update.getReleaseNotes())) {
-                        if (TextUtils.isEmpty(descriptionUpdate))
-                            return update.getReleaseNotes();
-                        else
-                            return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog_before_release_notes), update.getLatestVersion(), update.getReleaseNotes());
-                    } else {
-                        return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog), update.getLatestVersion(), UtilsLibrary.getAppName(context));
-                    }
-
-                case SNACKBAR:
-                    return String.format(context.getResources().getString(R.string.appupdater_update_available_description_snackbar), update.getLatestVersion());
-
-                case NOTIFICATION:
-                    return String.format(context.getResources().getString(R.string.appupdater_update_available_description_notification), update.getLatestVersion(), UtilsLibrary.getAppName(context));
-
-            }
-        }
-
-        return descriptionUpdate;
-    }
-
-    private String getDescriptionNoUpdate(Context context) {
-        if (descriptionNoUpdate == null) {
-            return String.format(context.getResources().getString(R.string.appupdater_update_not_available_description), UtilsLibrary.getAppName(context));
-        } else {
-            return descriptionNoUpdate;
-        }
+        displayUpdater.dismiss();
     }
 
 }
