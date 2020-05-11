@@ -61,4 +61,8 @@ public abstract class BaseDisplay implements IUpdateDisplay {
         return this;
     }
 
+    @Override
+    public UpdateFrom getUpdateFrom() {
+        return updateFrom;
+    }
 }

@@ -11,6 +11,7 @@ public interface IUpdateDisplay {
     IUpdateDisplay setDescriptionUpdate(String text);
     IUpdateDisplay setDescriptionNoUpdate(String text);
     IUpdateDisplay setUpdateFrom(UpdateFrom updateFrom);
+    UpdateFrom getUpdateFrom();
     String getDescriptionUpdate();
     String getDescriptionNoUpdate();
     URL getUpdateUrl(Update update);
