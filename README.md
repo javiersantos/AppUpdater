@@ -3,7 +3,7 @@
 
 <p align="center">
   <a target="_blank" href="https://android-arsenal.com/api?level=8"><img src="https://img.shields.io/badge/API-9%2B-orange.svg"></a>
-  <a target="_blank" href="https://travis-ci.org/javiersantos/AppUpdater"><img src="https://travis-ci.org/javiersantos/AppUpdater.svg?branch=master"></a>
+  <a target="_blank" href="https://github.com/javiersantos/AppUpdater/actions"><img src="https://github.com/javiersantos/AppUpdater/workflows/ci/badge.svg"></a>
   <a target="_blank" href="http://android-arsenal.com/details/1/3094"><img src="https://img.shields.io/badge/Android%20Arsenal-AppUpdater-blue.svg"></a>
 </p>
 
