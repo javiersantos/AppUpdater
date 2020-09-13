@@ -1,6 +1,7 @@
 package com.github.javiersantos.appupdater;
 
 import android.util.Log;
+import android.util.Pair;
 
 import com.github.javiersantos.appupdater.objects.Update;
 
@@ -34,7 +35,7 @@ class ParserJSON {
 
     }
 
-    public Update parse(){
+    public Pair<Update,Exception> parse(){
 
         try {
             JSONObject json = readJsonFromUrl();
@@ -53,14 +54,14 @@ class ParserJSON {
             }
             URL url = new URL(json.getString(KEY_URL).trim());
             update.setUrlToDownload(url);
-            return update;
+            return new Pair(update,null);
         } catch (IOException e) {
             Log.e("AppUpdater", "The server is down or there isn't an active Internet connection.", e);
+            return new Pair(null,e);
         } catch (JSONException e) {
             Log.e("AppUpdater", "The JSON updater file is mal-formatted. AppUpdate can't check for updates.");
+            return new Pair(null,e);
         }
-
-        return null;
     }
 
 

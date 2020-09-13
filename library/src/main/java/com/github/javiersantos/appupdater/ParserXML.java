@@ -2,6 +2,7 @@ package com.github.javiersantos.appupdater;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.util.Pair;
 
 import com.github.javiersantos.appupdater.objects.Update;
 
@@ -32,7 +33,7 @@ class ParserXML {
     }
 
     @Nullable
-    public Update parse() {
+    public Pair<Update,Exception> parse() {
         SAXParserFactory factory = SAXParserFactory.newInstance();
 
         InputStream inputStream = null;
@@ -43,19 +44,19 @@ class ParserXML {
             SAXParser parser = factory.newSAXParser();
             HandlerXML handler = new HandlerXML();
             parser.parse(inputStream, handler);
-            return handler.getUpdate();
+            return new Pair(handler.getUpdate(),null);
         } catch (ParserConfigurationException | SAXException e) {
             Log.e("AppUpdater", "The XML updater file is mal-formatted. AppUpdate can't check for updates.", e);
-            return null;
+            return new Pair(null,e);
         } catch (FileNotFoundException | UnknownHostException | ConnectException e) {
             Log.e("AppUpdater", "The XML updater file is invalid or is down. AppUpdate can't check for updates.");
-            return null;
+            return new Pair(null,e);
         } catch (IOException e) {
             Log.e("AppUpdater", "I/O error. AppUpdate can't check for updates.", e);
-            return null;
+            return new Pair(null,e);
         } catch (Exception e) {
             Log.e("AppUpdater", "The server is down or there isn't an active Internet connection.", e);
-            return null;
+            return new Pair(null,e);
         } finally {
             if (inputStream != null) {
                 try {

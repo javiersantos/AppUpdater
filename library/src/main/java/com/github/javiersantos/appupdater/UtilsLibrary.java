@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 
 import com.github.javiersantos.appupdater.enums.Duration;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
@@ -274,7 +275,7 @@ class UtilsLibrary {
         return version;
     }
 
-    static Update getLatestAppVersion(UpdateFrom updateFrom, String url) {
+    static Pair<Update,Exception> getLatestAppVersion(UpdateFrom updateFrom, String url) {
         if (updateFrom == UpdateFrom.XML){
             ParserXML parser = new ParserXML(url);
             return parser.parse();
