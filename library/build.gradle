@@ -21,6 +21,7 @@ android {
     lintOptions {
         disable 'MissingTranslation'
     }
+    namespace 'com.github.javiersantos.appupdater'
 }
 
 dependencies {
