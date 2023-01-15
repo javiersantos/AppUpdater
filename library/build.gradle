@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 33
-    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 14
@@ -18,10 +17,10 @@ android {
         }
     }
 
-    lintOptions {
+    namespace 'com.github.javiersantos.appupdater'
+    lint {
         disable 'MissingTranslation'
     }
-    namespace 'com.github.javiersantos.appupdater'
 }
 
 dependencies {
