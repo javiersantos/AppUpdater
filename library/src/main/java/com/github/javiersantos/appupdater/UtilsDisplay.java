@@ -7,21 +7,23 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.RingtoneManager;
-import android.support.design.widget.Snackbar;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.net.URL;
 
 class UtilsDisplay {
 
     static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final DialogInterface.OnClickListener updateClickListener, final DialogInterface.OnClickListener dismissClickListener, final DialogInterface.OnClickListener disableClickListener, Boolean useWebview) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
+        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(context)
                 .setTitle(title)
                 .setPositiveButton(btnPositive, updateClickListener)
                 .setNegativeButton(btnNegative, dismissClickListener)
