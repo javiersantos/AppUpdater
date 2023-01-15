@@ -3,13 +3,13 @@ package com.github.javiersantos.appupdater;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
+import android.util.Log;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
-
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.Display;
@@ -18,7 +18,6 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.interfaces.IAppUpdater;
 import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 public class AppUpdater implements IAppUpdater {

@@ -42,7 +42,7 @@ class UtilsDisplay {
     }
 
     static AlertDialog showUpdateNotAvailableDialog(final Context context, String title, String content) {
-        return new AlertDialog.Builder(context)
+        return new MaterialAlertDialogBuilder(context)
                 .setTitle(title)
                 .setMessage(content)
                 .setPositiveButton(context.getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
