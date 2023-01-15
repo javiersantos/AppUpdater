@@ -4,10 +4,6 @@ import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.objects.Update;
 
-import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.UiThreadTestRule;
-import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,17 +13,19 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
+import androidx.test.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement;
+
 @RunWith(AndroidJUnit4.class)
 public class UpdateAvailableTest {
 
-    @Rule
-    public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
     @Test
     public void UpdateAvailable_Basic_JSON() throws Throwable {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        uiThreadTestRule.runOnUiThread(new Runnable() {
+        UiThreadStatement.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new AppUpdaterUtils(InstrumentationRegistry.getTargetContext())
@@ -57,7 +55,7 @@ public class UpdateAvailableTest {
     public void UpdateAvailable_VersionCode_JSON() throws Throwable {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        uiThreadTestRule.runOnUiThread(new Runnable() {
+        UiThreadStatement.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new AppUpdaterUtils(InstrumentationRegistry.getTargetContext())
@@ -87,7 +85,7 @@ public class UpdateAvailableTest {
     public void UpdateAvailable_Basic_XML() throws Throwable {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        uiThreadTestRule.runOnUiThread(new Runnable() {
+        UiThreadStatement.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new AppUpdaterUtils(InstrumentationRegistry.getTargetContext())
@@ -117,7 +115,7 @@ public class UpdateAvailableTest {
     public void UpdateAvailable_VersionCode_XML() throws Throwable {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        uiThreadTestRule.runOnUiThread(new Runnable() {
+        UiThreadStatement.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new AppUpdaterUtils(InstrumentationRegistry.getTargetContext())
@@ -147,7 +145,7 @@ public class UpdateAvailableTest {
     public void UpdateAvailable_GOOGLEPLAY() throws Throwable {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        uiThreadTestRule.runOnUiThread(new Runnable() {
+        UiThreadStatement.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new AppUpdaterUtils(InstrumentationRegistry.getTargetContext())
@@ -176,7 +174,7 @@ public class UpdateAvailableTest {
     public void UpdateAvailable_JSON() throws Throwable {
         final CountDownLatch signal = new CountDownLatch(1);
 
-        uiThreadTestRule.runOnUiThread(new Runnable() {
+        UiThreadStatement.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 new AppUpdaterUtils(InstrumentationRegistry.getTargetContext())
