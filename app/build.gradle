@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 33
     buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "com.github.javiersantos.appupdater.demo"
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 33
         versionCode 4
         versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
