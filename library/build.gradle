@@ -25,8 +25,8 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api 'androidx.appcompat:appcompat:1.0.0'
-    api 'com.google.android.material:material:1.0.0'
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    api 'androidx.appcompat:appcompat:1.6.0'
+    api 'com.google.android.material:material:1.7.0'
+    api 'com.squareup.okhttp3:okhttp:4.10.0'
     api 'org.jsoup:jsoup:1.11.3'
 }
