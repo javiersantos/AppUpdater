@@ -7,6 +7,8 @@ public class Update {
     private Integer versionCode;
     private String releaseNotes;
     private URL apk;
+    private static String changelogUrl;
+    private static Boolean useWebviewChangelog = false;
 
     public Update() {}
 
@@ -31,6 +33,11 @@ public class Update {
         this.versionCode = latestVersionCode;
     }
 
+    public void resetStaticValues(){
+        changelogUrl = null;
+        useWebviewChangelog = false;
+    }
+
     public String getLatestVersion() {
         return version;
     }
@@ -53,6 +60,22 @@ public class Update {
 
     public void setReleaseNotes(String releaseNotes) {
         this.releaseNotes = releaseNotes;
+    }
+
+    public String getChangelogUrl() {
+        return changelogUrl;
+    }
+
+    public void setwebview(Boolean useWebview){
+        useWebviewChangelog = useWebview;
+    }
+
+    public boolean useWebview(){
+        return useWebviewChangelog;
+    }
+
+    public void setChangelogUrl(String changelogUrl) {
+        Update.changelogUrl = changelogUrl;
     }
 
     public URL getUrlToDownload() {

@@ -3,13 +3,13 @@ package com.github.javiersantos.appupdater;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.enums.Display;
@@ -18,6 +18,7 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.github.javiersantos.appupdater.interfaces.IAppUpdater;
 import com.github.javiersantos.appupdater.objects.GitHub;
 import com.github.javiersantos.appupdater.objects.Update;
+import com.google.android.material.snackbar.Snackbar;
 
 public class AppUpdater implements IAppUpdater {
     private Context context;
@@ -56,6 +57,8 @@ public class AppUpdater implements IAppUpdater {
         this.btnDismiss = context.getResources().getString(R.string.appupdater_btn_dismiss);
         this.btnDisable = context.getResources().getString(R.string.appupdater_btn_disable);
         this.isDialogCancelable = true;
+
+        new Update().resetStaticValues(); //reset the values
     }
 
     @Override
@@ -83,13 +86,13 @@ public class AppUpdater implements IAppUpdater {
     }
 
     @Override
-    public AppUpdater setUpdateXML(@NonNull String xmlUrl) {
+    public AppUpdater setUpdateXML(@NonNull String xmlUrl) { //same method as setUpdateJSON
         this.xmlOrJsonUrl = xmlUrl;
         return this;
     }
 
     @Override
-    public AppUpdater setUpdateJSON(@NonNull String jsonUrl) {
+    public AppUpdater setUpdateJSON(@NonNull String jsonUrl) { //same method as setUpdateXML
         this.xmlOrJsonUrl = jsonUrl;
         return this;
     }
@@ -320,6 +323,19 @@ public class AppUpdater implements IAppUpdater {
     }
 
     @Override
+    public AppUpdater setWebviewChangelog(Boolean useWebview) {
+        new Update().setwebview(useWebview);
+        return this;
+    }
+
+    @Override
+    public AppUpdater setWebviewChangelog(Boolean useWebview, String changelogURL) {
+        new Update().setwebview(useWebview);
+        new Update().setChangelogUrl(changelogURL);
+        return this;
+    }
+
+    @Override
     public AppUpdater init() {
         start();
         return this;
@@ -343,7 +359,7 @@ public class AppUpdater implements IAppUpdater {
                                 final DialogInterface.OnClickListener updateClickListener = btnUpdateClickListener == null ? new UpdateClickListener(context, updateFrom, update.getUrlToDownload()) : btnUpdateClickListener;
                                 final DialogInterface.OnClickListener disableClickListener = btnDisableClickListener == null ? new DisableClickListener(context) : btnDisableClickListener;
 
-                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener);
+                                alertDialog = UtilsDisplay.showUpdateAvailableDialog(context, titleUpdate, getDescriptionUpdate(context, update, Display.DIALOG), btnDismiss, btnUpdate, btnDisable, updateClickListener, btnDismissClickListener, disableClickListener, update.useWebview());
                                 alertDialog.setCancelable(isDialogCancelable);
                                 alertDialog.show();
                                 break;
@@ -413,8 +429,10 @@ public class AppUpdater implements IAppUpdater {
         if (descriptionUpdate == null || TextUtils.isEmpty(descriptionUpdate)) {
             switch (display) {
                 case DIALOG:
-                    if (update.getReleaseNotes() != null && !TextUtils.isEmpty(update.getReleaseNotes())) {
-                        if (TextUtils.isEmpty(descriptionUpdate))
+                    if(update.getChangelogUrl() != null && !TextUtils.isEmpty(update.getChangelogUrl()) && update.useWebview()) {
+                        return update.getChangelogUrl();
+                    }else if (update.getReleaseNotes() != null && !TextUtils.isEmpty(update.getReleaseNotes())) {
+                        if (TextUtils.isEmpty(descriptionUpdate)) //w
                             return update.getReleaseNotes();
                         else
                             return String.format(context.getResources().getString(R.string.appupdater_update_available_description_dialog_before_release_notes), update.getLatestVersion(), update.getReleaseNotes());

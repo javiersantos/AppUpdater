@@ -1,6 +1,5 @@
 package com.github.javiersantos.appupdater;
 
-import android.support.test.runner.AndroidJUnit4;
 
 import com.github.javiersantos.appupdater.objects.Update;
 
@@ -8,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
+
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 @RunWith(AndroidJUnit4.class)
 public class LibraryTest {

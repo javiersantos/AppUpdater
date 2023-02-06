@@ -2,14 +2,15 @@ package com.github.javiersantos.appupdater.demo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.demo.databinding.ActivityMainBinding;
@@ -33,6 +34,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.included.dialogUpdateChangelogWebview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AppUpdater(mContext)
+                        //.setUpdateFrom(UpdateFrom.GITHUB)
+                        //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
+                        .setUpdateFrom(UpdateFrom.JSON)
+                        .setUpdateJSON("https://pastebin.com/raw/eHrKfPMn")
+                        .setDisplay(Display.DIALOG)
+                        .showAppUpdated(true)
+                        .setWebviewChangelog(true)
+                        //.setWebviewChangelog(true, "http://urltochangelog.com/changelog.html")
+                        .start();
+            }
+        });
+
         binding.included.dialogUpdateChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         //.setUpdateFrom(UpdateFrom.GITHUB)
                         //.setGitHubUserAndRepo("javiersantos", "AppUpdater")
                         .setUpdateFrom(UpdateFrom.JSON)
-                        .setUpdateJSON("https://raw.githubusercontent.com/javiersantos/AppUpdater/master/app/update-changelog.json")
+                        .setUpdateJSON("https://pastebin.com/raw/eHrKfPMn")
                         .setDisplay(Display.DIALOG)
                         .showAppUpdated(true)
                         .start();

@@ -7,28 +7,42 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.RingtoneManager;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.app.AlertDialog;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.net.URL;
 
 class UtilsDisplay {
 
-    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final DialogInterface.OnClickListener updateClickListener, final DialogInterface.OnClickListener dismissClickListener, final DialogInterface.OnClickListener disableClickListener) {
-        return new AlertDialog.Builder(context)
+    static AlertDialog showUpdateAvailableDialog(final Context context, String title, String content, String btnNegative, String btnPositive, String btnNeutral, final DialogInterface.OnClickListener updateClickListener, final DialogInterface.OnClickListener dismissClickListener, final DialogInterface.OnClickListener disableClickListener, Boolean useWebview) {
+        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(context)
                 .setTitle(title)
-                .setMessage(content)
                 .setPositiveButton(btnPositive, updateClickListener)
                 .setNegativeButton(btnNegative, dismissClickListener)
-                .setNeutralButton(btnNeutral, disableClickListener).create();
+                .setNeutralButton(btnNeutral, disableClickListener);
+
+        if(useWebview) {
+            WebView webView = new WebView(context);
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl(content);
+            alertDialog.setView(webView);
+        }else{
+            alertDialog.setMessage(content);
+        }
+        
+        return alertDialog.create();
     }
 
     static AlertDialog showUpdateNotAvailableDialog(final Context context, String title, String content) {
-        return new AlertDialog.Builder(context)
+        return new MaterialAlertDialogBuilder(context)
                 .setTitle(title)
                 .setMessage(content)
                 .setPositiveButton(context.getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {

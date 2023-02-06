@@ -1,9 +1,9 @@
 package com.github.javiersantos.appupdater.interfaces;
 
 import android.content.DialogInterface;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.github.javiersantos.appupdater.AppUpdater;
 import com.github.javiersantos.appupdater.DisableClickListener;
@@ -364,6 +364,23 @@ public interface IAppUpdater {
      *  @return this
      */
     AppUpdater setCancelable(Boolean isCancelable);
+
+    /**
+     * Use Webview in the update dialog to
+     * display changelog webpages
+     *  @param useWebview true to use webview
+     *  @return this
+     */
+    AppUpdater setWebviewChangelog(Boolean useWebview);
+
+    /**
+     * Use Webview in the update dialog to
+     * display changelog webpages
+     *  @param useWebview true to use webview
+     *  @param changelogURL url to the changelog webpage
+     *  @return this
+     */
+    AppUpdater setWebviewChangelog(Boolean useWebview, String changelogURL);
 
     /**
      * Execute AppUpdater in background.
